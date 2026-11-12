@@ -1,0 +1,26 @@
+# JobSeeker (repo codename: Auto-Job) — runtime & build artifacts
+data/
+.env
+.env.local
+node_modules/
+.next/
+out/
+target/
+__pycache__/
+*.pyc
+*.db
+*.sqlite3
+desktop/src-tauri/binaries/*.exe
+backend/dist/
+backend/build/
+.coverage
+htmlcov/
+.pytest_cache/
+.ruff_cache/
+
+# Python venvs & tool caches
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
