@@ -34,6 +34,7 @@ export function CommandPalette() {
         e.preventDefault();
         setOpen((v) => !v);
       }
+      if (e.key === "Escape") setOpen(false);
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);

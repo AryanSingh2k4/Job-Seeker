@@ -29,6 +29,8 @@ declare global {
 }
 
 let resolved: Promise<{ baseUrl: string; token?: string }> | null = null;
+let resolvedAt = 0;
+const RESOLVE_TTL_MS = 10_000; // retry a dev-default/failed resolve after 10s
 
 function invoke<T>(cmd: string): Promise<T> | undefined {
   const t = window.__TAURI__;
@@ -37,11 +39,18 @@ function invoke<T>(cmd: string): Promise<T> | undefined {
   return undefined;
 }
 
+/**
+ * Resolves the sidecar origin + bearer token. A failed/dev-default resolve is
+ * cached only for RESOLVE_TTL_MS so a late-arriving sidecar (or a retried
+ * Tauri IPC) is picked up on the next call instead of latching wrong forever.
+ */
 export function ensureApi(): Promise<{ baseUrl: string; token?: string }> {
   if (typeof window === "undefined") {
     return Promise.resolve({ baseUrl: "http://127.0.0.1:8000" });
   }
-  if (!resolved) {
+  const expired = resolved && Date.now() - resolvedAt > RESOLVE_TTL_MS;
+  if (!resolved || expired) {
+    resolvedAt = Date.now();
     resolved = (async () => {
       if (window.__JOBSEEKER_BOOTSTRAP__) {
         const b = window.__JOBSEEKER_BOOTSTRAP__;
@@ -55,7 +64,7 @@ export function ensureApi(): Promise<{ baseUrl: string; token?: string }> {
           window.__JOBSEEKER_BOOTSTRAP__ = b;
           return { baseUrl: `http://127.0.0.1:${b.port}`, token: b.token };
         } catch {
-          // sidecar not ready yet — fall through to dev default
+          // sidecar not ready yet — dev default, retried after TTL
         }
       }
       return { baseUrl: "http://127.0.0.1:8000" };

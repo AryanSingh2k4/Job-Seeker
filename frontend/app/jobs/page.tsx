@@ -36,6 +36,12 @@ function JobsInner() {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (selectedId) return; // detail open — don't walk
+      const t = e.target as HTMLElement | null;
+      if (
+        e.metaKey || e.ctrlKey || e.altKey ||
+        (t instanceof HTMLInputElement) || (t instanceof HTMLTextAreaElement) ||
+        (t instanceof HTMLSelectElement) || t?.isContentEditable
+      ) return;
       if (e.key === "j") setCursor((c) => Math.min(c + 1, items.length - 1));
       if (e.key === "k") setCursor((c) => Math.max(c - 1, 0));
     };
@@ -139,13 +145,13 @@ function JobsInner() {
                       <MapPin className="size-3" /> {j.location}
                     </span>
                     <span className="capitalize">{j.workplace_type}</span>
-                    <span className="text-muted/60">via {j.source}</span>
+                    <span className="text-muted">via {j.source}</span>
                     <SalaryTag job={j} />
                   </div>
                 </div>
                 <div className="flex flex-col items-end gap-1">
                   <ScoreChip score={j.match_score} status={j.status} />
-                  <span className="text-[10px] text-muted/60">
+                  <span className="text-[10px] text-muted">
                     {new Date(j.date_discovered).toLocaleDateString(undefined, { month: "short", day: "numeric" })}
                   </span>
                 </div>
@@ -156,7 +162,7 @@ function JobsInner() {
       )}
 
       {items.length > 0 && (
-        <div className="mt-4 flex items-center gap-1.5 text-[11px] text-muted/70">
+        <div className="mt-4 flex items-center gap-1.5 text-[11px] text-muted">
           <Search className="size-3" /> full-text search + filters land with F2
         </div>
       )}

@@ -62,8 +62,11 @@ function Funnel() {
   ];
   return (
     <GlassCard hover={false} className="p-5">
-      <div className="mb-4 flex items-center gap-2 text-sm font-medium">
-        <Sparkles className="size-4 text-accent" /> Pipeline · last 7 days
+      <div className="mb-4 flex items-center justify-between">
+        <div className="flex items-center gap-2 text-sm font-medium">
+          <Sparkles className="size-4 text-accent" /> Pipeline · last 7 days
+        </div>
+        <span className="rounded border border-white/10 px-1.5 py-0.5 text-[9px] uppercase tracking-wider text-muted">demo data</span>
       </div>
       <div className="space-y-3">
         {stages.map((s, i) => (
@@ -85,14 +88,22 @@ function Funnel() {
         ))}
       </div>
       <div className="mt-4 border-t border-white/5 pt-3 text-[11px] text-muted">
-        <span className="tnum text-score-high">3</span> recruiter replies ·
-        <span className="tnum text-text"> 25%</span> response rate
+        reply tracking arrives with analytics (M6)
       </div>
     </GlassCard>
   );
 }
 
-const STAGES = ["NAVIGATING", "FILLING", "UPLOADING", "ANSWERING", "REVIEW", "SUBMITTED"] as const;
+const STAGE_INDEX: Record<string, number> = {
+  NAVIGATING: 0,
+  FILLING_FIELDS: 1,
+  UPLOADING_RESUME: 2,
+  ANSWERING_QA: 3,
+  PAUSED_FOR_REVIEW: 4,
+  SUBMITTED: 5,
+  FAILED: 5,
+};
+const STAGE_LABELS = ["NAVIGATING", "FILLING", "UPLOADING", "ANSWERING", "REVIEW", "SUBMITTED"] as const;
 
 export default function DashboardPage() {
   const wsStatus = useLiveRun((s) => s.wsStatus);
@@ -105,7 +116,8 @@ export default function DashboardPage() {
 
   const h = q.data;
   const stage = lastEvent?.type === "APPLICATION_STAGE_CHANGED" ? lastEvent.payload : null;
-  const activeIdx = stage ? STAGES.indexOf(stage.stage.replace("_FIELDS", "").replace("PAUSED_FOR_", "") as never) : -1;
+  const activeIdx = stage ? (STAGE_INDEX[stage.stage] ?? -1) : -1;
+  const failed = stage?.stage === "FAILED";
 
   return (
     <PageIn className="mx-auto max-w-6xl">
@@ -140,8 +152,8 @@ export default function DashboardPage() {
       {h && (
         <Stagger className="mt-6" gap={0.07}>
           <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-            <StatusCard icon={Activity} label="Backend" value="healthy" ok />
-            <StatusCard icon={Database} label="Database" value="SQLite · WAL" ok />
+            <StatusCard icon={Activity} label="Backend" value={h.status === "ok" ? "healthy" : h.status} ok={h.status === "ok"} />
+            <StatusCard icon={Database} label="Database" value={h.db ? "SQLite · WAL" : "down"} ok={h.db} />
             <StatusCard icon={Bot} label="Automation browser" value={h.browser.running ? "running" : "not running"} ok={h.browser.running} pending={!h.browser.running} />
             <StatusCard icon={KeyRound} label="LLM" value={h.llm.degraded ? "degraded" : h.llm.configured ? "configured" : "no key"} ok={h.llm.configured && !h.llm.degraded} pending={!h.llm.configured} />
           </div>
@@ -157,11 +169,11 @@ export default function DashboardPage() {
                 </div>
                 <div className="flex items-center justify-around py-2">
                   <div className="flex flex-col items-center gap-2">
-                    <ProgressRing value={h.caps_today.linkedin.used} max={h.caps_today.linkedin.limit} size={84} label="of 25" />
+                    <ProgressRing value={h.caps_today.linkedin.used} max={h.caps_today.linkedin.limit} size={84} label={`of ${h.caps_today.linkedin.limit}`} />
                     <span className="text-xs text-muted">LinkedIn</span>
                   </div>
                   <div className="flex flex-col items-center gap-2">
-                    <ProgressRing value={h.caps_today.ats.used} max={h.caps_today.ats.limit} size={84} tone="var(--color-accent)" label="of 40" />
+                    <ProgressRing value={h.caps_today.ats.used} max={h.caps_today.ats.limit} size={84} tone="var(--color-accent)" label={`of ${h.caps_today.ats.limit}`} />
                     <span className="text-xs text-muted">Direct ATS</span>
                   </div>
                   <div className="flex flex-col items-center gap-2">
@@ -195,20 +207,25 @@ export default function DashboardPage() {
                     {stage.company} <span className="text-muted">· step {stage.currentStep}/{stage.totalSteps}</span>
                   </div>
                   <div className="mt-4 flex items-center">
-                    {STAGES.map((s, i) => (
+                    {STAGE_LABELS.map((s, i) => (
                       <div key={s} className="flex flex-1 items-center last:flex-none">
                         <div className="flex flex-col items-center gap-1.5">
                           <motion.div
                             initial={false}
                             animate={{
                               scale: i === activeIdx ? 1.15 : 1,
-                              backgroundColor: i <= activeIdx ? "var(--color-accent)" : "#1d2836",
+                              backgroundColor:
+                                failed && i >= 4
+                                  ? "var(--color-gate-fail)"
+                                  : i <= activeIdx
+                                    ? "var(--color-accent)"
+                                    : "#1d2836",
                             }}
-                            className={cn("size-3 rounded-full", i === activeIdx && "shadow-glow-accent")}
+                            className={cn("size-3 rounded-full", i === activeIdx && (failed ? "shadow-[0_0_18px_-4px_#f87171]" : "shadow-glow-accent"))}
                           />
                           <span className={cn("text-[9px]", i <= activeIdx ? "text-text" : "text-muted")}>{s}</span>
                         </div>
-                        {i < STAGES.length - 1 && (
+                        {i < STAGE_LABELS.length - 1 && (
                           <div className="mx-1 h-px flex-1 bg-gradient-to-r from-accent/50 to-border" />
                         )}
                       </div>

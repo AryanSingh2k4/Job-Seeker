@@ -80,6 +80,14 @@ export const handlers = [
   http.get("*/api/v1/jobs", () =>
     HttpResponse.json({ items: demoJobs, total: demoJobs.length, page: 1, page_size: 50 })),
   http.get("*/api/v1/jobs/:id", ({ params }) => HttpResponse.json(demoJobDetail(String(params.id)))),
+  http.post("*/api/v1/jobs/crawl", () =>
+    HttpResponse.json({ started: true, sweep_id: "mock-sweep-1" })),
+  http.post("*/api/v1/browser/launch", () =>
+    HttpResponse.json({ running: true, executable: "mock", profile_path: "mock", logged_in: {} })),
+  http.post("*/api/v1/profile", async ({ request }) => {
+    const body = (await request.json()) as Record<string, unknown>;
+    return HttpResponse.json({ ...body, id: "profile-1", created_at: "2026-11-11T00:00:00Z" });
+  }),
   http.get("*/api/v1/applications", () =>
     HttpResponse.json({ items: [], total: 0, page: 1, page_size: 50 })),
 ];

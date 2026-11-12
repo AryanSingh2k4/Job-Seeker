@@ -244,11 +244,34 @@ export function JobDetailPanel({ id, onBack }: { id: string; onBack: () => void 
                 <div className="space-y-3 text-sm">
                   <div className="flex items-center justify-between rounded-lg border border-white/5 bg-white/[0.02] px-4 py-3">
                     <span>Tailored resume (Typst PDF)</span>
-                    <span className="text-xs text-score-high">fact-check: {j.tailored.fact_check_status}</span>
+                    <a
+                      className="text-xs text-accent"
+                      href="#"
+                      onClick={async (e) => {
+                        e.preventDefault();
+                        const { ensureApi } = await import("@/lib/bootstrap");
+                        const { baseUrl, token } = await ensureApi();
+                        window.open(baseUrl + j.tailored!.resume_pdf_url, "_blank");
+                        void token;
+                      }}
+                    >
+                      open
+                    </a>
                   </div>
                   <div className="flex items-center justify-between rounded-lg border border-white/5 bg-white/[0.02] px-4 py-3">
                     <span>Cover letter (.txt for form textareas)</span>
-                    <a className="text-xs text-accent" href={j.tailored.cover_letter_txt}>open</a>
+                    <a
+                      className="text-xs text-accent"
+                      href="#"
+                      onClick={async (e) => {
+                        e.preventDefault();
+                        const { ensureApi } = await import("@/lib/bootstrap");
+                        const { baseUrl } = await ensureApi();
+                        window.open(baseUrl + j.tailored!.cover_letter_txt, "_blank");
+                      }}
+                    >
+                      open
+                    </a>
                   </div>
                 </div>
               ) : (
