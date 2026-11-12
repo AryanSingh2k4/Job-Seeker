@@ -6,7 +6,7 @@ import { PlannedList } from "@/components/planned-list";
 export default function ReviewPage() {
   return (
     <PageIn className="mx-auto max-w-3xl">
-      <h1 className="text-[26px] font-semibold tracking-tight">Review Queue</h1>
+      <h1 className="display text-[30px] font-semibold">Review Queue</h1>
       <p className="mt-1 text-sm text-muted">Human-in-the-loop approvals · nothing submits without you</p>
       <Rise className="mt-6">
         <div className="glass edge-glow rounded-xl p-6">

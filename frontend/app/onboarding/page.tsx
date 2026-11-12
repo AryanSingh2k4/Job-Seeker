@@ -44,7 +44,7 @@ function StepDots({ step }: { step: number }) {
               i < step
                 ? "border-score-high/40 bg-score-high/15 text-score-high"
                 : i === step
-                  ? "border-accent/50 bg-accent/15 text-accent shadow-glow-accent"
+                  ? "border-accent/50 bg-accent/15 text-accent shadow-glow"
                   : "border-border bg-surface-2 text-muted",
             )}
           >
@@ -119,7 +119,7 @@ export default function OnboardingPage() {
 
   return (
     <PageIn className="mx-auto max-w-2xl">
-      <h1 className="text-[26px] font-semibold tracking-tight">Set up JobSeeker</h1>
+      <h1 className="display text-[30px] font-semibold">Set up JobSeeker</h1>
       <p className="mt-1 text-sm text-muted">Four steps, one-time. Nothing is trusted until you confirm it.</p>
 
       <div className="mt-8 flex justify-center">

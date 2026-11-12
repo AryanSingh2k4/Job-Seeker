@@ -57,7 +57,7 @@ function JobsInner() {
     <PageIn className="mx-auto max-w-6xl">
       <div className="flex items-end justify-between">
         <div>
-          <h1 className="text-[26px] font-semibold tracking-tight">Job Inbox</h1>
+          <h1 className="display text-[30px] font-semibold">Job Inbox</h1>
           <p className="mt-1 text-sm text-muted">
             {q.data ? `${q.data.total} discovered` : "loading…"} ·{" "}
             <kbd className="rounded border border-white/10 px-1 font-mono text-[10px]">j</kbd>
@@ -125,7 +125,7 @@ function JobsInner() {
               onClick={() => history.replaceState(null, "", `/jobs/?id=${j.id}`) }
               className={cn(
                 "glass edge-glow group block w-full rounded-xl p-4 text-left transition-colors",
-                cursor === i ? "border-accent/40 shadow-glow-accent" : "hover:border-white/15",
+                cursor === i ? "border-accent/40 shadow-glow" : "hover:border-white/15",
               )}
             >
               <div className="flex items-center gap-4">

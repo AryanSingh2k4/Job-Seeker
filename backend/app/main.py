@@ -54,15 +54,12 @@ def create_app(token: str | None = None, port: int = 8000, enforce_token: bool =
         "http://tauri.localhost",
         "https://tauri.localhost",
         "tauri://localhost",
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-        # local dev servers on alternate ports (3010/3011/…) — loopback only
-        "http://localhost:3010", "http://127.0.0.1:3010",
-        "http://localhost:3011", "http://127.0.0.1:3011",
     ]
     app.add_middleware(
         CORSMiddleware,
         allow_origins=cors_origins,
+        # any loopback dev server port (3000/3010/3011/...) — localhost only
+        allow_origin_regex=r"^https?://(localhost|127\.0\.0\.1)(:\d+)?$",
         allow_credentials=False,
         allow_methods=["*"],
         allow_headers=["*"],

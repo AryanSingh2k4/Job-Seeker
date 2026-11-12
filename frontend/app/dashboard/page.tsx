@@ -77,11 +77,11 @@ function Funnel() {
             </div>
             <div className="h-1.5 overflow-hidden rounded-full bg-surface-2">
               <motion.div
-                className="h-full rounded-full bg-gradient-to-r from-accent to-[#7c5bff]"
+                className="h-full rounded-full bg-gradient-to-r from-accent to-accent-hover"
                 initial={{ width: 0 }}
                 animate={{ width: `${s.w}%` }}
                 transition={{ ...SPRING, delay: 0.15 + i * 0.08, damping: 30 }}
-                style={{ boxShadow: "0 0 12px -2px #5b8cff88" }}
+                style={{ boxShadow: "0 0 12px -2px #e3b34c88" }}
               />
             </div>
           </div>
@@ -123,7 +123,7 @@ export default function DashboardPage() {
     <PageIn className="mx-auto max-w-6xl">
       <div className="flex items-end justify-between">
         <div>
-          <h1 className="text-[26px] font-semibold tracking-tight">Dashboard</h1>
+          <h1 className="display text-[30px] font-semibold">Dashboard</h1>
           <p className="mt-1 text-sm text-muted">Every subsystem, at a glance.</p>
         </div>
         <div className="rounded-lg border border-white/5 bg-white/[0.03] px-3 py-1.5 text-[11px] text-muted">
@@ -221,7 +221,7 @@ export default function DashboardPage() {
                                     ? "var(--color-accent)"
                                     : "#1d2836",
                             }}
-                            className={cn("size-3 rounded-full", i === activeIdx && (failed ? "shadow-[0_0_18px_-4px_#f87171]" : "shadow-glow-accent"))}
+                            className={cn("size-3 rounded-full", i === activeIdx && (failed ? "shadow-[0_0_18px_-4px_#f87171]" : "shadow-glow"))}
                           />
                           <span className={cn("text-[9px]", i <= activeIdx ? "text-text" : "text-muted")}>{s}</span>
                         </div>

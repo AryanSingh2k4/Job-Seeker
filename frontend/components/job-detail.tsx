@@ -63,11 +63,11 @@ function ScoreBar({ k, v, i }: { k: string; v: number; i: number }) {
       </div>
       <div className="h-2 overflow-hidden rounded-full bg-surface-2">
         <motion.div
-          className="h-full rounded-full bg-gradient-to-r from-accent to-[#7c5bff]"
+          className="h-full rounded-full bg-gradient-to-r from-accent to-accent-hover"
           initial={{ width: 0 }}
           animate={{ width: `${Math.round(v * 100)}%` }}
           transition={{ type: "spring", stiffness: 120, damping: 26, delay: 0.1 + i * 0.07 }}
-          style={{ boxShadow: "0 0 10px -2px #5b8cff77" }}
+          style={{ boxShadow: "0 0 10px -2px #e3b34c77" }}
         />
       </div>
     </div>

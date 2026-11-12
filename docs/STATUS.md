@@ -153,3 +153,11 @@ Bugs filed: none
 - CORS: dev ports 3010/3011 allowlisted (browser blocked localhost:3011→8000; WS connected but fetch died — subtle)
 **RATE LIMITS (owner spec):** crawl_interval_minutes default 30→**5**; NEW crawl_max_companies_per_day=**50**; enforced in scheduler crawl_loop (reads settings each cycle, counts distinct companies discovered today, sweeps only the remainder) + manual POST /jobs/crawl returns 409 cap_reached when exhausted; both user-changeable via GET/POST /settings.
 **LIVE PROOF:** sweep on 50-company cap → **8,390 real jobs in SQLite** (Intercom/Stripe/etc. from real Greenhouse boards); dashboard + inbox verified visually against live backend (sidecar 2.0.0 · contract v1 · WS telemetry open). Intercom same-role-multiple-offices rows are correct distinct postings (London/Berlin/Dublin, distinct source ids).
+
+### 2026-11-11 — DESIGN v3: warm ink + champagne gold, dual theme, zero blue (owner-mandated)
+Owner rejected the blue/glass v2 as generic. Full identity rebuild:
+- **Type**: Fraunces (display serif) + Inter (UI) + JetBrains Mono (data) via next/font — display serif on wordmark + all page titles
+- **Color**: warm ink dark theme + warm paper light theme (persistent toggle, no-blue mandate); champagne gold identity; legacy tokens aliased so all screens restyled at once
+- **Hardcoded purges**: violet/blue gradients in funnel/score-bars → gold; ring tracks themed; glows warm
+- **Stubs killed**: Applications is a real screen (table structure + designed empty state + export), Settings is real (crawl interval + daily company cap wired to GET/POST /settings — owner rate-limits editable in UI), Review/Profile framed in the v3 system
+- **Infra**: CORS → loopback regex allowlist (any localhost port; no more per-port allowlist churn), .next/dev-server collision root-caused (never build while dev runs; build script wipes first)

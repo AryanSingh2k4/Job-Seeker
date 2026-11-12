@@ -13,8 +13,8 @@ export function scoreTone(score: number | null, status: string): ScoreTone {
 }
 
 const STYLES: Record<ScoreTone, string> = {
-  high: "text-score-high border-score-high/30 bg-score-high/10 shadow-[0_0_18px_-4px_#34d39966]",
-  mid: "text-score-mid border-score-mid/30 bg-score-mid/10 shadow-[0_0_18px_-4px_#fbbf2444]",
+  high: "text-score-high border-score-high/30 bg-score-high/10 shadow-[0_0_18px_-4px_#6fcf9766]",
+  mid: "text-score-mid border-score-mid/30 bg-score-mid/10 shadow-[0_0_18px_-4px_#f0b35c44]",
   low: "text-score-low border-border bg-surface-2",
   skipped: "text-gate-fail/90 border-gate-fail/25 bg-gate-fail/5 line-through decoration-gate-fail/60",
   none: "text-muted border-border bg-surface-2",
