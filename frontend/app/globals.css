@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+/*
+ * JobSeeker design tokens — FRONTEND_DASHBOARD_DESIGN.md §4.
+ * Dark-first. Tailwind v4 @theme maps tokens to utility classes
+ * (bg-bg, bg-surface, text-accent, …).
+ */
+@theme {
+  --color-bg: #0b0f14;
+  --color-surface: #111820;
+  --color-surface-2: #171f2a;
+  --color-border: #232d3a;
+  --color-text: #e5edf5;
+  --color-muted: #8b98a9;
+
+  --color-accent: #4f8cff;
+  --color-accent-hover: #3d78e8;
+
+  /* score bands */
+  --color-score-high: #22c55e;   /* >= 80  auto-stage */
+  --color-score-mid: #f59e0b;    /* 65-79  HITL review */
+  --color-score-low: #64748b;    /* < 65   skipped */
+  --color-gate-fail: #ef4444;    /* hard-gate disqualification */
+
+  /* Q&A provenance */
+  --color-prov-deterministic: #38bdf8;
+  --color-prov-llm: #f59e0b;
+  --color-prov-unresolved: #ef4444;
+
+  --font-sans: "Segoe UI Variable", "Segoe UI", system-ui, -apple-system,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "Cascadia Code", "Consolas", ui-monospace, monospace;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-accent) 40%, transparent);
+}
