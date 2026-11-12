@@ -1,0 +1,238 @@
+{
+  "manifest_version": "1.0.0",
+  "schema": "autojob.fixture-manifest.v1",
+  "generated_at": "2026-11-11T00:00:00Z",
+  "owner": "DeepSeek (fixtures, golden corpus, contract parity)",
+  "notes": "Every recorded or synthetic fixture is declared here. Paths are relative to backend/fixtures/. A fixture test must be able to load the page offline and resolve every selector in expected.fields without network access. Additive changes only: new fixtures append entries; existing ids are immutable.",
+  "test_profile": "test_profile.json",
+  "platforms": {
+    "mock_ats": {
+      "display_name": "Local Mock ATS",
+      "kind": "synthetic",
+      "spec": "docs/form_automation_engine_design.md §4.6 + §9",
+      "url_hint": "file:///.../backend/fixtures/mock_ats/index.html"
+    },
+    "greenhouse": {
+      "display_name": "Greenhouse",
+      "kind": "recorded",
+      "spec": "docs/form_automation_engine_design.md §4.2",
+      "url_hint": "boards.greenhouse.io"
+    },
+    "lever": {
+      "display_name": "Lever",
+      "kind": "recorded",
+      "spec": "docs/form_automation_engine_design.md §4.3",
+      "url_hint": "jobs.lever.co"
+    },
+    "ashby": {
+      "display_name": "Ashby",
+      "kind": "recorded",
+      "spec": "docs/form_automation_engine_design.md §4.4",
+      "url_hint": "jobs.ashbyhq.com"
+    },
+    "linkedin": {
+      "display_name": "LinkedIn Easy Apply",
+      "kind": "recorded",
+      "spec": "docs/form_automation_engine_design.md §4.1",
+      "url_hint": "linkedin.com/jobs"
+    },
+    "captcha": {
+      "display_name": "CAPTCHA fixture",
+      "kind": "synthetic",
+      "spec": "docs/form_automation_engine_design.md §7.4",
+      "url_hint": "file:///.../backend/fixtures/captcha/index.html"
+    },
+    "workday": {
+      "display_name": "Workday",
+      "kind": "recorded",
+      "spec": "docs/form_automation_engine_design.md §4.5",
+      "url_hint": "*.myworkdayjobs.com",
+      "status": "phase-4"
+    }
+  },
+  "fixtures": [
+    {
+      "id": "mock_ats.contact",
+      "path": "mock_ats/index.html",
+      "platform": "mock_ats",
+      "form_state": "contact",
+      "step_index": 1,
+      "total_steps": 3,
+      "source": "synthetic",
+      "recorded_on": null,
+      "notes": "Step 1: standard contact fields plus a visually hidden resume input behind a custom dropzone. The adapter must resolve the hidden input, not click the dropzone.",
+      "expected": {
+        "fields": [
+          {
+            "key": "first_name",
+            "selector": "#first_name",
+            "kind": "text",
+            "required": true,
+            "expected_value": "Ada",
+            "profile_path": "full_name.first"
+          },
+          {
+            "key": "last_name",
+            "selector": "#last_name",
+            "kind": "text",
+            "required": true,
+            "expected_value": "Lovelace",
+            "profile_path": "full_name.last"
+          },
+          {
+            "key": "email",
+            "selector": "#email",
+            "kind": "email",
+            "required": true,
+            "expected_value": "ada.lovelace@example.com",
+            "profile_path": "email"
+          },
+          {
+            "key": "phone",
+            "selector": "#phone",
+            "kind": "tel",
+            "required": true,
+            "expected_value": "+1-415-555-0142",
+            "profile_path": "phone"
+          },
+          {
+            "key": "location",
+            "selector": "#location",
+            "kind": "text",
+            "required": true,
+            "expected_value": "San Francisco, CA",
+            "profile_path": "location.display"
+          },
+          {
+            "key": "linkedin_url",
+            "selector": "#linkedin_url",
+            "kind": "url",
+            "required": false,
+            "expected_value": "https://www.linkedin.com/in/ada-lovelace",
+            "profile_path": "links.linkedin"
+          },
+          {
+            "key": "resume",
+            "selector": "#resume",
+            "kind": "file",
+            "required": true,
+            "upload_fixture": "mock_ats/artifacts/resume.pdf",
+            "notes": "Hidden input; upload via setInputFiles, verify files.length === 1."
+          },
+          {
+            "key": "cover_letter",
+            "selector": "#cover_letter",
+            "kind": "textarea",
+            "required": false,
+            "expected_value": "",
+            "notes": "Optional; leaving empty must not block advancement."
+          }
+        ],
+        "next": {"selector": "[data-test=\"next\"]", "label": "Continue"},
+        "outcome": "fill_and_advance"
+      }
+    },
+    {
+      "id": "mock_ats.screening",
+      "path": "mock_ats/index.html",
+      "platform": "mock_ats",
+      "form_state": "screening",
+      "step_index": 2,
+      "total_steps": 3,
+      "source": "synthetic",
+      "recorded_on": null,
+      "notes": "Step 2: high-stakes work-authorization + sponsorship + years-of-experience, plus a select, a radio, a textarea, and consent. High-stakes answers must come from the verified profile or pause for the human.",
+      "expected": {
+        "fields": [
+          {
+            "key": "work_authorization",
+            "selector": "#work_authorization",
+            "kind": "select",
+            "required": true,
+            "options": ["us_citizen", "us_permanent_resident", "us_work_visa", "require_sponsorship", "other"],
+            "expected_value": "us_citizen",
+            "high_stakes": true,
+            "profile_path": "work_authorization"
+          },
+          {
+            "key": "requires_sponsorship",
+            "selector": "input[name=\"requires_sponsorship\"]",
+            "kind": "radio",
+            "required": true,
+            "options": ["yes", "no"],
+            "expected_value": "no",
+            "high_stakes": true,
+            "notes": "Radio group; select the input whose value equals expected_value."
+          },
+          {
+            "key": "years_python",
+            "selector": "#years_python",
+            "kind": "number",
+            "required": true,
+            "expected_value": 7,
+            "high_stakes": true,
+            "profile_path": "years_experience.python"
+          },
+          {
+            "key": "willing_to_relocate",
+            "selector": "input[name=\"willing_to_relocate\"]",
+            "kind": "radio",
+            "required": false,
+            "options": ["yes", "no"],
+            "expected_value": "no"
+          },
+          {
+            "key": "hear_about_us",
+            "selector": "#hear_about_us",
+            "kind": "select",
+            "required": true,
+            "options": ["LinkedIn", "Company website", "Referral", "Job board", "Other"],
+            "expected_value": "Company website",
+            "profile_path": "hear_about_us"
+          },
+          {
+            "key": "project_story",
+            "selector": "#project_story",
+            "kind": "textarea",
+            "required": false,
+            "expected_value": "Led the migration of a billing service to an event-driven FastAPI backend, cutting p95 latency from 820 ms to 190 ms while preserving exactly-once invoice delivery.",
+            "profile_path": "project_story"
+          },
+          {
+            "key": "consent",
+            "selector": "#consent",
+            "kind": "checkbox",
+            "required": true,
+            "expected_value": true
+          }
+        ],
+        "next": {"selector": "[data-test=\"next\"]", "label": "Review application"},
+        "back": {"selector": "[data-test=\"back\"]", "label": "Back"},
+        "outcome": "answer_and_advance"
+      }
+    },
+    {
+      "id": "mock_ats.review",
+      "path": "mock_ats/index.html",
+      "platform": "mock_ats",
+      "form_state": "review",
+      "step_index": 3,
+      "total_steps": 3,
+      "source": "synthetic",
+      "recorded_on": null,
+      "notes": "Step 3: read-only summary plus certify + submit/discard. Assisted mode must stop here; the human clicks Submit in the page (or the backend clicks it via applications/approve).",
+      "expected": {
+        "fields": [],
+        "summary": {"selector": "#review_summary", "kind": "readonly"},
+        "certify": {"selector": "#certify", "kind": "checkbox", "required": true},
+        "submit": {"selector": "[data-test=\"submit\"]", "label": "Submit application"},
+        "discard": {"selector": "[data-test=\"discard\"]", "label": "Discard application"},
+        "terminal": {
+          "submitted": {"selector": "#confirmation", "attribute": "data-status", "value": "SUBMITTED"},
+          "discarded": {"selector": "#discarded", "attribute": "data-status", "value": "DISCARDED"}
+        },
+        "outcome": "review_then_submit"
+      }
+    }
+  ]
+}

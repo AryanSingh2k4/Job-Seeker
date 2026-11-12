@@ -1,0 +1,586 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="generator" content="autojob-mock-ats/1.0.0">
+  <title>Northstar Labs — Senior Backend Engineer — Application</title>
+  <style>
+    :root {
+      --bg: #f6f7f9;
+      --surface: #ffffff;
+      --ink: #16181d;
+      --muted: #5b6472;
+      --line: #d7dce3;
+      --accent: #2f5fe0;
+      --accent-ink: #ffffff;
+      --danger: #b42318;
+      --ok: #067647;
+      --radius: 10px;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.5;
+      padding: 32px 16px 56px;
+    }
+    .shell { max-width: 760px; margin: 0 auto; }
+    .masthead {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin-bottom: 16px;
+    }
+    .brand { font-size: 15px; font-weight: 700; letter-spacing: .02em; text-transform: uppercase; color: var(--accent); }
+    .role { font-size: 22px; font-weight: 700; margin-top: 4px; }
+    .meta { color: var(--muted); font-size: 14px; margin-top: 4px; }
+    #application-form, #confirmation, #discarded {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+    #step-indicator {
+      display: flex;
+      gap: 8px;
+      list-style: none;
+      padding: 0;
+      margin: 0 0 24px;
+      counter-reset: step;
+    }
+    #step-indicator li {
+      flex: 1;
+      font-size: 13px;
+      color: var(--muted);
+      padding: 8px 10px;
+      border-bottom: 3px solid var(--line);
+      counter-increment: step;
+    }
+    #step-indicator li::before { content: counter(step) ". "; font-weight: 700; }
+    #step-indicator li.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+    #step-indicator li.done { color: var(--ok); border-bottom-color: var(--ok); }
+    .step > h1 { font-size: 20px; margin: 0 0 4px; }
+    .step > .sub { color: var(--muted); font-size: 14px; margin: 0 0 20px; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 16px; }
+    .grid .span-2 { grid-column: 1 / -1; }
+    @media (max-width: 560px) { .grid { grid-template-columns: 1fr; } }
+    .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+    label, legend { font-size: 14px; font-weight: 600; }
+    .req { color: var(--danger); }
+    input[type="text"], input[type="email"], input[type="tel"], input[type="url"],
+    input[type="number"], select, textarea {
+      width: 100%;
+      font: inherit;
+      color: var(--ink);
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px 12px;
+    }
+    input:focus, select:focus, textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+    fieldset { border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; margin: 0 0 14px; }
+    fieldset legend { padding: 0 6px; }
+    .choice { display: inline-flex; align-items: center; gap: 8px; margin-right: 18px; font-weight: 400; }
+    .checkbox { display: flex; gap: 10px; align-items: flex-start; font-weight: 400; margin: 10px 0; }
+    .checkbox input { margin-top: 3px; }
+    .help { color: var(--muted); font-size: 12px; margin: 0; }
+    .dropzone {
+      border: 2px dashed var(--line);
+      border-radius: 8px;
+      padding: 18px;
+      text-align: center;
+      color: var(--muted);
+      cursor: pointer;
+      background: #fbfcfe;
+    }
+    .dropzone.dragover { border-color: var(--accent); color: var(--accent); background: #eef3ff; }
+    .file-name { color: var(--ok); font-size: 13px; margin: 6px 0 0; min-height: 18px; }
+    .sr-only {
+      position: absolute !important;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0, 0, 0, 0);
+      white-space: nowrap; border: 0;
+    }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 20px; }
+    .actions .spacer { flex: 1; }
+    button {
+      font: inherit;
+      border-radius: 8px;
+      padding: 10px 16px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--ink);
+      cursor: pointer;
+      font-weight: 600;
+    }
+    button[data-test="next"], button[data-test="submit"] {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--accent-ink);
+    }
+    button[data-test="discard"] { color: var(--danger); border-color: #f3c4c0; background: #fff5f4; }
+    button:hover { filter: brightness(.97); }
+    .review-list { display: grid; grid-template-columns: 220px 1fr; gap: 8px 16px; margin: 0; }
+    .review-list dt { color: var(--muted); font-weight: 600; font-size: 13px; }
+    .review-list dd { margin: 0; word-break: break-word; }
+    .notice { border: 1px solid var(--line); border-radius: 8px; padding: 14px; background: #fbfcfe; color: var(--muted); font-size: 14px; }
+    #confirmation h1, #discarded h1 { font-size: 20px; margin: 0 0 8px; }
+    #confirmation .badge, #discarded .badge {
+      display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .04em;
+      text-transform: uppercase; padding: 3px 8px; border-radius: 999px; margin-bottom: 10px;
+    }
+    #confirmation .badge { color: var(--ok); background: #e7f6ee; }
+    #discarded .badge { color: var(--danger); background: #fdecea; }
+    pre#confirmation-data, pre#submitted-json {
+      background: #0f1115; color: #e8eaef; border-radius: 8px; padding: 14px;
+      overflow: auto; font-size: 12px; line-height: 1.45; max-height: 320px;
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="masthead">
+      <div class="brand" data-test="company-name">Northstar Labs</div>
+      <div class="role" data-test="job-title">Senior Backend Engineer</div>
+      <div class="meta">Remote (United States) · Full-time · Posted 2026-11-09</div>
+    </header>
+
+    <form id="application-form" data-platform="mock_ats" data-form-version="1.0.0" novalidate>
+      <ol id="step-indicator" data-step="1" aria-label="Application progress">
+        <li class="active">Contact</li>
+        <li>Screening</li>
+        <li>Review</li>
+      </ol>
+
+      <!-- Step 1 — Contact -->
+      <section class="step" data-step="1" data-test="step-contact" id="step-contact" aria-labelledby="step-contact-title">
+        <h1 id="step-contact-title">Contact information</h1>
+        <p class="sub">Tell us how to reach you. Fields marked <span class="req">*</span> are required.</p>
+
+        <div class="grid">
+          <div class="field">
+            <label for="first_name">First name <span class="req" aria-hidden="true">*</span></label>
+            <input id="first_name" name="first_name" type="text" autocomplete="given-name" required
+                   data-automation-id="firstName">
+          </div>
+          <div class="field">
+            <label for="last_name">Last name <span class="req" aria-hidden="true">*</span></label>
+            <input id="last_name" name="last_name" type="text" autocomplete="family-name" required
+                   data-automation-id="lastName">
+          </div>
+          <div class="field">
+            <label for="email">Email <span class="req" aria-hidden="true">*</span></label>
+            <input id="email" name="email" type="email" autocomplete="email" required
+                   data-automation-id="email">
+          </div>
+          <div class="field">
+            <label for="phone">Phone <span class="req" aria-hidden="true">*</span></label>
+            <input id="phone" name="phone" type="tel" autocomplete="tel" required
+                   data-automation-id="phone">
+          </div>
+          <div class="field span-2">
+            <label for="location">Current location <span class="req" aria-hidden="true">*</span></label>
+            <input id="location" name="location" type="text" autocomplete="address-level2" required
+                   placeholder="City, State" data-automation-id="location">
+          </div>
+          <div class="field span-2">
+            <label for="linkedin_url">LinkedIn profile</label>
+            <input id="linkedin_url" name="linkedin_url" type="url" autocomplete="url"
+                   placeholder="https://www.linkedin.com/in/..." data-automation-id="linkedin">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="resume">Resume <span class="req" aria-hidden="true">*</span></label>
+          <div id="resume-dropzone" class="dropzone" data-test="dropzone" role="button" tabindex="0"
+               aria-describedby="resume-help" data-automation-id="resumeDropzone">
+            <span>Drag &amp; drop your resume here, or click to choose a file</span>
+            <input id="resume" name="resume" type="file" accept=".pdf,.doc,.docx" required
+                   class="sr-only" data-automation-id="resume">
+          </div>
+          <p id="resume-help" class="help">PDF or DOCX, up to 5 MB.</p>
+          <p id="resume-name" class="file-name" data-test="resume-name" aria-live="polite"></p>
+        </div>
+
+        <div class="field">
+          <label for="cover_letter">Cover letter (optional)</label>
+          <textarea id="cover_letter" name="cover_letter" rows="4" maxlength="4000"
+                    data-automation-id="coverLetter"></textarea>
+        </div>
+
+        <div class="actions">
+          <span class="spacer"></span>
+          <button type="button" data-test="next">Continue</button>
+        </div>
+      </section>
+
+      <!-- Step 2 — Screening -->
+      <section class="step" data-step="2" data-test="step-screening" id="step-screening" aria-labelledby="step-screening-title" hidden>
+        <h1 id="step-screening-title">Screening questions</h1>
+        <p class="sub">Your answers are saved with the application. High-stakes questions are answered from your verified profile.</p>
+
+        <fieldset>
+          <legend>Work authorization <span class="req" aria-hidden="true">*</span></legend>
+          <div class="field" style="margin-bottom:0">
+            <label for="work_authorization">Are you legally authorized to work in the United States?</label>
+            <select id="work_authorization" name="work_authorization" required
+                    data-automation-id="workAuthorization">
+              <option value="">Select an option</option>
+              <option value="us_citizen">U.S. citizen</option>
+              <option value="us_permanent_resident">U.S. permanent resident (Green Card)</option>
+              <option value="us_work_visa">U.S. work visa (H-1B, L-1, etc.)</option>
+              <option value="require_sponsorship">I require sponsorship</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Will you now or in the future require sponsorship? <span class="req" aria-hidden="true">*</span></legend>
+          <label class="choice">
+            <input type="radio" name="requires_sponsorship" value="yes" required
+                   data-automation-id="sponsorshipYes"> Yes
+          </label>
+          <label class="choice">
+            <input type="radio" name="requires_sponsorship" value="no"
+                   data-automation-id="sponsorshipNo"> No
+          </label>
+        </fieldset>
+
+        <div class="field">
+          <label for="years_python">Years of professional Python experience <span class="req" aria-hidden="true">*</span></label>
+          <input id="years_python" name="years_python" type="number" min="0" max="50" step="1" required
+                 data-automation-id="yearsPython">
+        </div>
+
+        <fieldset>
+          <legend>Are you willing to relocate?</legend>
+          <label class="choice">
+            <input type="radio" name="willing_to_relocate" value="yes"
+                   data-automation-id="relocateYes"> Yes
+          </label>
+          <label class="choice">
+            <input type="radio" name="willing_to_relocate" value="no"
+                   data-automation-id="relocateNo"> No
+          </label>
+        </fieldset>
+
+        <div class="field">
+          <label for="hear_about_us">How did you hear about us? <span class="req" aria-hidden="true">*</span></label>
+          <select id="hear_about_us" name="hear_about_us" required data-automation-id="hearAboutUs">
+            <option value="">Select an option</option>
+            <option value="LinkedIn">LinkedIn</option>
+            <option value="Company website">Company website</option>
+            <option value="Referral">Referral</option>
+            <option value="Job board">Job board</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="project_story">Describe a recent project relevant to this role</label>
+          <textarea id="project_story" name="project_story" rows="5" maxlength="1200"
+                    data-automation-id="projectStory"></textarea>
+        </div>
+
+        <label class="checkbox">
+          <input id="consent" name="consent" type="checkbox" required data-automation-id="consent">
+          <span>I consent to Northstar Labs processing my application data. <span class="req" aria-hidden="true">*</span></span>
+        </label>
+
+        <div class="actions">
+          <button type="button" data-test="back">Back</button>
+          <span class="spacer"></span>
+          <button type="button" data-test="next">Review application</button>
+        </div>
+      </section>
+
+      <!-- Step 3 — Review & submit -->
+      <section class="step" data-step="3" data-test="step-review" id="step-review" aria-labelledby="step-review-title" hidden>
+        <h1 id="step-review-title">Review your application</h1>
+        <p class="sub">Check every value. Submitting is final.</p>
+
+        <dl id="review_summary" class="review-list" data-test="review-summary"></dl>
+
+        <label class="checkbox">
+          <input id="certify" name="certify" type="checkbox" required data-automation-id="certify">
+          <span>I certify that the information above is accurate and complete. <span class="req" aria-hidden="true">*</span></span>
+        </label>
+
+        <div class="actions">
+          <button type="button" data-test="back">Back</button>
+          <span class="spacer"></span>
+          <button type="button" data-test="discard">Discard application</button>
+          <button type="submit" data-test="submit">Submit application</button>
+        </div>
+      </section>
+    </form>
+
+    <!-- Terminal state: submitted -->
+    <section id="confirmation" data-test="confirmation" data-status="SUBMITTED" hidden aria-live="polite">
+      <span class="badge">Submitted</span>
+      <h1>Application received</h1>
+      <p class="meta">Confirmation <strong data-test="receipt">MOCK-ATS-2026-0001</strong>. This is a local test fixture; nothing was sent to a real employer.</p>
+      <pre id="confirmation-data" data-test="submitted-json"></pre>
+      <div class="actions">
+        <button type="button" data-test="reset">Start over</button>
+      </div>
+    </section>
+
+    <!-- Terminal state: discarded -->
+    <section id="discarded" data-test="discarded" data-status="DISCARDED" hidden aria-live="polite">
+      <span class="badge">Discarded</span>
+      <h1>Application discarded</h1>
+      <p class="meta">The draft was discarded cleanly. No submission occurred.</p>
+      <div class="actions">
+        <button type="button" data-test="reset">Start over</button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      "use strict";
+
+      var form = document.getElementById("application-form");
+      var steps = Array.prototype.slice.call(document.querySelectorAll(".step"));
+      var indicator = document.getElementById("step-indicator");
+      var reviewList = document.getElementById("review_summary");
+      var confirmation = document.getElementById("confirmation");
+      var discarded = document.getElementById("discarded");
+      var receipt = "MOCK-ATS-2026-0001";
+
+      var state = {
+        step: 1,
+        total: steps.length,
+        data: {},
+        submitted: false,
+        discarded: false
+      };
+
+      function stepEl(n) {
+        return document.querySelector('.step[data-step="' + n + '"]');
+      }
+
+      function updateIndicator(n) {
+        indicator.setAttribute("data-step", String(n));
+        var items = indicator.querySelectorAll("li");
+        for (var i = 0; i < items.length; i++) {
+          var idx = i + 1;
+          items[i].classList.toggle("active", idx === n);
+          items[i].classList.toggle("done", idx < n);
+        }
+      }
+
+      function showStep(n) {
+        state.step = n;
+        for (var i = 0; i < steps.length; i++) {
+          var isCurrent = Number(steps[i].getAttribute("data-step")) === n;
+          steps[i].hidden = !isCurrent;
+        }
+        updateIndicator(n);
+        if (n === state.total) { renderReview(); }
+      }
+
+      function validateCurrentStep() {
+        var current = stepEl(state.step);
+        if (!current) { return true; }
+        var fields = current.querySelectorAll("input, select, textarea");
+        for (var i = 0; i < fields.length; i++) {
+          var field = fields[i];
+          if (!field.checkValidity()) {
+            field.reportValidity();
+            return false;
+          }
+        }
+        return true;
+      }
+
+      function collect() {
+        var fd = new FormData(form);
+        var out = {};
+        fd.forEach(function (value, key) {
+          if (Object.prototype.hasOwnProperty.call(out, key)) {
+            if (Array.isArray(out[key])) { out[key].push(value); }
+            else { out[key] = [out[key], value]; }
+          } else {
+            out[key] = value;
+          }
+        });
+        state.data = out;
+        return out;
+      }
+
+      function labelFor(key) {
+        var map = {
+          first_name: "First name",
+          last_name: "Last name",
+          email: "Email",
+          phone: "Phone",
+          location: "Location",
+          linkedin_url: "LinkedIn",
+          resume: "Resume",
+          cover_letter: "Cover letter",
+          work_authorization: "Work authorization",
+          requires_sponsorship: "Requires sponsorship",
+          years_python: "Years of Python",
+          willing_to_relocate: "Willing to relocate",
+          hear_about_us: "Heard about us",
+          project_story: "Relevant project",
+          consent: "Consent"
+        };
+        return map[key] || key;
+      }
+
+      function humanize(value) {
+        if (Array.isArray(value)) { return value.join(", "); }
+        if (value === true) { return "Yes"; }
+        if (value === false) { return "No"; }
+        if (value === "yes") { return "Yes"; }
+        if (value === "no") { return "No"; }
+        if (value === "us_citizen") { return "U.S. citizen"; }
+        if (value === "us_permanent_resident") { return "U.S. permanent resident"; }
+        if (value === "us_work_visa") { return "U.S. work visa"; }
+        if (value === "require_sponsorship") { return "Requires sponsorship"; }
+        return String(value);
+      }
+
+      function renderReview() {
+        var data = collect();
+        reviewList.textContent = "";
+        Object.keys(data).forEach(function (key) {
+          if (key === "certify") { return; }
+          if (data[key] === "" || data[key] === null || data[key] === undefined) { return; }
+          var dt = document.createElement("dt");
+          dt.textContent = labelFor(key);
+          var dd = document.createElement("dd");
+          if (key === "resume" && data[key] && data[key].name) {
+            dd.textContent = data[key].name;
+          } else {
+            dd.textContent = humanize(data[key]);
+          }
+          reviewList.appendChild(dt);
+          reviewList.appendChild(dd);
+        });
+      }
+
+      function setTerminal(node) {
+        form.hidden = true;
+        confirmation.hidden = node !== confirmation;
+        discarded.hidden = node !== discarded;
+      }
+
+      function reset() {
+        form.reset();
+        state.submitted = false;
+        state.discarded = false;
+        state.data = {};
+        form.hidden = false;
+        confirmation.hidden = true;
+        discarded.hidden = true;
+        reviewList.textContent = "";
+        document.getElementById("resume-name").textContent = "";
+        showStep(1);
+      }
+
+      form.addEventListener("click", function (event) {
+        var target = event.target.closest("[data-test]");
+        if (!target) { return; }
+        var action = target.getAttribute("data-test");
+        if (action === "next") {
+          if (!validateCurrentStep()) { return; }
+          if (state.step < state.total) { collect(); showStep(state.step + 1); }
+        } else if (action === "back") {
+          if (state.step > 1) { showStep(state.step - 1); }
+        } else if (action === "discard") {
+          state.discarded = true;
+          state.submitted = false;
+          setTerminal(discarded);
+        } else if (action === "reset") {
+          reset();
+        }
+      });
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        var certify = document.getElementById("certify");
+        if (!certify.checked) {
+          certify.reportValidity();
+          return;
+        }
+        collect();
+        state.submitted = true;
+        state.discarded = false;
+        setTerminal(confirmation);
+        document.getElementById("confirmation-data").textContent = JSON.stringify({
+          receipt: receipt,
+          status: "SUBMITTED",
+          data: state.data
+        }, null, 2);
+      });
+
+      var dropzone = document.getElementById("resume-dropzone");
+      var fileInput = document.getElementById("resume");
+      var fileName = document.getElementById("resume-name");
+
+      dropzone.addEventListener("click", function () { fileInput.click(); });
+      dropzone.addEventListener("keydown", function (event) {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          fileInput.click();
+        }
+      });
+      ["dragenter", "dragover"].forEach(function (name) {
+        dropzone.addEventListener(name, function (event) {
+          event.preventDefault();
+          dropzone.classList.add("dragover");
+        });
+      });
+      ["dragleave", "drop"].forEach(function (name) {
+        dropzone.addEventListener(name, function (event) {
+          event.preventDefault();
+          dropzone.classList.remove("dragover");
+        });
+      });
+      dropzone.addEventListener("drop", function (event) {
+        if (event.dataTransfer && event.dataTransfer.files && event.dataTransfer.files.length) {
+          fileInput.files = event.dataTransfer.files;
+          showFileName();
+        }
+      });
+      fileInput.addEventListener("change", showFileName);
+
+      function showFileName() {
+        if (fileInput.files && fileInput.files.length) {
+          fileName.textContent = "Selected: " + fileInput.files[0].name;
+        } else {
+          fileName.textContent = "";
+        }
+      }
+
+      // Test-only surface. Deterministic and side-effect free.
+      state.goToStep = function (n) {
+        var target = Math.max(1, Math.min(state.total, Number(n) || 1));
+        showStep(target);
+      };
+      state.getState = function () {
+        return {
+          step: state.step,
+          total: state.total,
+          data: JSON.parse(JSON.stringify(state.data)),
+          submitted: state.submitted,
+          discarded: state.discarded
+        };
+      };
+      state.reset = reset;
+      state.receipt = receipt;
+      window.__MOCK_ATS__ = state;
+
+      showStep(1);
+    }());
+  </script>
+</body>
+</html>

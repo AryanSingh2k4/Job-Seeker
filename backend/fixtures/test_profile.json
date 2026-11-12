@@ -1,0 +1,45 @@
+{
+  "profile_version": "1.0.0",
+  "notes": "Deterministic candidate used only by adapter fixtures. Never sent to a real employer.",
+  "full_name": {
+    "first": "Ada",
+    "last": "Lovelace"
+  },
+  "email": "ada.lovelace@example.com",
+  "phone": "+1-415-555-0142",
+  "location": {
+    "display": "San Francisco, CA",
+    "city": "San Francisco",
+    "state": "CA",
+    "country": "US",
+    "postal_code": "94107"
+  },
+  "links": {
+    "linkedin": "https://www.linkedin.com/in/ada-lovelace",
+    "github": "https://github.com/ada-lovelace",
+    "portfolio": "https://ada.example.com"
+  },
+  "work_authorization": "us_citizen",
+  "requires_sponsorship": false,
+  "requires_future_sponsorship": false,
+  "target_salary_min": 180000,
+  "target_salary_desired": 210000,
+  "notice_period_weeks": 2,
+  "willing_to_relocate": false,
+  "years_experience": {
+    "python": 7,
+    "fastapi": 4,
+    "postgresql": 6,
+    "typescript": 5,
+    "playwright": 2
+  },
+  "hear_about_us": "Company website",
+  "project_story": "Led the migration of a billing service to an event-driven FastAPI backend, cutting p95 latency from 820 ms to 190 ms while preserving exactly-once invoice delivery.",
+  "consent": true,
+  "skills": [
+    {"canonical_name": "Python", "category": "language", "proficiency": "expert", "years_of_experience": 7},
+    {"canonical_name": "FastAPI", "category": "framework", "proficiency": "expert", "years_of_experience": 4},
+    {"canonical_name": "PostgreSQL", "category": "database", "proficiency": "advanced", "years_of_experience": 6},
+    {"canonical_name": "Playwright", "category": "testing", "proficiency": "advanced", "years_of_experience": 2}
+  ]
+}

@@ -1,0 +1,1171 @@
+{
+  "registry_version": "1.0.0",
+  "generated_at": "2026-11-11T00:00:00Z",
+  "verified_on": "2026-11-11",
+  "company_count": 115,
+  "provider_counts": {
+    "greenhouse": 63,
+    "lever": 5,
+    "ashby": 53,
+    "workday": 0
+  },
+  "verification": {
+    "method": "HTTP probe of each provider's public board API; a 200 means a public board exists at that token on verified_on.",
+    "greenhouse": "GET https://boards-api.greenhouse.io/v1/boards/{token} -> 200",
+    "lever": "GET https://api.lever.co/v0/postings/{token}?mode=json&limit=1 -> 200",
+    "ashby": "HEAD https://api.ashbyhq.com/posting-api/job-board/{token} -> 200",
+    "note": "provider_counts counts boards, not companies: six companies expose both a Greenhouse and an Ashby board. Tokens drift; the backend must treat 404 as a recoverable per-source error, never a crash."
+  },
+  "companies": [
+    {
+      "company": "Acorns",
+      "greenhouse_token": null,
+      "lever": null,
+      "ashby": "acorns",
+      "workday": null,
+      "providers": ["ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Affirm",
+      "greenhouse_token": "affirm",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Airbnb",
+      "greenhouse_token": "airbnb",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Airtable",
+      "greenhouse_token": "airtable",
+      "lever": null,
+      "ashby": "airtable",
+      "workday": null,
+      "providers": ["greenhouse", "ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Akuna Capital",
+      "greenhouse_token": "akunacapital",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Algolia",
+      "greenhouse_token": "algolia",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Alloy",
+      "greenhouse_token": null,
+      "lever": null,
+      "ashby": "alloy",
+      "workday": null,
+      "providers": ["ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Amplitude",
+      "greenhouse_token": null,
+      "lever": null,
+      "ashby": "amplitude",
+      "workday": null,
+      "providers": ["ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Anduril Industries",
+      "greenhouse_token": "andurilindustries",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Anthropic",
+      "greenhouse_token": "anthropic",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Asana",
+      "greenhouse_token": "asana",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Astranis",
+      "greenhouse_token": "astranis",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Benchling",
+      "greenhouse_token": null,
+      "lever": null,
+      "ashby": "benchling",
+      "workday": null,
+      "providers": ["ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Betterment",
+      "greenhouse_token": "betterment",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Brex",
+      "greenhouse_token": "brex",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Calendly",
+      "greenhouse_token": "calendly",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Carta",
+      "greenhouse_token": "carta",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Chime",
+      "greenhouse_token": "chime",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Circle",
+      "greenhouse_token": null,
+      "lever": null,
+      "ashby": "circle",
+      "workday": null,
+      "providers": ["ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "CircleCI",
+      "greenhouse_token": "circleci",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Cloudflare",
+      "greenhouse_token": "cloudflare",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Cohere",
+      "greenhouse_token": null,
+      "lever": null,
+      "ashby": "cohere",
+      "workday": null,
+      "providers": ["ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Coinbase",
+      "greenhouse_token": "coinbase",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Compound",
+      "greenhouse_token": null,
+      "lever": null,
+      "ashby": "compound",
+      "workday": null,
+      "providers": ["ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Consensys",
+      "greenhouse_token": null,
+      "lever": null,
+      "ashby": "consensys",
+      "workday": null,
+      "providers": ["ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Contentful",
+      "greenhouse_token": "contentful",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Cursor",
+      "greenhouse_token": null,
+      "lever": null,
+      "ashby": "cursor",
+      "workday": null,
+      "providers": ["ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Databricks",
+      "greenhouse_token": "databricks",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Datadog",
+      "greenhouse_token": "datadog",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Dave",
+      "greenhouse_token": null,
+      "lever": null,
+      "ashby": "dave",
+      "workday": null,
+      "providers": ["ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Deel",
+      "greenhouse_token": null,
+      "lever": null,
+      "ashby": "deel",
+      "workday": null,
+      "providers": ["ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Discord",
+      "greenhouse_token": "discord",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Drata",
+      "greenhouse_token": null,
+      "lever": null,
+      "ashby": "drata",
+      "workday": null,
+      "providers": ["ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "DriveWealth",
+      "greenhouse_token": null,
+      "lever": null,
+      "ashby": "drivewealth",
+      "workday": null,
+      "providers": ["ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Dropbox",
+      "greenhouse_token": "dropbox",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Dune",
+      "greenhouse_token": null,
+      "lever": null,
+      "ashby": "dune",
+      "workday": null,
+      "providers": ["ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Duolingo",
+      "greenhouse_token": "duolingo",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "EarnIn",
+      "greenhouse_token": "earnin",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Elastic",
+      "greenhouse_token": "elastic",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Elliptic",
+      "greenhouse_token": null,
+      "lever": null,
+      "ashby": "elliptic",
+      "workday": null,
+      "providers": ["ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Figma",
+      "greenhouse_token": "figma",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Fivetran",
+      "greenhouse_token": "fivetran",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Flexport",
+      "greenhouse_token": "flexport",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Found",
+      "greenhouse_token": null,
+      "lever": null,
+      "ashby": "found",
+      "workday": null,
+      "providers": ["ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "GitLab",
+      "greenhouse_token": "gitlab",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Gusto",
+      "greenhouse_token": "gusto",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "IMC",
+      "greenhouse_token": "imc",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Instacart",
+      "greenhouse_token": "instacart",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Intercom",
+      "greenhouse_token": "intercom",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Iterable",
+      "greenhouse_token": null,
+      "lever": null,
+      "ashby": "iterable",
+      "workday": null,
+      "providers": ["ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Jane Street",
+      "greenhouse_token": "janestreet",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Juno",
+      "greenhouse_token": null,
+      "lever": null,
+      "ashby": "juno",
+      "workday": null,
+      "providers": ["ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Justworks",
+      "greenhouse_token": "justworks",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Klaviyo",
+      "greenhouse_token": "klaviyo",
+      "lever": null,
+      "ashby": "klaviyo",
+      "workday": null,
+      "providers": ["greenhouse", "ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "LaunchDarkly",
+      "greenhouse_token": "launchdarkly",
+      "lever": null,
+      "ashby": "launchdarkly",
+      "workday": null,
+      "providers": ["greenhouse", "ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Lever (Demo)",
+      "greenhouse_token": null,
+      "lever": "leverdemo",
+      "ashby": null,
+      "workday": null,
+      "providers": ["lever"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Linear",
+      "greenhouse_token": null,
+      "lever": null,
+      "ashby": "linear",
+      "workday": null,
+      "providers": ["ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Loom",
+      "greenhouse_token": null,
+      "lever": null,
+      "ashby": "loom",
+      "workday": null,
+      "providers": ["ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Lucid Motors",
+      "greenhouse_token": "lucidmotors",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Lyft",
+      "greenhouse_token": "lyft",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Mercury",
+      "greenhouse_token": null,
+      "lever": null,
+      "ashby": "mercury",
+      "workday": null,
+      "providers": ["ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Miro",
+      "greenhouse_token": null,
+      "lever": null,
+      "ashby": "miro",
+      "workday": null,
+      "providers": ["ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Mixpanel",
+      "greenhouse_token": "mixpanel",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Modal",
+      "greenhouse_token": null,
+      "lever": null,
+      "ashby": "modal",
+      "workday": null,
+      "providers": ["ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "ModernFi",
+      "greenhouse_token": null,
+      "lever": null,
+      "ashby": "modernfi",
+      "workday": null,
+      "providers": ["ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "MongoDB",
+      "greenhouse_token": "mongodb",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Nansen",
+      "greenhouse_token": null,
+      "lever": null,
+      "ashby": "nansen",
+      "workday": null,
+      "providers": ["ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Neon",
+      "greenhouse_token": null,
+      "lever": null,
+      "ashby": "neon",
+      "workday": null,
+      "providers": ["ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Netlify",
+      "greenhouse_token": "netlify",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Notion",
+      "greenhouse_token": null,
+      "lever": null,
+      "ashby": "notion",
+      "workday": null,
+      "providers": ["ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Novo",
+      "greenhouse_token": null,
+      "lever": null,
+      "ashby": "novo",
+      "workday": null,
+      "providers": ["ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Nuro",
+      "greenhouse_token": "nuro",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Okta",
+      "greenhouse_token": "okta",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "OpenAI",
+      "greenhouse_token": null,
+      "lever": null,
+      "ashby": "openai",
+      "workday": null,
+      "providers": ["ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Optiver",
+      "greenhouse_token": "optiver",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Oyster",
+      "greenhouse_token": null,
+      "lever": null,
+      "ashby": "oyster",
+      "workday": null,
+      "providers": ["ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Palantir",
+      "greenhouse_token": null,
+      "lever": "palantir",
+      "ashby": null,
+      "workday": null,
+      "providers": ["lever"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Paxos",
+      "greenhouse_token": null,
+      "lever": null,
+      "ashby": "paxos",
+      "workday": null,
+      "providers": ["ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Perplexity",
+      "greenhouse_token": null,
+      "lever": null,
+      "ashby": "perplexity",
+      "workday": null,
+      "providers": ["ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Persona",
+      "greenhouse_token": null,
+      "lever": null,
+      "ashby": "persona",
+      "workday": null,
+      "providers": ["ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Pinterest",
+      "greenhouse_token": "pinterest",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "PostHog",
+      "greenhouse_token": null,
+      "lever": null,
+      "ashby": "posthog",
+      "workday": null,
+      "providers": ["ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Protocol",
+      "greenhouse_token": null,
+      "lever": null,
+      "ashby": "protocol",
+      "workday": null,
+      "providers": ["ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Ramp",
+      "greenhouse_token": null,
+      "lever": null,
+      "ashby": "ramp",
+      "workday": null,
+      "providers": ["ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Reddit",
+      "greenhouse_token": "reddit",
+      "lever": null,
+      "ashby": "reddit",
+      "workday": null,
+      "providers": ["greenhouse", "ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Relativity Space",
+      "greenhouse_token": "relativity",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Replit",
+      "greenhouse_token": null,
+      "lever": null,
+      "ashby": "replit",
+      "workday": null,
+      "providers": ["ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Robinhood",
+      "greenhouse_token": "robinhood",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Samsara",
+      "greenhouse_token": "samsara",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Sanity",
+      "greenhouse_token": null,
+      "lever": null,
+      "ashby": "sanity",
+      "workday": null,
+      "providers": ["ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Scale AI",
+      "greenhouse_token": "scaleai",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Secureframe",
+      "greenhouse_token": null,
+      "lever": null,
+      "ashby": "secureframe",
+      "workday": null,
+      "providers": ["ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Snyk",
+      "greenhouse_token": null,
+      "lever": null,
+      "ashby": "snyk",
+      "workday": null,
+      "providers": ["ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Socure",
+      "greenhouse_token": null,
+      "lever": null,
+      "ashby": "socure",
+      "workday": null,
+      "providers": ["ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "SoFi",
+      "greenhouse_token": "sofi",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "SpaceX",
+      "greenhouse_token": "spacex",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Spotify",
+      "greenhouse_token": null,
+      "lever": "spotify",
+      "ashby": null,
+      "workday": null,
+      "providers": ["lever"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Squarespace",
+      "greenhouse_token": "squarespace",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Stash",
+      "greenhouse_token": null,
+      "lever": null,
+      "ashby": "stash",
+      "workday": null,
+      "providers": ["ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Stripe",
+      "greenhouse_token": "stripe",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Supabase",
+      "greenhouse_token": null,
+      "lever": null,
+      "ashby": "supabase",
+      "workday": null,
+      "providers": ["ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Twilio",
+      "greenhouse_token": "twilio",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Typeform",
+      "greenhouse_token": "typeform",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Unit",
+      "greenhouse_token": null,
+      "lever": null,
+      "ashby": "unit",
+      "workday": null,
+      "providers": ["ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Uniswap",
+      "greenhouse_token": null,
+      "lever": null,
+      "ashby": "uniswap",
+      "workday": null,
+      "providers": ["ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Upgrade",
+      "greenhouse_token": "upgrade",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Vanta",
+      "greenhouse_token": null,
+      "lever": null,
+      "ashby": "vanta",
+      "workday": null,
+      "providers": ["ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Vercel",
+      "greenhouse_token": "vercel",
+      "lever": null,
+      "ashby": "vercel",
+      "workday": null,
+      "providers": ["greenhouse", "ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Virtu Financial",
+      "greenhouse_token": "virtu",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Waymo",
+      "greenhouse_token": "waymo",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Wealthfront",
+      "greenhouse_token": null,
+      "lever": "wealthfront",
+      "ashby": null,
+      "workday": null,
+      "providers": ["lever"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Weave",
+      "greenhouse_token": "weave",
+      "lever": null,
+      "ashby": null,
+      "workday": null,
+      "providers": ["greenhouse"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Webflow",
+      "greenhouse_token": "webflow",
+      "lever": null,
+      "ashby": "webflow",
+      "workday": null,
+      "providers": ["greenhouse", "ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Whoop",
+      "greenhouse_token": null,
+      "lever": "whoop",
+      "ashby": null,
+      "workday": null,
+      "providers": ["lever"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    },
+    {
+      "company": "Zapier",
+      "greenhouse_token": null,
+      "lever": null,
+      "ashby": "zapier",
+      "workday": null,
+      "providers": ["ashby"],
+      "verified": true,
+      "verified_on": "2026-11-11"
+    }
+  ]
+}
