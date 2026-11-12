@@ -177,15 +177,9 @@ export function PageHeader({
       )}
     >
       <div className="min-w-0">
-        {eyebrow && <Eyebrow className="mb-4">{eyebrow}</Eyebrow>}
         <h1 className="display text-[clamp(2.3rem,4.2vw,3.5rem)] leading-[0.98] text-text">
           <RevealText text={title} />
         </h1>
-        {subtitle && (
-          <p className="mt-3.5 max-w-2xl text-[14.5px] leading-relaxed text-muted balance">
-            {subtitle}
-          </p>
-        )}
       </div>
       {actions && <div className="flex flex-wrap items-center gap-3">{actions}</div>}
     </header>

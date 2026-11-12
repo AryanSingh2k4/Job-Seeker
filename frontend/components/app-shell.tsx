@@ -14,10 +14,9 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Toaster, toast } from "sonner";
 import {
   LayoutDashboard, Briefcase, ClipboardCheck, Radar, History, UserRound,
-  Settings, Search, ChevronsLeft, ChevronsRight,
+  Settings, Search, ChevronsLeft,
 } from "lucide-react";
 import { CommandPalette, openPalette } from "@/components/command-palette";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { bindTelemetry, useLiveRun } from "@/lib/stores/liveRun";
 import { SPRING } from "@/components/motion";
 import { cn } from "@/lib/utils";
@@ -29,7 +28,6 @@ const NAV = [
   { href: "/runs/", label: "Runs", icon: Radar },
   { href: "/applications/", label: "Applications", icon: History },
   { href: "/profile/", label: "Profile", icon: UserRound },
-  { href: "/settings/", label: "Settings", icon: Settings },
 ];
 
 function ToastBridge() {
@@ -51,13 +49,21 @@ function ToastBridge() {
   return null;
 }
 
-function Wordmark({ collapsed }: { collapsed: boolean }) {
+function Wordmark({ collapsed, onToggle }: { collapsed: boolean; onToggle: () => void }) {
   return (
-    <Link href="/dashboard/" className={cn("group flex items-center", collapsed ? "justify-center" : "gap-2.5 px-1")}>
+    <button
+      onClick={onToggle}
+      title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+      aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+      className={cn(
+        "group flex w-full cursor-pointer select-none items-center",
+        collapsed ? "justify-center" : "gap-2.5 px-1",
+      )}
+    >
       <span className="relative flex size-7 shrink-0 items-center justify-center">
         <span className="absolute inset-0 rounded-[9px] bg-gradient-to-br from-accent to-accent-hover shadow-glow transition-transform duration-500 group-hover:rotate-[18deg]" />
         <span className="absolute inset-[5px] rounded-[5px] bg-bg/80" />
-        <span className="relative size-1.5 rounded-full bg-accent-strong" />
+        <span className="relative size-1.5 rounded-full bg-accent-strong transition-transform duration-300 group-hover:scale-150" />
       </span>
       <AnimatePresence>
         {!collapsed && (
@@ -72,7 +78,15 @@ function Wordmark({ collapsed }: { collapsed: boolean }) {
           </motion.span>
         )}
       </AnimatePresence>
-    </Link>
+      {!collapsed && (
+        <ChevronsLeft
+          className={cn(
+            "ml-auto size-4 text-muted transition-all duration-300 group-hover:text-accent",
+            collapsed ? "opacity-0" : "opacity-100",
+          )}
+        />
+      )}
+    </button>
   );
 }
 
@@ -171,7 +185,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         className="glass sticky top-0 z-50 flex h-screen shrink-0 flex-col overflow-hidden border-r border-border/60"
       >
         <div className={cn("flex h-16 shrink-0 items-center pt-2", collapsed ? "justify-center px-0" : "px-4")}>
-          <Wordmark collapsed={collapsed} />
+          <Wordmark collapsed={collapsed} onToggle={toggleCollapse} />
         </div>
 
         <div className={cn("shrink-0 pb-4", collapsed ? "px-2" : "px-3")}>
@@ -224,19 +238,29 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           })}
         </nav>
 
-        <div className={cn("shrink-0 space-y-3 border-t border-border/60 py-3.5", collapsed ? "px-2" : "px-4")}>
+        <div className={cn("shrink-0 space-y-3 border-t border-border/60 py-3.5", collapsed ? "px-2" : "px-3")}>
           <TelemetryStatus collapsed={collapsed} />
-          <div className={cn("flex items-center justify-between", collapsed && "flex-col gap-2")}>
-            <ThemeToggle />
-            <button
-              onClick={toggleCollapse}
-              title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
-              aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
-              className="flex size-7 items-center justify-center rounded-lg border border-border text-muted transition-colors hover:border-accent/40 hover:text-text"
-            >
-              {collapsed ? <ChevronsRight className="size-3.5" /> : <ChevronsLeft className="size-3.5" />}
-            </button>
-          </div>
+          <Link
+            href="/settings/"
+            title={collapsed ? "Settings" : undefined}
+            className={cn(
+              "group relative flex items-center rounded-lg text-[13px] transition-colors",
+              collapsed ? "justify-center py-2.5" : "gap-3 px-3 py-2.5",
+              pathname.startsWith("/settings")
+                ? "text-text"
+                : "text-muted hover:bg-surface-2/70 hover:text-text",
+            )}
+          >
+            {pathname.startsWith("/settings") && (
+              <motion.span
+                layoutId="side-nav"
+                className="absolute inset-0 rounded-lg border border-accent/30 bg-accent-soft"
+                transition={SPRING}
+              />
+            )}
+            <Settings className={cn("relative z-10 size-4 shrink-0", pathname.startsWith("/settings") && "text-accent")} />
+            {!collapsed && <span className="relative z-10">Settings</span>}
+          </Link>
         </div>
       </motion.aside>
 

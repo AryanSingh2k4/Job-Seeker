@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { Check, Pencil, Gauge } from "lucide-react";
 import { toast } from "sonner";
 import { apiFetch } from "@/lib/api/client";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { PageIn, Rise } from "@/components/motion";
 import { Button, Chip, PageHeader, Panel, SectionTitle } from "@/components/ui";
 
@@ -79,6 +80,15 @@ export default function SettingsPage() {
       />
 
       <Rise className="mt-10 space-y-5">
+        <Panel className="p-6">
+          <div className="mb-1 text-sm font-semibold">Appearance</div>
+          <div className="text-[11px] text-faint">Dark or light — applies instantly, remembered on this device.</div>
+          <div className="mt-4 flex items-center justify-between rounded-lg border border-border/60 bg-surface-2/40 px-4 py-3">
+            <span className="text-sm">Theme</span>
+            <ThemeToggle />
+          </div>
+        </Panel>
+
         <Panel className="p-6">
           <div className="flex items-center gap-2.5">
             <span className="flex size-9 items-center justify-center rounded-xl border border-accent/25 bg-accent-soft text-accent">

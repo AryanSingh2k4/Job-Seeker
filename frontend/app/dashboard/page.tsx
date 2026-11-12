@@ -340,7 +340,6 @@ export default function DashboardPage() {
           </InView>
 
           <div className="flex items-center justify-center pt-2">
-            <Eyebrow>JobSeeker · apply with proof</Eyebrow>
           </div>
         </Stagger>
       )}

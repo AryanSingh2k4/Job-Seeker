@@ -132,7 +132,6 @@ export default function OnboardingPage() {
 
   return (
     <PageIn className="mx-auto max-w-3xl">
-      <Eyebrow className="mb-4">Getting started</Eyebrow>
       <h1 className="display text-[clamp(2.2rem,4vw,3.2rem)] leading-[0.98] text-text">Set up JobSeeker</h1>
       <p className="mt-3 text-sm text-muted">Four steps, one-time. Nothing is trusted until you confirm it.</p>
 

@@ -176,3 +176,9 @@ Owner rejected the blue/glass v2 as generic. Full identity rebuild:
 - Ticker/marquee strip deleted from the shell (Element 1, owner-selected)
 - Top command rail → **collapsible left sidebar**: wordmark, search (⌘K), 7 nav items, telemetry status, theme toggle, collapse toggle (persisted via localStorage); icon-rail mode at 64px with active-bar indicator
 - Flex wrapper restored (sidebar had gone full-width without it) — verified in browser: sidebar + dashboard render correctly, marquee gone, collapse toggle works
+
+### 2026-11-12 — Shell v5.2 (owner directives)
+- Eyebrow labels + page subtitles removed on EVERY page (PageHeader renders title only)
+- Theme toggle moved out of sidebar → Settings page (Appearance panel)
+- Settings nav item moved to the sidebar footer (below telemetry)
+- JobSeeker logo is now the collapse/expand button for the sidebar (chevron affordance shown expanded)
