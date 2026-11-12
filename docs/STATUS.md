@@ -117,3 +117,9 @@ Bugs filed: none
 **Backend gate (Gemini, lead-run):** boots ✓ · 52 passed/3 skipped ✓ · full §7 route surface present ✓ · /health payload matches §7.0 byte-shape ✓ · **P1 finding: /health mounted at root, contract requires /api/v1/health — add alias** · real openapi-M0.json still pending.
 **Desktop:** MSVC Build Tools installed (VC\Tools\MSVC present); first cargo build running.
 **Infra:** git baseline 5 commits; fixture subagents 3–4 running; agents 1–2 resume when slots free.
+
+### 2026-11-11 — Accelerated session: Gate-0 desktop CLOSED, Phase 2+3 done
+**Desktop (ZCode):** MSVC Build Tools installed ✓ · cargo build GREEN after 3 fixes (missing icon.ico — generated; missing Deserialize derive; moved-value) · **`jobseeker.exe` (12.6MB) + `autojob-core-stub.exe` built** — Gate-0 desktop half CLOSED. Stub handshake smoke pending.
+**Frontend (ZCode):** Phase 3 shipped — real 4-step onboarding wizard (animated step transitions, drag-drop resume, source toggles w/ LinkedIn warning) + Job Detail (query route /jobs?id=, Suspense-wrapped, animated 5-component score bars, matched/missing skill chips, JD view, artifacts tab). Build GREEN 12 pages. Fixes: useSearchParams import (next/navigation), icon.ico, stale-dev-server module graph (wiped .next).
+**Fixture agents:** contract-examples ✓ DONE — 66 files, ALL 15 frozen error codes, 12 mutation cases; agent caught an arithmetic inconsistency in spec §7.2's own score_breakdown example (finding logged for spec fix). GH/Lever recording resumed. LinkedIn/Ashby/CAPTCHA still running. JD corpus queued behind concurrency limit.
+**Gemini watch:** app boots, 52 tests green, full §7 routes — /api/v1/health alias (P1) still owed.
