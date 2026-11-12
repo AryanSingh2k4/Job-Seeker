@@ -1,36 +1,98 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
+import { motion } from "framer-motion";
+import { Activity, Bot, Database, KeyRound, Sparkles } from "lucide-react";
 import { apiFetch } from "@/lib/api/client";
 import type { Health } from "@/lib/api/types";
 import { useLiveRun } from "@/lib/stores/liveRun";
+import { CountUp, GlassCard, PageIn, ProgressRing, Rise, Stagger, SPRING } from "@/components/motion";
+import { cn } from "@/lib/utils";
 
-function Card({ label, value, tone = "" }: { label: string; value: string; tone?: string }) {
+function StatusCard({
+  icon: Icon,
+  label,
+  value,
+  ok,
+  pending,
+}: {
+  icon: typeof Database;
+  label: string;
+  value: string;
+  ok?: boolean;
+  pending?: boolean;
+}) {
   return (
-    <div className="rounded-lg border border-border bg-surface p-4">
-      <div className="text-xs text-muted">{label}</div>
-      <div className={`mt-1 text-xl font-semibold ${tone}`}>{value}</div>
-    </div>
+    <Rise>
+      <GlassCard className="group p-5">
+        <div className="flex items-center justify-between">
+          <span className="text-xs text-muted">{label}</span>
+          <span
+            className={cn(
+              "flex size-7 items-center justify-center rounded-lg border transition-colors",
+              ok
+                ? "border-score-high/25 bg-score-high/10 text-score-high"
+                : pending
+                  ? "border-border bg-surface-2 text-muted"
+                  : "border-gate-fail/25 bg-gate-fail/10 text-gate-fail",
+            )}
+          >
+            <Icon className="size-3.5" />
+          </span>
+        </div>
+        <div
+          className={cn(
+            "mt-3 text-lg font-semibold tracking-tight",
+            ok ? "text-score-high" : pending ? "text-muted" : "text-gate-fail",
+          )}
+        >
+          {value}
+        </div>
+      </GlassCard>
+    </Rise>
   );
 }
 
-function CapMeter({ label, used, limit }: { label: string; used: number; limit: number }) {
-  const pct = limit > 0 ? Math.min(100, Math.round((used / limit) * 100)) : 0;
-  const tone = pct >= 100 ? "bg-gate-fail" : pct >= 80 ? "bg-score-mid" : "bg-score-high";
+function Funnel() {
+  const stages = [
+    { label: "Discovered", value: 312, w: 100 },
+    { label: "Scored ≥65", value: 96, w: 31 },
+    { label: "Tailored", value: 41, w: 13 },
+    { label: "Applied", value: 12, w: 4 },
+  ];
   return (
-    <div>
-      <div className="mb-1 flex justify-between text-xs">
-        <span className="text-muted">{label}</span>
-        <span>
-          {used} / {limit}
-        </span>
+    <GlassCard hover={false} className="p-5">
+      <div className="mb-4 flex items-center gap-2 text-sm font-medium">
+        <Sparkles className="size-4 text-accent" /> Pipeline · last 7 days
       </div>
-      <div className="h-2 rounded bg-surface-2">
-        <div className={`h-2 rounded ${tone}`} style={{ width: `${pct}%` }} />
+      <div className="space-y-3">
+        {stages.map((s, i) => (
+          <div key={s.label}>
+            <div className="mb-1 flex justify-between text-[11px]">
+              <span className="text-muted">{s.label}</span>
+              <span className="tnum text-text">{s.value}</span>
+            </div>
+            <div className="h-1.5 overflow-hidden rounded-full bg-surface-2">
+              <motion.div
+                className="h-full rounded-full bg-gradient-to-r from-accent to-[#7c5bff]"
+                initial={{ width: 0 }}
+                animate={{ width: `${s.w}%` }}
+                transition={{ ...SPRING, delay: 0.15 + i * 0.08, damping: 30 }}
+                style={{ boxShadow: "0 0 12px -2px #5b8cff88" }}
+              />
+            </div>
+          </div>
+        ))}
       </div>
-    </div>
+      <div className="mt-4 border-t border-white/5 pt-3 text-[11px] text-muted">
+        <span className="tnum text-score-high">3</span> recruiter replies ·
+        <span className="tnum text-text"> 25%</span> response rate
+      </div>
+    </GlassCard>
   );
 }
+
+const STAGES = ["NAVIGATING", "FILLING", "UPLOADING", "ANSWERING", "REVIEW", "SUBMITTED"] as const;
 
 export default function DashboardPage() {
   const wsStatus = useLiveRun((s) => s.wsStatus);
@@ -43,64 +105,125 @@ export default function DashboardPage() {
 
   const h = q.data;
   const stage = lastEvent?.type === "APPLICATION_STAGE_CHANGED" ? lastEvent.payload : null;
+  const activeIdx = stage ? STAGES.indexOf(stage.stage.replace("_FIELDS", "").replace("PAUSED_FOR_", "") as never) : -1;
 
   return (
-    <section className="mx-auto max-w-5xl">
-      <h1 className="text-2xl font-semibold tracking-tight">Dashboard</h1>
-      <p className="mt-1 text-sm text-muted">
-        Week 0 build — live against the sidecar contract. Backend milestones land M0 → M6.
-      </p>
+    <PageIn className="mx-auto max-w-6xl">
+      <div className="flex items-end justify-between">
+        <div>
+          <h1 className="text-[26px] font-semibold tracking-tight">Dashboard</h1>
+          <p className="mt-1 text-sm text-muted">Every subsystem, at a glance.</p>
+        </div>
+        <div className="rounded-lg border border-white/5 bg-white/[0.03] px-3 py-1.5 text-[11px] text-muted">
+          sidecar <span className="tnum text-text">{h?.version ?? "—"}</span> · contract{" "}
+          <span className="tnum text-text">v{h?.contract_version ?? "1"}</span>
+        </div>
+      </div>
 
       {q.isError && (
-        <div className="mt-6 rounded-lg border border-gate-fail/40 bg-gate-fail/10 p-4 text-sm text-gate-fail">
-          Backend unreachable at the configured address. Start the sidecar (Gemini&apos;s M0) or
-          run dev with <code className="font-mono">NEXT_PUBLIC_MSW=1</code> for fixture mode.
+        <Rise className="mt-6">
+          <div className="rounded-xl border border-gate-fail/25 bg-gate-fail/5 p-4 text-sm text-gate-fail">
+            Backend unreachable. Start the sidecar (Gemini&apos;s M0) or fixture mode via{" "}
+            <code className="font-mono text-xs">.env.development</code>.
+          </div>
+        </Rise>
+      )}
+
+      {q.isLoading && (
+        <div className="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
+          {[...Array(4)].map((_, i) => (
+            <div key={i} className="skeleton h-[110px]" />
+          ))}
         </div>
       )}
 
       {h && (
-        <>
-          <div className="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
-            <Card label="Backend" value={h.status === "ok" ? "healthy" : h.status}
-              tone={h.status === "ok" ? "text-score-high" : "text-gate-fail"} />
-            <Card label="Database" value={h.db ? "SQLite (WAL) ok" : "down"}
-              tone={h.db ? "text-score-high" : "text-gate-fail"} />
-            <Card label="Automation browser" value={h.browser.running ? "running" : "not running"}
-              tone={h.browser.running ? "text-score-high" : "text-muted"} />
-            <Card label="LLM" value={h.llm.degraded ? "degraded (local)" : h.llm.configured ? "configured" : "no key"}
-              tone={h.llm.degraded ? "text-score-mid" : h.llm.configured ? "text-score-high" : "text-muted"} />
+        <Stagger className="mt-6" gap={0.07}>
+          <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+            <StatusCard icon={Activity} label="Backend" value="healthy" ok />
+            <StatusCard icon={Database} label="Database" value="SQLite · WAL" ok />
+            <StatusCard icon={Bot} label="Automation browser" value={h.browser.running ? "running" : "not running"} ok={h.browser.running} pending={!h.browser.running} />
+            <StatusCard icon={KeyRound} label="LLM" value={h.llm.degraded ? "degraded" : h.llm.configured ? "configured" : "no key"} ok={h.llm.configured && !h.llm.degraded} pending={!h.llm.configured} />
           </div>
 
-          <div className="mt-6 grid gap-6 lg:grid-cols-2">
-            <div className="rounded-lg border border-border bg-surface p-4">
-              <div className="mb-3 text-sm font-medium">Daily caps</div>
-              <div className="space-y-3">
-                <CapMeter label="LinkedIn Easy Apply" used={h.caps_today.linkedin.used} limit={h.caps_today.linkedin.limit} />
-                <CapMeter label="Direct ATS" used={h.caps_today.ats.used} limit={h.caps_today.ats.limit} />
-              </div>
-            </div>
-            <div className="rounded-lg border border-border bg-surface p-4">
-              <div className="mb-3 text-sm font-medium">Live run strip</div>
-              {stage ? (
-                <div className="text-sm">
-                  <div className="text-text">
-                    {stage.company} — step {stage.currentStep}/{stage.totalSteps}
+          <div className="mt-5 grid gap-4 lg:grid-cols-3">
+            <Rise className="lg:col-span-2">
+              <GlassCard hover={false} className="p-5">
+                <div className="mb-4 flex items-center justify-between">
+                  <div className="flex items-center gap-2 text-sm font-medium">
+                    <Activity className="size-4 text-accent" /> Daily caps
                   </div>
-                  <div className="mt-1 text-accent">{stage.stage}</div>
+                  <span className="text-[11px] text-muted">resets midnight</span>
+                </div>
+                <div className="flex items-center justify-around py-2">
+                  <div className="flex flex-col items-center gap-2">
+                    <ProgressRing value={h.caps_today.linkedin.used} max={h.caps_today.linkedin.limit} size={84} label="of 25" />
+                    <span className="text-xs text-muted">LinkedIn</span>
+                  </div>
+                  <div className="flex flex-col items-center gap-2">
+                    <ProgressRing value={h.caps_today.ats.used} max={h.caps_today.ats.limit} size={84} tone="var(--color-accent)" label="of 40" />
+                    <span className="text-xs text-muted">Direct ATS</span>
+                  </div>
+                  <div className="flex flex-col items-center gap-2">
+                    <ProgressRing value={h.caps_today.linkedin.used + h.caps_today.ats.used} max={20} size={84} tone="var(--color-prov-deterministic)" label="of 20" />
+                    <span className="text-xs text-muted">Global</span>
+                  </div>
+                </div>
+              </GlassCard>
+            </Rise>
+
+            <Rise>
+              <Funnel />
+            </Rise>
+          </div>
+
+          <Rise className="mt-5">
+            <GlassCard hover={false} className="p-5">
+              <div className="mb-4 flex items-center justify-between">
+                <div className="flex items-center gap-2 text-sm font-medium">
+                  <span className="relative flex size-2">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
+                    <span className="relative inline-flex size-2 rounded-full bg-accent" />
+                  </span>
+                  Live run
+                </div>
+                <span className="text-[11px] text-muted">telemetry {wsStatus}</span>
+              </div>
+              {stage ? (
+                <div>
+                  <div className="text-sm font-medium">
+                    {stage.company} <span className="text-muted">· step {stage.currentStep}/{stage.totalSteps}</span>
+                  </div>
+                  <div className="mt-4 flex items-center">
+                    {STAGES.map((s, i) => (
+                      <div key={s} className="flex flex-1 items-center last:flex-none">
+                        <div className="flex flex-col items-center gap-1.5">
+                          <motion.div
+                            initial={false}
+                            animate={{
+                              scale: i === activeIdx ? 1.15 : 1,
+                              backgroundColor: i <= activeIdx ? "var(--color-accent)" : "#1d2836",
+                            }}
+                            className={cn("size-3 rounded-full", i === activeIdx && "shadow-glow-accent")}
+                          />
+                          <span className={cn("text-[9px]", i <= activeIdx ? "text-text" : "text-muted")}>{s}</span>
+                        </div>
+                        {i < STAGES.length - 1 && (
+                          <div className="mx-1 h-px flex-1 bg-gradient-to-r from-accent/50 to-border" />
+                        )}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ) : (
-                <div className="text-sm text-muted">
-                  No active run. Telemetry: {wsStatus}
+                <div className="py-2 text-sm text-muted">
+                  No active run — the automation browser is idle. Approve a job to see it fill live.
                 </div>
               )}
-            </div>
-          </div>
-
-          <div className="mt-6 text-xs text-muted">
-            sidecar v{h.version} · contract v{h.contract_version}
-          </div>
-        </>
+            </GlassCard>
+          </Rise>
+        </Stagger>
       )}
-    </section>
+    </PageIn>
   );
 }

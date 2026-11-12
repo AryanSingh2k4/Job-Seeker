@@ -1,18 +1,18 @@
 "use client";
 
-import { PlannedList, StubScreen } from "@/components/stub-screen";
+import { PlannedScreen } from "@/components/planned-screen";
 
 export default function ApplicationsPage() {
   return (
-    <StubScreen title="Applications" phase="Every run, receipt, and answer — the accountability record">
-      <PlannedList
-        items={[
-          "History table: status chips, duration, confirmation receipt, screenshot link",
-          "Row expands into the full qa_answers_audit trail (tier, confidence, user_verified)",
-          "CSV export + funnel analytics land in F4 (backend M6)",
-          "Lands with backend M4 — see docs/FRONTEND_DASHBOARD_DESIGN.md §3.7",
-        ]}
-      />
-    </StubScreen>
+    <PlannedScreen
+      title="Applications"
+      subtitle="Every run, receipt, and answer — the accountability record"
+      items={[
+        "History table: status chips, duration, confirmation receipt, screenshot link",
+        "Row expands into the full qa_answers_audit trail (tier, confidence, user_verified)",
+        "CSV export + funnel analytics land with backend M6",
+        "Live with backend M4 (applier)",
+      ]}
+    />
   );
 }

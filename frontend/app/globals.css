@@ -1,35 +1,60 @@
 @import "tailwindcss";
 
 /*
- * JobSeeker design tokens — FRONTEND_DASHBOARD_DESIGN.md §4.
- * Dark-first. Tailwind v4 @theme maps tokens to utility classes
- * (bg-bg, bg-surface, text-accent, …).
+ * JobSeeker design system — "control room" aesthetic.
+ * Dark glass over a drifting aurora; hairline borders; one accent.
+ * Tokens feed Tailwind v4 utilities (bg-surface, text-accent, …).
  */
-@theme {
-  --color-bg: #0b0f14;
-  --color-surface: #111820;
-  --color-surface-2: #171f2a;
-  --color-border: #232d3a;
-  --color-text: #e5edf5;
-  --color-muted: #8b98a9;
 
-  --color-accent: #4f8cff;
-  --color-accent-hover: #3d78e8;
+@theme {
+  --color-bg: #070a0f;
+  --color-surface: #0d1420;
+  --color-surface-2: #131c2b;
+  --color-border: #1d2836;
+  --color-text: #e8eef6;
+  --color-muted: #8fa0b3;
+
+  --color-accent: #5b8cff;
+  --color-accent-soft: #5b8cff26;
+  --color-accent-hover: #7aa4ff;
 
   /* score bands */
-  --color-score-high: #22c55e;   /* >= 80  auto-stage */
-  --color-score-mid: #f59e0b;    /* 65-79  HITL review */
-  --color-score-low: #64748b;    /* < 65   skipped */
-  --color-gate-fail: #ef4444;    /* hard-gate disqualification */
+  --color-score-high: #34d399;
+  --color-score-mid: #fbbf24;
+  --color-score-low: #64748b;
+  --color-gate-fail: #f87171;
 
   /* Q&A provenance */
   --color-prov-deterministic: #38bdf8;
-  --color-prov-llm: #f59e0b;
-  --color-prov-unresolved: #ef4444;
+  --color-prov-llm: #fbbf24;
+  --color-prov-unresolved: #f87171;
 
-  --font-sans: "Segoe UI Variable", "Segoe UI", system-ui, -apple-system,
-    "Helvetica Neue", Arial, sans-serif;
+  --font-sans: "Segoe UI Variable Display", "Segoe UI", system-ui, -apple-system, sans-serif;
   --font-mono: "Cascadia Code", "Consolas", ui-monospace, monospace;
+
+  --shadow-glow-accent: 0 0 24px -6px #5b8cff66;
+  --shadow-glow-green: 0 0 20px -4px #34d39955;
+  --shadow-panel: 0 8px 32px -12px #000000cc;
+
+  --animate-shimmer: shimmer 2.2s linear infinite;
+  --animate-aurora: aurora 26s ease-in-out infinite alternate;
+  --animate-breathe: breathe 3.2s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes aurora {
+  0%   { transform: translate(-6%, -4%) scale(1); }
+  50%  { transform: translate(5%, 6%) scale(1.12); }
+  100% { transform: translate(-3%, 3%) scale(1.05); }
+}
+
+@keyframes breathe {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
 }
 
 html {
@@ -41,8 +66,82 @@ body {
   color: var(--color-text);
   font-family: var(--font-sans);
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 ::selection {
-  background: color-mix(in srgb, var(--color-accent) 40%, transparent);
+  background: color-mix(in srgb, var(--color-accent) 35%, transparent);
 }
+
+/* ---------- materials ---------- */
+
+.aurora-layer {
+  position: fixed;
+  inset: -20%;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(42rem 30rem at 12% -6%, #1b3a6b55, transparent 60%),
+    radial-gradient(38rem 26rem at 88% 8%, #312d6e4d, transparent 60%),
+    radial-gradient(46rem 34rem at 55% 108%, #0e3b3250, transparent 62%);
+  filter: blur(2px);
+  animation: var(--animate-aurora);
+}
+
+.grain-layer {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+}
+
+.glass {
+  background: linear-gradient(180deg, #101a2acc 0%, #0c1320b3 100%);
+  backdrop-filter: blur(14px);
+  border: 1px solid #ffffff0d;
+  box-shadow: var(--shadow-panel);
+}
+
+.glass-soft {
+  background: #101a2a80;
+  backdrop-filter: blur(10px);
+  border: 1px solid #ffffff0a;
+}
+
+.hairline {
+  border: 1px solid #ffffff0d;
+}
+
+/* gradient hairline on top of cards — quiet luxury */
+.edge-glow {
+  position: relative;
+}
+.edge-glow::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #ffffff2e, transparent);
+  pointer-events: none;
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #131c2b 25%, #1c2739 42%, #131c2b 58%);
+  background-size: 200% 100%;
+  animation: var(--animate-shimmer);
+  border-radius: 8px;
+}
+
+/* scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #26344a transparent;
+}
+*::-webkit-scrollbar { width: 8px; height: 8px; }
+*::-webkit-scrollbar-thumb { background: #26344a; border-radius: 8px; }
+*::-webkit-scrollbar-track { background: transparent; }
+
+/* numeric alignment everywhere numbers render */
+.tnum { font-variant-numeric: tabular-nums; }
