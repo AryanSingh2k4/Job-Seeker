@@ -65,3 +65,9 @@ cd backend && uvicorn app.main:app   # http://127.0.0.1:8000
 - ⏳ Desktop: cargo build verification (running), then Gate-0 desktop half
 - ⏳ Frontend F1: onboarding wizard + job detail
 - ⏳ QA orchestrator pass over Phase 2 frontend
+
+**LATEST (accelerated session 2)**
+- ✅ QA orchestrator verdict PASS-WITH-FIXES → all 10 findings fixed & pushed
+- ✅ 30-JD golden corpus (real postings, live APIs) · GH×3/Lever×2 recordings pushed
+- ✅ Gemini P1 (/api/v1/health alias) verified closed by lead boot test
+- ⏳ Backend M1–M6 (Gemini, in progress) · openapi-M0 real snapshot · JD-corpus-driven matcher validation
