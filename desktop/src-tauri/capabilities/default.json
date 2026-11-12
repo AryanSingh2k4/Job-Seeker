@@ -1,0 +1,12 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Least-privilege defaults for the JobSeeker shell windows (D26).",
+  "windows": ["main", "splash"],
+  "permissions": [
+    "core:default",
+    "core:window:allow-show",
+    "core:window:allow-close",
+    "core:window:allow-set-focus"
+  ]
+}

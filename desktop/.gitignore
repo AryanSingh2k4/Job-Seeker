@@ -1,0 +1,4 @@
+# Rust / Tauri build artifacts
+# (Cargo.lock is committed — binary crate, reproducible builds)
+target/
+gen/

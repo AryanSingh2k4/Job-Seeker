@@ -1,0 +1,44 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "JobSeeker",
+  "mainBinaryName": "jobseeker",
+  "version": "0.1.0",
+  "identifier": "com.jobseeker.desktop",
+  "build": {
+    "beforeDevCommand": "npm --prefix ../frontend run dev",
+    "devUrl": "http://localhost:3000",
+    "beforeBuildCommand": "npm --prefix ../frontend run build",
+    "frontendDist": "../frontend/out"
+  },
+  "app": {
+    "withGlobalTauri": true,
+    "windows": [
+      {
+        "label": "splash",
+        "title": "Starting JobSeeker…",
+        "width": 420,
+        "height": 200,
+        "resizable": false,
+        "decorations": false,
+        "center": true,
+        "visible": true
+      },
+      {
+        "label": "main",
+        "title": "JobSeeker",
+        "width": 1280,
+        "height": 800,
+        "minWidth": 1024,
+        "minHeight": 640,
+        "center": true,
+        "visible": false
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": false
+  }
+}
