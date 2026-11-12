@@ -506,6 +506,179 @@
         "markers": [],
         "outcome": "resume"
       }
+    },
+    {
+      "id": "greenhouse.affirm",
+      "path": "greenhouse/affirm_job.html",
+      "platform": "greenhouse",
+      "form_state": "application",
+      "source": "recorded",
+      "recorded_on": "2026-11-11",
+      "recorded_url": "https://boards.greenhouse.io/affirm/jobs/8033261003",
+      "companion": "greenhouse/affirm_questions.json",
+      "record_invariant": "real public page, recorded 2026-11-11, no credentials",
+      "notes": "Affirm 'Machine Learning Engineer II (ROA + LTV ML)', Remote Canada. boards.greenhouse.io serves (via redirect to job-boards.greenhouse.io) a single page embedding the full SSR application <form>. Modern Greenhouse board: inputs carry id= attributes but no name= attributes; selectors must use ids. Resume and cover letter are visually-hidden file inputs behind a custom dropzone. Custom-question schema (19 questions) captured in the companion questions JSON (boards-api .../jobs/{id}?questions=true).",
+      "expected": {
+        "fields": [
+          {"key": "first_name", "selector": "#first_name", "kind": "text", "required": true},
+          {"key": "last_name", "selector": "#last_name", "kind": "text", "required": true},
+          {"key": "email", "selector": "#email", "kind": "email", "required": true},
+          {"key": "phone", "selector": "#phone", "kind": "tel", "required": true},
+          {"key": "resume", "selector": "#resume", "kind": "file", "required": true, "notes": "visually-hidden input; resolve the input, not the dropzone"},
+          {"key": "cover_letter", "selector": "#cover_letter", "kind": "file", "required": false},
+          {"key": "country", "selector": "#country", "kind": "select", "required": false, "notes": "react-select combobox (type=text, aria-haspopup=true) for work-location country"},
+          {"key": "linkedin_profile", "selector": "#question_33135509003", "kind": "url", "required": false},
+          {"key": "current_company", "selector": "#question_33135510003", "kind": "text", "required": false},
+          {"key": "preferred_name", "selector": "#question_33135511003", "kind": "text", "required": true},
+          {"key": "name_pronunciation", "selector": "#question_33135512003", "kind": "text", "required": false},
+          {"key": "pronouns", "selector": "#question_33135513003", "kind": "select", "required": true},
+          {"key": "require_sponsorship_canada", "selector": "#question_33135514003", "kind": "select", "required": true, "high_stakes": true},
+          {"key": "residence_state_province", "selector": "#question_33135515003", "kind": "select", "required": true},
+          {"key": "hear_about_affirm", "selector": "#question_33135516003", "kind": "select", "required": true},
+          {"key": "github", "selector": "#question_33135517003", "kind": "url", "required": false},
+          {"key": "twitter", "selector": "#question_33135518003", "kind": "url", "required": false},
+          {"key": "portfolio", "selector": "#question_33135519003", "kind": "url", "required": false},
+          {"key": "other_links", "selector": "#question_33135520003", "kind": "textarea", "required": false},
+          {"key": "previously_employed_at_affirm", "selector": "#question_33135521003", "kind": "select", "required": true}
+        ],
+        "outcome": "fill_and_submit"
+      }
+    },
+    {
+      "id": "greenhouse.discord",
+      "path": "greenhouse/discord_job.html",
+      "platform": "greenhouse",
+      "form_state": "application",
+      "source": "recorded",
+      "recorded_on": "2026-11-11",
+      "recorded_url": "https://boards.greenhouse.io/discord/jobs/8460791002",
+      "companion": "greenhouse/discord_questions.json",
+      "record_invariant": "real public page, recorded 2026-11-11, no credentials",
+      "notes": "Discord 'Senior Software Engineer, Consumer Revenue', San Francisco Bay Area. Standard job-boards.greenhouse.io page with SSR application <form>; id-based selectors, no name attributes. Includes an education block (school/degree/discipline) and a candidate-location react-select. Per the questions API the resume field is NOT required on this board. Custom-question schema (13 questions) in companion questions JSON.",
+      "expected": {
+        "fields": [
+          {"key": "first_name", "selector": "#first_name", "kind": "text", "required": true},
+          {"key": "last_name", "selector": "#last_name", "kind": "text", "required": true},
+          {"key": "email", "selector": "#email", "kind": "email", "required": true},
+          {"key": "phone", "selector": "#phone", "kind": "tel", "required": true},
+          {"key": "resume", "selector": "#resume", "kind": "file", "required": false, "notes": "visually-hidden input; required=false for this posting per questions API"},
+          {"key": "cover_letter", "selector": "#cover_letter", "kind": "file", "required": false},
+          {"key": "candidate_location", "selector": "#candidate-location", "kind": "text", "required": false, "notes": "react-select combobox"},
+          {"key": "school", "selector": "#school--0", "kind": "text", "required": false},
+          {"key": "degree", "selector": "#degree--0", "kind": "select", "required": false},
+          {"key": "discipline", "selector": "#discipline--0", "kind": "select", "required": false},
+          {"key": "why_discord", "selector": "#question_35679824002", "kind": "textarea", "required": true},
+          {"key": "linkedin_profile", "selector": "#question_35679825002", "kind": "url", "required": false},
+          {"key": "website", "selector": "#question_35679826002", "kind": "url", "required": false},
+          {"key": "hear_about_job", "selector": "#question_35679827002", "kind": "text", "required": false},
+          {"key": "work_authorized_us", "selector": "#question_35679828002", "kind": "select", "required": true, "high_stakes": true},
+          {"key": "based_sf_bay_area", "selector": "#question_35679830002", "kind": "select", "required": true},
+          {"key": "willing_to_relocate_sf", "selector": "#question_35790299002", "kind": "select", "required": true}
+        ],
+        "outcome": "fill_and_submit"
+      }
+    },
+    {
+      "id": "greenhouse.robinhood",
+      "path": "greenhouse/robinhood_job.html",
+      "platform": "greenhouse",
+      "form_state": "application",
+      "source": "recorded",
+      "recorded_on": "2026-11-11",
+      "recorded_url": "https://boards.greenhouse.io/robinhood/jobs/8008723",
+      "companion": "greenhouse/robinhood_questions.json",
+      "record_invariant": "real public page, recorded 2026-11-11, no credentials",
+      "notes": "Robinhood 'Full Stack Software Engineer, Credit Cards & Banking', Bellevue WA / Menlo Park CA / New York NY. Standard job-boards.greenhouse.io page with SSR application <form>; id-based selectors. Long compliance questionnaire (conflicts-of-interest, government-official disclosure) captured verbatim. Custom-question schema (19 questions) in companion questions JSON.",
+      "expected": {
+        "fields": [
+          {"key": "first_name", "selector": "#first_name", "kind": "text", "required": true},
+          {"key": "last_name", "selector": "#last_name", "kind": "text", "required": true},
+          {"key": "email", "selector": "#email", "kind": "email", "required": true},
+          {"key": "phone", "selector": "#phone", "kind": "tel", "required": true},
+          {"key": "resume", "selector": "#resume", "kind": "file", "required": true, "notes": "visually-hidden input; resolve the input, not the dropzone"},
+          {"key": "cover_letter", "selector": "#cover_letter", "kind": "file", "required": false},
+          {"key": "candidate_location", "selector": "#candidate-location", "kind": "text", "required": false, "notes": "react-select combobox"},
+          {"key": "linkedin_profile", "selector": "#question_67634731", "kind": "url", "required": false},
+          {"key": "website", "selector": "#question_67634732", "kind": "url", "required": false},
+          {"key": "hear_about_job", "selector": "#question_67634733", "kind": "text", "required": false},
+          {"key": "used_robinhood", "selector": "#question_67634734", "kind": "select", "required": false},
+          {"key": "previously_worked_at_robinhood", "selector": "#question_67634735", "kind": "select", "required": true, "high_stakes": true},
+          {"key": "work_authorized_us", "selector": "#question_67634737", "kind": "select", "required": true, "high_stakes": true},
+          {"key": "require_sponsorship_us", "selector": "#question_67634738", "kind": "select", "required": true, "high_stakes": true},
+          {"key": "willing_office_locations", "selector": "#question_67634739", "kind": "select", "required": true},
+          {"key": "preferred_office", "selector": "#question_67634740", "kind": "select", "required": true},
+          {"key": "conflicts_disclosure", "selector": "#question_67634741", "kind": "select", "required": true, "high_stakes": true},
+          {"key": "conflicts_details", "selector": "#question_67634742", "kind": "text", "required": false},
+          {"key": "government_official_disclosure", "selector": "#question_67634743", "kind": "select", "required": true, "high_stakes": true},
+          {"key": "government_official_details", "selector": "#question_67634744", "kind": "text", "required": false}
+        ],
+        "outcome": "fill_and_submit"
+      }
+    },
+    {
+      "id": "lever.palantir",
+      "path": "lever/palantir_job.html",
+      "platform": "lever",
+      "form_state": "application",
+      "source": "recorded",
+      "recorded_on": "2026-11-11",
+      "recorded_url": "https://jobs.lever.co/palantir/3d06b4bc-6a7b-4f73-b5c5-4544354e3d0f/apply",
+      "record_invariant": "real public page, recorded 2026-11-11, no credentials",
+      "notes": "Palantir 'Edge Infrastructure Engineer' (posting 3d06b4bc-6a7b-4f73-b5c5-4544354e3d0f). Lever job detail pages now render the application form client-side, so this fixture records the same posting's /apply URL, which server-renders the full <form id=\"application-form\" enctype=\"multipart/form-data\">. Classic Lever field names (name/email/phone/org/urls[...]/resume/comments) plus card-based custom questions (cards[<uuid>][fieldN]). Resume input is invisible behind a dropzone (data-qa=input-resume). Submit is protected by hCaptcha (hidden input name=h-captcha-response) - offline tests can fill but not submit.",
+      "expected": {
+        "fields": [
+          {"key": "name", "selector": "input[name=\"name\"]", "kind": "text", "required": true, "notes": "data-qa=name-input"},
+          {"key": "email", "selector": "input[name=\"email\"]", "kind": "email", "required": true},
+          {"key": "phone", "selector": "input[name=\"phone\"]", "kind": "tel", "required": false},
+          {"key": "location", "selector": "#location-input", "kind": "text", "required": true, "notes": "name=location; paired hidden input name=selectedLocation"},
+          {"key": "org", "selector": "input[name=\"org\"]", "kind": "text", "required": false, "notes": "current company"},
+          {"key": "resume", "selector": "#resume-upload-input", "kind": "file", "required": true, "notes": "invisible input behind custom dropzone"},
+          {"key": "linkedin_url", "selector": "input[name=\"urls[LinkedIn]\"]", "kind": "url", "required": false},
+          {"key": "github_url", "selector": "input[name=\"urls[GitHub]\"]", "kind": "url", "required": false},
+          {"key": "portfolio_url", "selector": "input[name=\"urls[Portfolio]\"]", "kind": "url", "required": false},
+          {"key": "cover_letter", "selector": "#additional-information", "kind": "textarea", "required": false, "notes": "name=comments"},
+          {"key": "languages", "selector": "input[name=\"cards[a69a985a-eae9-4c14-90fb-b5a4b891523e][field0]\"]", "kind": "checkbox", "required": false, "notes": "multi-select checkbox group (spoken languages); same name repeated with different value attributes"},
+          {"key": "work_authorization", "selector": "input[name=\"cards[1c719ca9-5069-4afe-9e82-39ca420e0edb][field0]\"]", "kind": "radio", "required": true, "high_stakes": true, "notes": "Yes/No radios; card also has [field1] second Yes/No question"},
+          {"key": "university", "selector": "select[name=\"cards[3da58b41-acf5-40a1-945e-c7f047ef8050][field0]\"]", "kind": "select", "required": true},
+          {"key": "hear_about", "selector": "select[name=\"cards[a6197d84-549e-4a91-8bb0-6af972510013][field0]\"]", "kind": "select", "required": true},
+          {"key": "additional_info_1", "selector": "textarea[name=\"cards[ce72d538-c9ad-41f3-8e9a-618d40c82e3a][field0]\"]", "kind": "textarea", "required": false},
+          {"key": "additional_info_2", "selector": "textarea[name=\"cards[ce72d538-c9ad-41f3-8e9a-618d40c82e3a][field1]\"]", "kind": "textarea", "required": false},
+          {"key": "ai_notetaker_consent", "selector": "input[name=\"cards[73796cde-fc01-4758-9002-c85155f3503d][field0]\"]", "kind": "radio", "required": true, "notes": "Yes, I consent / No, I do not consent"},
+          {"key": "marketing_consent", "selector": "input[name=\"consent[marketing]\"]", "kind": "checkbox", "required": false, "notes": "paired hidden input value=0 and checkbox value=1"}
+        ],
+        "outcome": "fill_and_submit"
+      }
+    },
+    {
+      "id": "lever.spotify",
+      "path": "lever/spotify_job.html",
+      "platform": "lever",
+      "form_state": "application",
+      "source": "recorded",
+      "recorded_on": "2026-11-11",
+      "recorded_url": "https://jobs.lever.co/spotify/9f66e598-8587-4a57-8552-2cdb8672014a/apply",
+      "record_invariant": "real public page, recorded 2026-11-11, no credentials",
+      "notes": "Spotify 'Senior Backend Engineer - Content Platform' (posting 9f66e598-8587-4a57-8552-2cdb8672014a). Recorded from the posting's /apply URL because Lever job detail pages render the application form client-side; this page server-renders the full <form id=\"application-form\">. All core contact fields are required on this board (unlike Palantir). Includes pronouns checkbox group, opportunityLocationId role-location select, urls[Other], a Previous Spotify Employment card, four demographic survey blocks (surveysResponses[<uuid>][responses][fieldN] radio groups), and consent[marketing]. hCaptcha hidden input present - offline tests can fill but not submit.",
+      "expected": {
+        "fields": [
+          {"key": "name", "selector": "input[name=\"name\"]", "kind": "text", "required": true, "notes": "data-qa=name-input"},
+          {"key": "email", "selector": "input[name=\"email\"]", "kind": "email", "required": true},
+          {"key": "phone", "selector": "input[name=\"phone\"]", "kind": "tel", "required": true},
+          {"key": "location", "selector": "#location-input", "kind": "text", "required": true, "notes": "name=location; paired hidden input name=selectedLocation"},
+          {"key": "org", "selector": "input[name=\"org\"]", "kind": "text", "required": true, "notes": "current company; required on this board"},
+          {"key": "resume", "selector": "#resume-upload-input", "kind": "file", "required": true, "notes": "invisible input behind custom dropzone"},
+          {"key": "linkedin_url", "selector": "input[name=\"urls[LinkedIn]\"]", "kind": "url", "required": false},
+          {"key": "github_url", "selector": "input[name=\"urls[GitHub]\"]", "kind": "url", "required": false},
+          {"key": "portfolio_url", "selector": "input[name=\"urls[Portfolio]\"]", "kind": "url", "required": false},
+          {"key": "other_url", "selector": "input[name=\"urls[Other]\"]", "kind": "url", "required": false},
+          {"key": "pronouns", "selector": "input[name=\"pronouns\"]", "kind": "checkbox", "required": false, "notes": "checkbox group incl. custom free-text option (#customPronounsTextField)"},
+          {"key": "opportunity_location", "selector": "select[name=\"opportunityLocationId\"]", "kind": "select", "required": false, "notes": "role-specific location select (data-qa=opportunity-location-select)"},
+          {"key": "previous_spotify_employment", "selector": "input[name=\"cards[92a51f92-d683-4f7b-be57-e25376f60abe][field0]\"]", "kind": "checkbox", "required": false, "notes": "No / Yes - Intern / Yes - Full Time Employment"},
+          {"key": "demographic_survey_gender", "selector": "input[name=\"surveysResponses[cbf1b3c9-4157-4ddd-a66e-41dae0d8badb][responses][field0]\"]", "kind": "radio", "required": false, "notes": "representative radio group; three more survey blocks follow the same surveysResponses[<uuid>] pattern"},
+          {"key": "marketing_consent", "selector": "input[name=\"consent[marketing]\"]", "kind": "checkbox", "required": false, "notes": "paired hidden input value=0 and checkbox value=1"}
+        ],
+        "outcome": "fill_and_submit"
+      }
     }
   ]
 }
