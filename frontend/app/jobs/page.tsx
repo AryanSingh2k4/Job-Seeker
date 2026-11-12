@@ -1,9 +1,9 @@
 "use client";
 
 /*
- * Job Inbox — discovery surface (§7.2 JobListItem). One glass table, hairline
- * rows, j/k spotlight. Score bands and "fresh < 24h" filter client-side over
- * the fetched items; load-more appends pages from GET /jobs?page=N.
+ * Job Inbox — discovery surface (§7.2 JobListItem). One hairline table, j/k
+ * spotlight. Score bands and "fresh <24h" filter client-side over the fetched
+ * items; load-more appends pages from GET /jobs?page=N.
  */
 
 import { useQuery } from "@tanstack/react-query";
@@ -13,7 +13,8 @@ import { AlertTriangle, ChevronDown, Inbox, Loader2, MapPin, RefreshCw } from "l
 import { Suspense, useEffect, useMemo, useState } from "react";
 import { apiFetch } from "@/lib/api/client";
 import type { JobListItem, Paged } from "@/lib/api/types";
-import { CountUp, GlassCard, PageIn, Rise, Stagger, SPRING } from "@/components/motion";
+import { CountUp, PageIn, Rise, SPRING, Stagger } from "@/components/motion";
+import { Button, EmptyState, PageHeader, Panel } from "@/components/ui";
 import { ScoreChip } from "@/components/score-chip";
 import { CompanyAvatar } from "@/components/company-avatar";
 import { JobDetailPanel } from "@/components/job-detail";
@@ -27,7 +28,7 @@ type BandId = "all" | "ge80" | "mid" | "new";
 /* Client-side filters over the fetched items — "New" = discovered < 24h. */
 const BANDS: { id: BandId; label: string; test: (j: JobListItem) => boolean }[] = [
   { id: "all", label: "All", test: () => true },
-  { id: "ge80", label: "≥80", test: (j) => j.match_score != null && j.match_score >= 80 },
+  { id: "ge80", label: "≥ 80", test: (j) => j.match_score != null && j.match_score >= 80 },
   {
     id: "mid",
     label: "65–79",
@@ -37,8 +38,7 @@ const BANDS: { id: BandId; label: string; test: (j: JobListItem) => boolean }[] 
 ];
 
 /* Shared row geometry: avatar | role | source | salary | score | found. */
-const ROW_GRID =
-  "grid grid-cols-[36px_minmax(0,1fr)_88px_104px_72px_56px] items-center gap-x-4";
+const ROW_GRID = "grid grid-cols-[40px_minmax(0,1fr)_96px_108px_86px_64px] items-center gap-x-4";
 
 const fmtDate = (iso: string) =>
   new Date(iso).toLocaleDateString(undefined, { month: "short", day: "numeric" });
@@ -48,7 +48,7 @@ function TableHead() {
     <div
       className={cn(
         ROW_GRID,
-        "border-b border-border/60 px-5 py-2.5 text-[10px] font-medium uppercase tracking-[0.14em] text-muted",
+        "border-b border-border/70 px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.16em] text-faint",
       )}
     >
       <span />
@@ -63,7 +63,7 @@ function TableHead() {
 
 function SalaryText({ job }: { job: JobListItem }) {
   const s = job.salary;
-  if (!s?.min_amount) return <span className="text-xs text-muted/50">—</span>;
+  if (!s?.min_amount) return <span className="text-xs text-faint">—</span>;
   const k = (n: number) => (n >= 1000 ? `$${Math.round(n / 1000)}k` : `$${n}`);
   const lo = s.interval === "hourly" ? `$${Math.round(s.min_amount)}` : k(s.min_amount);
   const hi =
@@ -74,7 +74,7 @@ function SalaryText({ job }: { job: JobListItem }) {
       : null;
   const suffix = s.interval === "hourly" ? "/hr" : s.interval === "monthly" ? "/mo" : "";
   return (
-    <span className="tnum font-mono text-xs text-muted">
+    <span className="tnum font-mono text-[11px] text-muted">
       {hi ? `${lo}–${hi}` : lo}
       {suffix}
     </span>
@@ -83,7 +83,7 @@ function SalaryText({ job }: { job: JobListItem }) {
 
 function SourceBadge({ source }: { source: string }) {
   return (
-    <span className="w-fit rounded-md border border-border/60 bg-surface-2/50 px-1.5 py-0.5 text-[9px] font-medium uppercase tracking-[0.08em] text-muted">
+    <span className="w-fit rounded-md border border-border/70 bg-surface-2/50 px-2 py-0.5 font-mono text-[9px] uppercase tracking-[0.1em] text-faint">
       {source}
     </span>
   );
@@ -99,19 +99,19 @@ function Segmented({
   onChange: (b: BandId) => void;
 }) {
   return (
-    <div className="inline-flex items-center rounded-full border border-border/60 bg-surface-2/50 p-1">
+    <div className="inline-flex items-center rounded-full border border-border/70 bg-surface-2/40 p-1">
       {BANDS.map((b) => {
         const active = band === b.id;
         return (
           <button
             key={b.id}
             onClick={() => onChange(b.id)}
-            className="relative rounded-full px-3 py-1.5 text-xs font-medium"
+            className="relative rounded-full px-3.5 py-1.5 text-[12px] font-medium"
           >
             {active && (
               <motion.span
                 layoutId="jobs-band-pill"
-                className="absolute inset-0 rounded-full border border-accent/30 bg-accent-soft"
+                className="absolute inset-0 rounded-full border border-accent/35 bg-accent-soft"
                 transition={SPRING}
               />
             )}
@@ -122,12 +122,7 @@ function Segmented({
               )}
             >
               {b.label}
-              <span
-                className={cn(
-                  "tnum font-mono text-[10px]",
-                  active ? "text-accent/70" : "text-muted/60",
-                )}
-              >
+              <span className={cn("tnum font-mono text-[10px]", active ? "text-accent/70" : "text-faint")}>
                 {counts[b.id]}
               </span>
             </span>
@@ -153,23 +148,23 @@ function JobRow({
       onClick={onOpen}
       className={cn(
         ROW_GRID,
-        "group relative w-full px-5 py-3 text-left transition-[background-color,box-shadow] duration-200 hover:bg-surface-2/60",
-        active && "bg-surface-2/40 shadow-glow",
+        "group relative w-full px-5 py-3.5 text-left transition-colors duration-200 hover:bg-surface-2/60",
+        active && "bg-surface-2/50",
       )}
     >
-      <CompanyAvatar name={job.company} size={36} />
+      <CompanyAvatar name={job.company} size={38} />
       <div className="min-w-0">
-        <div className="truncate text-[13px] font-medium text-text">{job.title}</div>
+        <div className="truncate text-[13.5px] font-semibold text-text">{job.title}</div>
         <div className="mt-1 flex items-center gap-1.5 text-[11px] text-muted">
           <span className="truncate">{job.company}</span>
-          <span className="shrink-0 text-muted/50">·</span>
+          <span className="shrink-0 text-faint">·</span>
           <span className="inline-flex min-w-0 items-center gap-1">
             <MapPin className="size-3 shrink-0" />
             <span className="truncate">{job.location}</span>
           </span>
           {job.workplace_type !== "unknown" && (
             <>
-              <span className="shrink-0 text-muted/50">·</span>
+              <span className="shrink-0 text-faint">·</span>
               <span className="shrink-0 capitalize">{job.workplace_type}</span>
             </>
           )}
@@ -183,19 +178,14 @@ function JobRow({
         <ScoreChip score={job.match_score} status={job.status} />
       </div>
       <div className="flex items-center justify-end gap-1.5">
-        {fresh && (
-          <span
-            title="discovered < 24h ago"
-            className="size-1.5 shrink-0 rounded-full bg-accent shadow-glow"
-          />
-        )}
+        {fresh && <span title="discovered < 24h ago" className="size-1.5 shrink-0 rounded-full bg-accent shadow-glow" />}
         <span className="tnum text-[11px] text-muted">{fmtDate(job.date_discovered)}</span>
       </div>
       <span
         aria-hidden
         className={cn(
-          "pointer-events-none absolute inset-0 border transition-colors duration-200",
-          active ? "border-accent/40" : "border-transparent group-hover:border-accent/30",
+          "pointer-events-none absolute inset-y-0 left-0 w-[2px] rounded-r transition-colors duration-200",
+          active ? "bg-accent" : "bg-transparent group-hover:bg-accent/50",
         )}
       />
     </button>
@@ -204,7 +194,7 @@ function JobRow({
 
 function SkeletonRow() {
   return (
-    <div className={cn(ROW_GRID, "px-5 py-3")}>
+    <div className={cn(ROW_GRID, "px-5 py-3.5")}>
       <div className="skeleton size-9 rounded-xl" />
       <div className="min-w-0 space-y-2">
         <div className="skeleton h-3.5 w-2/5" />
@@ -286,93 +276,87 @@ function JobsInner() {
   }
 
   return (
-    <PageIn className="mx-auto max-w-6xl">
-      {/* header: title + hints left, segmented bands + hero total right */}
-      <div className="flex flex-wrap items-end justify-between gap-x-10 gap-y-5">
-        <div>
-          <h1 className="text-[32px] font-semibold tracking-[-0.03em]">Job Inbox</h1>
-          <p className="mt-2 text-sm text-muted">
-            <kbd className="rounded border border-border/60 bg-surface-2/50 px-1 font-mono text-[10px]">j</kbd>
-            <kbd className="ml-0.5 rounded border border-border/60 bg-surface-2/50 px-1 font-mono text-[10px]">k</kbd>{" "}
-            to walk the inbox · click a row for the full brief
-          </p>
-        </div>
-        <div className="flex flex-wrap items-end gap-x-8 gap-y-4">
-          <Segmented
-            band={band}
-            counts={counts}
-            onChange={(b) => {
-              setBand(b);
-              setCursor(0);
-            }}
-          />
-          <div className="text-right">
-            <div className="hero-num text-[56px] leading-none text-text">
-              <CountUp value={totalCount} />
-            </div>
-            <div className="mt-1.5 text-[11px] font-medium uppercase tracking-[0.14em] text-muted">
-              jobs discovered
+    <PageIn>
+      <PageHeader
+        eyebrow="Discovery"
+        title="Job inbox"
+        subtitle={
+          <>
+            <kbd className="rounded border border-border/70 bg-surface-2/50 px-1.5 py-0.5 font-mono text-[10px] text-muted">j</kbd>
+            <kbd className="ml-1 rounded border border-border/70 bg-surface-2/50 px-1.5 py-0.5 font-mono text-[10px] text-muted">k</kbd>{" "}
+            to walk the list — open a row for the full brief, score and artifacts.
+          </>
+        }
+        actions={
+          <div className="flex flex-wrap items-end gap-x-8 gap-y-4">
+            <Segmented
+              band={band}
+              counts={counts}
+              onChange={(b) => {
+                setBand(b);
+                setCursor(0);
+              }}
+            />
+            <div className="text-right">
+              <div className="hero-num text-[clamp(2.6rem,5vw,3.6rem)] leading-none text-text">
+                <CountUp value={totalCount} />
+              </div>
+              <div className="mt-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-faint">
+                jobs discovered
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        }
+      />
 
       {q.isLoading && (
-        <Rise className="mt-8">
-          <GlassCard hover={false} className="overflow-hidden">
+        <Rise className="mt-10">
+          <Panel className="overflow-hidden">
             <TableHead />
             <div className="divide-y divide-border/60">
               {[...Array(6)].map((_, i) => (
                 <SkeletonRow key={i} />
               ))}
             </div>
-          </GlassCard>
+          </Panel>
         </Rise>
       )}
 
       {q.isError && (
-        <Rise className="mt-8">
-          <GlassCard hover={false} className="flex flex-col items-center py-14 text-center">
-            <div className="flex size-12 items-center justify-center rounded-xl border border-neg/25 bg-neg/10">
-              <AlertTriangle className="size-5 text-neg" />
-            </div>
-            <div className="mt-4 text-sm font-medium">Couldn&apos;t reach the jobs endpoint</div>
-            <div className="mt-1.5 max-w-md text-xs leading-relaxed text-muted">
-              {q.error instanceof Error ? q.error.message : "The sidecar didn't answer."} Live crawl
-              lands with backend M1 (Greenhouse + Lever).
-            </div>
-            <button
-              onClick={() => void q.refetch()}
-              className="mt-5 inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-surface-2/40 px-4 py-1.5 text-xs text-muted transition-colors hover:border-accent/40 hover:text-text"
-            >
-              <RefreshCw className="size-3" /> Try again
-            </button>
-          </GlassCard>
+        <Rise className="mt-10">
+          <EmptyState
+            icon={<AlertTriangle className="size-5" />}
+            title="Couldn't reach the jobs endpoint"
+            body={
+              <>
+                {q.error instanceof Error ? q.error.message : "The sidecar didn't answer."} Live crawl
+                lands with backend M1 (Greenhouse + Lever).
+              </>
+            }
+            action={
+              <Button variant="outline" size="sm" onClick={() => void q.refetch()}>
+                <RefreshCw className="size-3.5" /> Try again
+              </Button>
+            }
+          />
         </Rise>
       )}
 
       {q.data && items.length === 0 && (
-        <Rise className="mt-8">
-          <GlassCard hover={false} className="overflow-hidden">
-            <div className="flex flex-col items-center justify-center py-16">
-              <div className="flex size-14 items-center justify-center rounded-2xl border border-accent/25 bg-accent/10">
-                <Inbox className="size-6 text-accent" />
-              </div>
-              <div className="mt-4 text-lg font-semibold tracking-[-0.02em]">Inbox zero — for now</div>
-              <div className="mt-1.5 max-w-md text-center text-xs leading-relaxed text-muted">
-                The crawler sweeps company boards every 30 minutes. New matches land here with a
-                score and a reason.
-              </div>
-            </div>
-          </GlassCard>
+        <Rise className="mt-10">
+          <EmptyState
+            icon={<Inbox className="size-5" />}
+            title="Inbox zero — for now"
+            body="The crawler sweeps company boards every 5 minutes. New matches land here with a score and a reason."
+          />
         </Rise>
       )}
 
       {q.data && items.length > 0 && (
-        <Rise className="mt-8">
-          <GlassCard hover={false} className="overflow-hidden">
+        <Rise className="mt-10">
+          <Panel className="overflow-hidden">
             <TableHead />
-            <Stagger gap={0.025} className="divide-y divide-border/60">
+            <Stagger gap={0.02} className="divide-y divide-border/60">
               {filtered.map((j, i) => (
                 <Rise key={j.id} y={8}>
                   <JobRow
@@ -384,32 +368,22 @@ function JobsInner() {
               ))}
               {filtered.length === 0 && (
                 <div className="px-5 py-12 text-center text-xs text-muted">
-                  Nothing in this band yet — switch back to{" "}
-                  <span className="text-text">All</span> or wait for the next sweep.
+                  Nothing in this band yet — switch back to <span className="text-text">All</span> or
+                  wait for the next sweep.
                 </div>
               )}
             </Stagger>
-          </GlassCard>
+          </Panel>
         </Rise>
       )}
 
       {showLoadMore && (
-        <div className="mt-4 flex items-center justify-center gap-3">
-          <button
-            onClick={() => void loadMore()}
-            disabled={more === "loading"}
-            className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-surface-2/40 px-4 py-1.5 text-xs text-muted transition-colors hover:border-accent/40 hover:text-text disabled:opacity-60"
-          >
-            {more === "loading" ? (
-              <Loader2 className="size-3 animate-spin" />
-            ) : (
-              <ChevronDown className="size-3.5" />
-            )}
+        <div className="mt-5 flex items-center justify-center gap-3">
+          <Button variant="outline" size="sm" onClick={() => void loadMore()} disabled={more === "loading"}>
+            {more === "loading" ? <Loader2 className="size-3.5 animate-spin" /> : <ChevronDown className="size-3.5" />}
             Showing {items.length} of {totalCount} — load more
-          </button>
-          {more === "error" && (
-            <span className="text-[11px] text-neg">next page failed — try again</span>
-          )}
+          </Button>
+          {more === "error" && <span className="text-[11px] text-neg">next page failed — try again</span>}
         </div>
       )}
     </PageIn>

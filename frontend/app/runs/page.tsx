@@ -19,7 +19,8 @@ import { ApiError } from "@/lib/api/types";
 import { ensureApi } from "@/lib/bootstrap";
 import type { Paged } from "@/lib/api/types";
 import { CompanyAvatar } from "@/components/company-avatar";
-import { GlassCard, PageIn, Rise, Stagger } from "@/components/motion";
+import { PageIn, Rise, Stagger } from "@/components/motion";
+import { Chip, EmptyState, PageHeader, Panel, SectionTitle } from "@/components/ui";
 import { cn } from "@/lib/utils";
 
 /* ---------- shapes (frozen contract §7.4) ---------- */
@@ -45,7 +46,7 @@ interface QAAnswerAuditItem {
   id?: string | null;
   question_text: string;
   answer_value: string;
-  resolution_tier: string; // DETERMINISTIC | LLM_GENERATED | USER_OVERRIDE | UNRESOLVED
+  resolution_tier: string;
   confidence_score: number;
   user_verified: boolean;
   timestamp: string | null;
@@ -56,7 +57,7 @@ interface AuditLogItem {
   entity_type: string;
   entity_id?: string | null;
   event_type: string;
-  severity: string; // INFO | WARN | ERROR
+  severity: string;
   message: string;
   details: Record<string, unknown>;
   timestamp: string;
@@ -109,20 +110,22 @@ function fmtClock(iso: string): string {
   }
 }
 
-function statusTone(status: string): string {
+type Tone = "neutral" | "accent" | "pos" | "warn" | "neg";
+
+function statusTone(status: string): Tone {
   switch (status) {
     case "SUBMITTED":
     case "APPLIED":
-      return "border-pos/30 bg-pos/10 text-pos";
+      return "pos";
     case "PAUSED_FOR_REVIEW":
-      return "border-accent/30 bg-accent/10 text-accent";
+      return "accent";
     case "CAPTCHA_BLOCKED":
     case "BLOCKED":
-      return "border-warn/30 bg-warn/10 text-warn";
+      return "warn";
     case "FAILED":
-      return "border-neg/30 bg-neg/10 text-neg";
+      return "neg";
     default:
-      return "border-border bg-surface-2 text-muted";
+      return "neutral";
   }
 }
 
@@ -143,25 +146,12 @@ function statusDot(status: string): string {
   }
 }
 
-const PROV_TONE: Record<string, string> = {
-  DETERMINISTIC: "border-prov-deterministic/30 bg-prov-deterministic/10 text-prov-deterministic",
-  LLM_GENERATED: "border-prov-llm/30 bg-prov-llm/10 text-prov-llm",
-  USER_OVERRIDE: "border-pos/30 bg-pos/10 text-pos",
-  UNRESOLVED: "border-prov-unresolved/30 bg-prov-unresolved/10 text-prov-unresolved",
+const PROV_TONE: Record<string, Tone> = {
+  DETERMINISTIC: "neutral",
+  LLM_GENERATED: "warn",
+  USER_OVERRIDE: "pos",
+  UNRESOLVED: "neg",
 };
-
-function Chip({ children, className }: { children: React.ReactNode; className?: string }) {
-  return (
-    <span
-      className={cn(
-        "inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-wider",
-        className,
-      )}
-    >
-      {children}
-    </span>
-  );
-}
 
 /* ---------- page shell: ?id= inside Suspense ---------- */
 
@@ -199,73 +189,65 @@ function RunListScreen() {
 
   return (
     <PageIn className="mx-auto max-w-4xl">
-      <div>
-        <h1 className="display text-[32px] font-semibold tracking-[-0.03em]">Run Monitor</h1>
-        <p className="mt-1.5 text-sm text-muted">
-          Every application run, stage by stage — open one to watch it work.
-        </p>
-      </div>
+      <PageHeader
+        eyebrow="Automation"
+        title="Run monitor"
+        subtitle="Every application run, stage by stage. Open one to watch it work and read the receipts."
+      />
 
       {q.isError && (
-        <Rise className="mt-7">
-          <div className="rounded-xl border border-neg/25 bg-neg/5 p-4 text-sm text-neg">
+        <Rise className="mt-10">
+          <Panel className="border-neg/30 bg-neg/5 p-5 text-sm text-neg">
             Runs endpoint unreachable — is the sidecar up?
-          </div>
+          </Panel>
         </Rise>
       )}
 
       {q.isLoading && (
-        <div className="mt-7 space-y-2">
+        <div className="mt-10 space-y-2">
           {[...Array(4)].map((_, i) => (
-            <div key={i} className="skeleton h-14" />
+            <div key={i} className="skeleton h-16" />
           ))}
         </div>
       )}
 
       {q.data && runs.length === 0 && (
-        <Rise className="mt-7">
-          <GlassCard hover={false} className="flex flex-col items-center justify-center px-6 py-16">
-            <div className="flex size-14 items-center justify-center rounded-2xl border border-accent/30 bg-accent/10">
-              <Radar className="size-6 text-accent" />
-            </div>
-            <div className="display mt-4 text-lg">No runs yet</div>
-            <div className="mt-1.5 max-w-md text-center text-xs leading-relaxed text-muted">
-              Approve a job from the pipeline and its run appears here — every stage, answer, and
-              receipt recorded as it happens.
-            </div>
-          </GlassCard>
+        <Rise className="mt-10">
+          <EmptyState
+            icon={<Radar className="size-5" />}
+            title="No runs yet"
+            body="Approve a job from the inbox and its run appears here — every stage, answer and receipt recorded as it happens."
+          />
         </Rise>
       )}
 
       {runs.length > 0 && (
-        <Stagger className="mt-7" gap={0.05}>
-          <Rise>
-            <GlassCard hover={false} className="divide-y divide-border/60 overflow-hidden">
-              {runs.map((r) => (
-                <Link
-                  key={r.id}
-                  href={`/runs?id=${r.id}`}
-                  className="group flex items-center gap-4 px-5 py-3.5 transition-colors hover:bg-surface-2/60"
-                >
-                  <span className={cn("size-2 shrink-0 rounded-full", statusDot(r.status))} />
-                  <CompanyAvatar name={r.company} size={32} />
-                  <div className="min-w-0 flex-1">
-                    <div className="truncate text-sm font-medium">
-                      {r.company} <span className="text-muted">· {r.title}</span>
-                    </div>
-                    <div className="mt-0.5 flex items-center gap-3 text-[11px] text-muted">
-                      <span className="font-mono uppercase tracking-wider">{r.platform}</span>
-                      <span className="tnum">{fmtDuration(r.duration_seconds)}</span>
-                      <span>{fmtDateTime(r.started_at)}</span>
-                    </div>
+        <Rise className="mt-10">
+          <Panel className="divide-y divide-border/60 overflow-hidden">
+            {runs.map((r) => (
+              <Link
+                key={r.id}
+                href={`/runs?id=${r.id}`}
+                className="group flex items-center gap-4 px-5 py-4 transition-colors hover:bg-surface-2/60"
+              >
+                <span className={cn("size-2 shrink-0 rounded-full", statusDot(r.status))} />
+                <CompanyAvatar name={r.company} size={34} />
+                <div className="min-w-0 flex-1">
+                  <div className="truncate text-sm font-semibold">
+                    {r.company} <span className="font-normal text-muted">· {r.title}</span>
                   </div>
-                  <Chip className={statusTone(r.status)}>{r.status.replace(/_/g, " ")}</Chip>
-                  <ChevronRight className="size-4 shrink-0 text-muted transition-transform group-hover:translate-x-0.5 group-hover:text-accent" />
-                </Link>
-              ))}
-            </GlassCard>
-          </Rise>
-        </Stagger>
+                  <div className="mt-1 flex items-center gap-3 text-[11px] text-faint">
+                    <span className="font-mono uppercase tracking-[0.1em]">{r.platform}</span>
+                    <span className="tnum">{fmtDuration(r.duration_seconds)}</span>
+                    <span>{fmtDateTime(r.started_at)}</span>
+                  </div>
+                </div>
+                <Chip tone={statusTone(r.status)}>{r.status.replace(/_/g, " ")}</Chip>
+                <ChevronRight className="size-4 shrink-0 text-faint transition-transform group-hover:translate-x-0.5 group-hover:text-accent" />
+              </Link>
+            ))}
+          </Panel>
+        </Rise>
       )}
     </PageIn>
   );
@@ -300,23 +282,18 @@ function RunDetailScreen({ id }: { id: string }) {
     <PageIn className="mx-auto max-w-4xl" key={id}>
       <Link
         href="/runs"
-        className="inline-flex items-center gap-1.5 text-xs text-muted transition-colors hover:text-accent"
+        className="link-quiet mb-5 inline-flex items-center gap-1.5 text-xs text-muted transition-colors hover:text-accent"
       >
         <ArrowLeft className="size-3.5" /> All runs
       </Link>
 
       {q.isError && (
-        <Rise className="mt-6">
-          <GlassCard hover={false} className="flex flex-col items-center justify-center px-6 py-16">
-            <div className="flex size-14 items-center justify-center rounded-2xl border border-neg/30 bg-neg/10">
-              <AlertTriangle className="size-6 text-neg" />
-            </div>
-            <div className="display mt-4 text-lg">Run not found</div>
-            <div className="mt-1.5 max-w-md text-center text-xs leading-relaxed text-muted">
-              This application id doesn&apos;t exist (or the sidecar is down). It may have been
-              discarded before any stage ran.
-            </div>
-          </GlassCard>
+        <Rise className="mt-4">
+          <EmptyState
+            icon={<AlertTriangle className="size-5" />}
+            title="Run not found"
+            body="This application id doesn't exist (or the sidecar is down). It may have been discarded before any stage ran."
+          />
         </Rise>
       )}
 
@@ -331,24 +308,20 @@ function RunDetailScreen({ id }: { id: string }) {
         <Stagger className="mt-4 space-y-4" gap={0.07}>
           {/* header */}
           <Rise>
-            <GlassCard hover={false} className="p-5">
+            <Panel className="p-5">
               <div className="flex items-start gap-4">
                 <CompanyAvatar name={d.company} size={48} />
                 <div className="min-w-0 flex-1">
                   <div className="flex flex-wrap items-center gap-2">
                     <span className="text-sm font-semibold">{d.company}</span>
-                    <Chip className="border-border bg-surface-2 text-muted">
-                      <span className="font-mono">{d.platform}</span>
-                    </Chip>
-                    <Chip className="border-border bg-surface-2 text-muted">
-                      {d.submission_mode.replace(/_/g, " ")}
-                    </Chip>
-                    <Chip className={statusTone(d.status)}>{d.status.replace(/_/g, " ")}</Chip>
+                    <Chip className="font-mono">{d.platform}</Chip>
+                    <Chip>{d.submission_mode.replace(/_/g, " ")}</Chip>
+                    <Chip tone={statusTone(d.status)}>{d.status.replace(/_/g, " ")}</Chip>
                   </div>
-                  <div className="display mt-1 truncate text-xl font-semibold tracking-[-0.02em]">
+                  <div className="display mt-1.5 truncate text-[clamp(1.3rem,2.4vw,1.7rem)] leading-tight text-text">
                     {d.title}
                   </div>
-                  <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-muted">
+                  <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-faint">
                     <span>started {fmtDateTime(d.started_at)}</span>
                     <span className="tnum inline-flex items-center gap-1.5">
                       <Clock3 className="size-3" /> {fmtDuration(d.duration_seconds)}
@@ -362,21 +335,20 @@ function RunDetailScreen({ id }: { id: string }) {
                 </div>
               </div>
               <StageStepper status={d.status} />
-            </GlassCard>
+            </Panel>
           </Rise>
 
           {d.status === "CAPTCHA_BLOCKED" && (
             <Rise>
-              <div className="flex items-center gap-4 rounded-xl border border-warn/30 bg-warn/5 p-4">
-                <div className="flex size-11 shrink-0 items-center justify-center rounded-xl border border-warn/30 bg-warn/10">
-                  <Timer className="size-5 text-warn" />
+              <div className="flex items-center gap-4 rounded-2xl border border-warn/30 bg-warn/5 p-4">
+                <div className="flex size-11 shrink-0 items-center justify-center rounded-xl border border-warn/30 bg-warn/10 text-warn">
+                  <Timer className="size-5" />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <div className="text-sm font-medium text-warn">CAPTCHA — human needed</div>
+                  <div className="text-sm font-semibold text-warn">CAPTCHA — human needed</div>
                   <p className="mt-0.5 text-xs leading-relaxed text-muted">
-                    The run hit a challenge it won&apos;t solve silently. You have 5:00 to clear it
-                    in the visible browser — after the window the run aborts (Amendment A4, made
-                    visible).
+                    The run hit a challenge it won&apos;t solve silently. You have 5:00 to clear it in
+                    the visible browser — after that the run aborts.
                   </p>
                 </div>
                 <div className="hero-num tnum shrink-0 text-[40px] leading-none text-warn">5:00</div>
@@ -386,8 +358,8 @@ function RunDetailScreen({ id }: { id: string }) {
 
           {d.status === "FAILED" && (d.failure_stage || d.failure_reason) && (
             <Rise>
-              <div className="rounded-xl border border-neg/25 bg-neg/5 p-4">
-                <div className="flex items-center gap-2 text-sm font-medium text-neg">
+              <div className="rounded-2xl border border-neg/30 bg-neg/5 p-4">
+                <div className="flex items-center gap-2 text-sm font-semibold text-neg">
                   <AlertTriangle className="size-4" />
                   Failed at {d.failure_stage?.replace(/_/g, " ") ?? "unknown stage"}
                 </div>
@@ -401,16 +373,14 @@ function RunDetailScreen({ id }: { id: string }) {
           {/* events timeline + side column */}
           <div className="grid gap-4 lg:grid-cols-3">
             <Rise className="lg:col-span-2">
-              <GlassCard hover={false} className="h-full p-5">
-                <div className="text-[13px] font-medium text-muted uppercase tracking-[0.14em]">
-                  Event log
-                </div>
+              <Panel className="h-full p-5">
+                <SectionTitle>Event log</SectionTitle>
                 {d.events.length === 0 ? (
                   <div className="py-8 text-center text-xs text-muted">
                     No events recorded yet — the run may still be queueing.
                   </div>
                 ) : (
-                  <div className="mt-4 space-y-0">
+                  <div className="mt-5">
                     {d.events.map((e, i) => (
                       <div key={e.id} className="relative flex gap-4 pb-5 last:pb-0">
                         {i < d.events.length - 1 && (
@@ -419,19 +389,15 @@ function RunDetailScreen({ id }: { id: string }) {
                         <span
                           className={cn(
                             "relative mt-1.5 size-[11px] shrink-0 rounded-full",
-                            e.severity === "ERROR"
-                              ? "bg-neg"
-                              : e.severity === "WARN"
-                                ? "bg-warn"
-                                : "bg-accent",
+                            e.severity === "ERROR" ? "bg-neg" : e.severity === "WARN" ? "bg-warn" : "bg-accent",
                           )}
                         />
                         <div className="min-w-0 flex-1">
                           <div className="flex flex-wrap items-center gap-2">
-                            <span className="tnum font-mono text-[10px] text-muted">
+                            <span className="tnum font-mono text-[10px] text-faint">
                               {fmtClock(e.timestamp)}
                             </span>
-                            <span className="rounded border border-border bg-surface-2 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-muted">
+                            <span className="rounded border border-border bg-surface-2 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.1em] text-faint">
                               {e.event_type}
                             </span>
                           </div>
@@ -441,33 +407,29 @@ function RunDetailScreen({ id }: { id: string }) {
                     ))}
                   </div>
                 )}
-              </GlassCard>
+              </Panel>
             </Rise>
 
             <Rise className="space-y-4">
-              <GlassCard hover={false} className="p-5">
-                <div className="text-[13px] font-medium text-muted uppercase tracking-[0.14em]">
-                  Answers given
-                </div>
+              <Panel className="p-5">
+                <SectionTitle>Answers given</SectionTitle>
                 {d.qa_answers.length === 0 ? (
-                  <div className="mt-3 text-xs leading-relaxed text-muted">
-                    No form questions answered yet — they appear here with provenance as the run
-                    fills fields.
+                  <div className="mt-3.5 text-xs leading-relaxed text-muted">
+                    No form questions answered yet — they appear here with provenance as the run fills
+                    fields.
                   </div>
                 ) : (
-                  <div className="mt-3 space-y-3">
+                  <div className="mt-3.5 space-y-4">
                     {d.qa_answers.map((a) => (
                       <div key={a.id ?? a.question_text} className="text-xs">
                         <div className="truncate font-medium" title={a.question_text}>
                           {a.question_text}
                         </div>
-                        <div className="mt-1 flex flex-wrap items-center gap-1.5">
-                          <Chip className={PROV_TONE[a.resolution_tier] ?? "border-border bg-surface-2 text-muted"}>
+                        <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
+                          <Chip tone={PROV_TONE[a.resolution_tier] ?? "neutral"}>
                             {a.resolution_tier.replace(/_/g, " ")}
                           </Chip>
-                          <span className="tnum text-muted">
-                            {(a.confidence_score * 100).toFixed(0)}%
-                          </span>
+                          <span className="tnum text-faint">{(a.confidence_score * 100).toFixed(0)}%</span>
                         </div>
                         <div className="mt-1 truncate text-muted" title={a.answer_value}>
                           {a.answer_value}
@@ -476,13 +438,11 @@ function RunDetailScreen({ id }: { id: string }) {
                     ))}
                   </div>
                 )}
-              </GlassCard>
+              </Panel>
 
-              <GlassCard hover={false} className="p-5">
-                <div className="text-[13px] font-medium text-muted uppercase tracking-[0.14em]">
-                  Receipt
-                </div>
-                <div className="mt-3 space-y-3 text-xs text-muted">
+              <Panel className="p-5">
+                <SectionTitle>Receipt</SectionTitle>
+                <div className="mt-3.5 space-y-4 text-xs text-muted">
                   <div>
                     <div className="font-medium text-text">Screenshot</div>
                     {d.screenshot_path ? (
@@ -490,7 +450,7 @@ function RunDetailScreen({ id }: { id: string }) {
                         href={apiBase ? `${apiBase}${d.screenshot_path}` : undefined}
                         target="_blank"
                         rel="noreferrer"
-                        className="mt-1.5 inline-flex items-center gap-1.5 rounded-lg border border-accent/30 bg-accent/10 px-3 py-1.5 text-xs font-medium text-accent transition-colors hover:bg-accent/20"
+                        className="mt-2 inline-flex items-center gap-1.5 rounded-lg border border-accent/35 bg-accent-soft px-3 py-1.5 text-xs font-semibold text-accent transition-colors hover:bg-accent/20"
                       >
                         <Camera className="size-3.5" /> View proof of submission
                       </a>
@@ -500,12 +460,10 @@ function RunDetailScreen({ id }: { id: string }) {
                   </div>
                   <div>
                     <div className="font-medium text-text">Confirmation</div>
-                    <div className="mt-1 break-all font-mono text-[11px]">
-                      {d.confirmation_receipt ?? "—"}
-                    </div>
+                    <div className="mt-1 break-all font-mono text-[11px]">{d.confirmation_receipt ?? "—"}</div>
                   </div>
                 </div>
-              </GlassCard>
+              </Panel>
             </Rise>
           </div>
         </Stagger>
@@ -531,29 +489,29 @@ function StageStepper({ status }: { status: string }) {
   };
 
   return (
-    <div className="mt-5 border-t border-border/60 pt-4">
+    <div className="mt-6 border-t border-border/60 pt-5">
       <div className="flex items-center">
         {STAGE_LABELS.map((s, i) => (
           <div key={s} className="flex flex-1 items-center last:flex-none">
-            <div className="flex flex-col items-center gap-1.5">
+            <div className="flex flex-col items-center gap-2">
               <span
                 className={cn(
                   "size-2.5 rounded-full transition-colors",
                   nodeTone(i),
                   i === activeIdx && !failed && !discarded && "shadow-glow",
-                  failed && i >= activeIdx && "shadow-[0_0_14px_-3px_rgba(248,113,113,0.6)]",
+                  failed && i >= activeIdx && "shadow-[0_0_14px_-3px_var(--color-neg)]",
                 )}
               />
               <span
                 className={cn(
-                  "text-[9px] tracking-wide",
+                  "text-[9px] tracking-[0.06em]",
                   failed && i >= activeIdx
                     ? "text-neg"
                     : blocked && i === activeIdx
                       ? "text-warn"
                       : i <= activeIdx && !discarded
                         ? "text-text"
-                        : "text-muted",
+                        : "text-faint",
                 )}
               >
                 {s}
@@ -562,7 +520,7 @@ function StageStepper({ status }: { status: string }) {
             {i < STAGE_LABELS.length - 1 && (
               <div
                 className={cn(
-                  "mx-1 h-px flex-1",
+                  "mx-2 mb-4 h-px flex-1",
                   i < activeIdx && !discarded && !failed ? "bg-accent/50" : "bg-border",
                 )}
               />

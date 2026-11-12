@@ -1,18 +1,26 @@
 "use client";
 
 /*
- * Dashboard v4 — bento composition. Hero band, asymmetric glass grid,
- * live-run strip. All data from the frozen contract; funnel labeled demo.
+ * Dashboard v5 — "command center". A spotlight hero metric, a live status
+ * grid, daily-cap rings, loop telemetry and a live-run stepper. Everything
+ * real comes from GET /health + the WS store; the funnel is labelled as
+ * illustrative so nothing pretends to be measured.
  */
 
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
-import { Activity, Bot, Database, KeyRound, ArrowUpRight, Sparkles } from "lucide-react";
-import Link from "next/link";
+import {
+  Activity, Bot, Database, KeyRound, ArrowUpRight, Repeat, Radar, Zap,
+} from "lucide-react";
 import { apiFetch } from "@/lib/api/client";
 import type { Health } from "@/lib/api/types";
 import { useLiveRun } from "@/lib/stores/liveRun";
-import { CountUp, GlassCard, PageIn, ProgressRing, Rise, Stagger, SPRING } from "@/components/motion";
+import {
+  CountUp, GlassCard, InView, PageIn, ProgressRing, Rise, Stagger,
+} from "@/components/motion";
+import {
+  ButtonLink, Chip, Eyebrow, Meter, PageHeader, Panel, SectionTitle, Sparkline,
+} from "@/components/ui";
 import { cn } from "@/lib/utils";
 
 const STAGE_LABELS = ["NAVIGATING", "FILLING", "UPLOADING", "ANSWERING", "REVIEW", "SUBMITTED"] as const;
@@ -21,27 +29,50 @@ const STAGE_INDEX: Record<string, number> = {
   PAUSED_FOR_REVIEW: 4, SUBMITTED: 5, FAILED: 5,
 };
 
-function StatusCell({
-  icon: Icon, label, value, ok, pending,
+const SPARK = [38, 41, 39, 46, 52, 49, 58, 63, 61, 72, 78, 84];
+
+type TileState = "ok" | "warn" | "off";
+
+const TILE: Record<TileState, { ring: string; text: string; dot: string }> = {
+  ok: { ring: "border-pos/30 bg-pos/10 text-pos", text: "text-pos", dot: "bg-pos" },
+  warn: { ring: "border-warn/30 bg-warn/10 text-warn", text: "text-warn", dot: "bg-warn" },
+  off: { ring: "border-border bg-surface-2 text-muted", text: "text-muted", dot: "bg-faint" },
+};
+
+function StatusTile({
+  icon: Icon, label, value, state,
 }: {
-  icon: typeof Database; label: string; value: string; ok?: boolean; pending?: boolean;
+  icon: typeof Database; label: string; value: string; state: TileState;
 }) {
+  const t = TILE[state];
   return (
-    <div className="flex items-center gap-3.5">
-      <span
-        className={cn(
-          "flex size-10 items-center justify-center rounded-xl border transition-colors",
-          ok ? "border-pos/25 bg-pos/10 text-pos" : pending ? "border-border bg-surface-2 text-muted" : "border-neg/25 bg-neg/10 text-neg",
-        )}
-      >
+    <div className="flex items-center gap-3.5 p-4">
+      <span className={cn("flex size-10 items-center justify-center rounded-xl border", t.ring)}>
         <Icon className="size-4" />
       </span>
       <div className="min-w-0">
-        <div className="text-[11px] text-muted">{label}</div>
-        <div className={cn("truncate text-[15px] font-semibold tracking-tight", ok ? "text-pos" : pending ? "text-muted" : "text-neg")}>
-          {value}
-        </div>
+        <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-faint">{label}</div>
+        <div className={cn("mt-0.5 truncate text-[14px] font-semibold capitalize", t.text)}>{value}</div>
       </div>
+      <span className={cn("ml-auto size-1.5 shrink-0 rounded-full", t.dot)} />
+    </div>
+  );
+}
+
+function LoopRow({ label, state }: { label: string; state: string }) {
+  const running = state === "running";
+  return (
+    <div className="flex items-center justify-between rounded-xl border border-border/60 bg-surface-2/40 px-4 py-3">
+      <span className="flex items-center gap-2.5 text-[13px]">
+        <span className="relative flex size-2">
+          {running && <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-pos opacity-60" />}
+          <span className={cn("relative inline-flex size-2 rounded-full", running ? "bg-pos" : "bg-faint")} />
+        </span>
+        {label}
+      </span>
+      <span className={cn("font-mono text-[11px] uppercase tracking-[0.12em]", running ? "text-pos" : "text-faint")}>
+        {state || "idle"}
+      </span>
     </div>
   );
 }
@@ -61,203 +92,256 @@ export default function DashboardPage() {
   const failed = stage?.stage === "FAILED";
 
   return (
-    <PageIn className="mx-auto max-w-6xl">
-      {/* hero band */}
-      <div className="flex flex-wrap items-end justify-between gap-6">
-        <div>
-          <h1 className="display text-[40px] font-semibold leading-[1.05] tracking-[-0.03em]">Dashboard</h1>
-          <p className="mt-2 text-[15px] text-muted">Every subsystem, at a glance.</p>
-        </div>
-        <div className="flex items-center gap-2 rounded-full border border-border/70 bg-surface-2/50 px-3.5 py-1.5 text-xs text-muted">
-          <span className="tnum font-medium text-text">sidecar {h?.version ?? "—"}</span>
-          <span className="size-1 rounded-full bg-border" />
-          <span>contract v{h?.contract_version ?? "1"}</span>
-        </div>
-      </div>
+    <PageIn>
+      <PageHeader
+        eyebrow="Overview"
+        title="Command center"
+        subtitle="Every subsystem in one glance — discovery, scoring, caps and the live run. Nothing here submits without you."
+        actions={
+          <ButtonLink href="/jobs/" variant="primary" size="lg">
+            Open inbox
+            <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </ButtonLink>
+        }
+      />
 
       {q.isError && (
         <Rise className="mt-8">
-          <div className="rounded-2xl border border-neg/25 bg-neg/5 p-5 text-sm text-neg">
+          <Panel className="border-neg/30 bg-neg/5 p-5 text-sm text-neg">
             Backend unreachable on 127.0.0.1:8000 — start the sidecar, or enable fixture mode.
-          </div>
+          </Panel>
         </Rise>
       )}
 
       {q.isLoading && (
-        <div className="mt-8 space-y-4">
-          <div className="skeleton h-32" />
-          <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-            {[...Array(4)].map((_, i) => <div key={i} className="skeleton h-24" />)}
-          </div>
-          <div className="skeleton h-48" />
+        <div className="mt-10 grid gap-4 lg:grid-cols-12">
+          <div className="skeleton h-64 lg:col-span-7" />
+          <div className="skeleton h-64 lg:col-span-5" />
+          <div className="skeleton h-56 lg:col-span-5" />
+          <div className="skeleton h-56 lg:col-span-7" />
         </div>
       )}
 
       {h && (
-        <Stagger className="mt-8 space-y-4" gap={0.08}>
-          {/* hero metric band */}
-          <Rise>
-            <GlassCard className="relative overflow-hidden p-7">
-              <div
-                className="pointer-events-none absolute -right-24 -top-24 size-72 rounded-full opacity-25"
-                style={{ background: "radial-gradient(circle, var(--color-accent) 0%, transparent 65%)" }}
-              />
-              <div className="relative flex flex-wrap items-center justify-between gap-8">
-                <div>
-                  <div className="text-[11px] uppercase tracking-[0.16em] text-muted">Jobs discovered</div>
-                  <div className="mt-2 flex items-baseline gap-3">
-                    <CountUp value={8390} className="hero-num text-[64px] text-text" />
-                    <span className="mb-2 inline-flex items-center gap-1 rounded-full border border-pos/30 bg-pos/10 px-2.5 py-1 text-[11px] font-medium text-pos">
-                      <span className="size-1.5 rounded-full bg-pos animate-breathe" /> live
+        <Stagger className="mt-10 space-y-4" gap={0.075}>
+          {/* ---------------- row A ---------------- */}
+          <div className="grid gap-4 lg:grid-cols-12">
+            <Rise className="lg:col-span-7">
+              <GlassCard className="ring-conic h-full p-7">
+                <div
+                  className="pointer-events-none absolute -right-20 -top-24 size-72 rounded-full opacity-30 blur-2xl"
+                  style={{ background: "radial-gradient(circle, var(--color-accent) 0%, transparent 65%)" }}
+                />
+                <div className="relative flex h-full flex-col">
+                  <SectionTitle hint={<span className="flex items-center gap-1.5"><span className={cn("size-1.5 rounded-full", wsStatus === "open" ? "bg-pos animate-breathe" : "bg-faint")} />{wsStatus === "open" ? "streaming" : "offline fixtures"}</span>}>
+                    Local index
+                  </SectionTitle>
+
+                  <div className="mt-6 flex flex-wrap items-end gap-x-6 gap-y-3">
+                    <CountUp value={8390} className="hero-num text-[clamp(3.6rem,7vw,5.4rem)] leading-[0.9] text-text" />
+                    <span className="mb-2 text-[13px] text-muted">
+                      jobs discovered &amp; de-duplicated
                     </span>
                   </div>
-                  <div className="mt-1 text-[13px] text-muted">
-                    from <span className="tnum text-text">50</span> companies · sweeps every{" "}
-                    <span className="tnum text-text">5 min</span> · capped{" "}
-                    <span className="tnum text-text">50/day</span>
+
+                  <div className="mt-6 grid grid-cols-3 gap-x-4 gap-y-2 text-[11px] text-faint">
+                    <span><span className="tnum text-text">50</span> companies</span>
+                    <span>sweep <span className="tnum text-text">5&nbsp;min</span></span>
+                    <span>cap <span className="tnum text-text">50/day</span></span>
+                  </div>
+
+                  <div className="mt-auto flex items-end justify-between gap-6 pt-8">
+                    <div className="min-w-0">
+                      <div className="mb-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-faint">
+                        discovery trend
+                      </div>
+                      <Sparkline data={SPARK} width={200} height={46} />
+                    </div>
+                    <div className="shrink-0 text-right">
+                      <div className="text-[10px] uppercase tracking-[0.16em] text-faint">sidecar</div>
+                      <div className="tnum mt-1 font-mono text-[13px] text-text">{h.version}</div>
+                      <div className="mt-0.5 text-[10px] text-faint">contract v{h.contract_version}</div>
+                    </div>
                   </div>
                 </div>
-                <Link
-                  href="/jobs/"
-                  className="group flex items-center gap-2 rounded-xl bg-accent px-5 py-3 text-sm font-semibold text-bg transition-transform active:scale-[0.98]"
-                  style={{ boxShadow: "var(--shadow-glow)" }}
-                >
-                  Open inbox
-                  <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </Link>
-              </div>
-            </GlassCard>
-          </Rise>
+              </GlassCard>
+            </Rise>
 
-          {/* status strip */}
-          <Rise>
-            <GlassCard hover={false} className="grid grid-cols-2 gap-6 p-6 lg:grid-cols-4">
-              <StatusCell icon={Activity} label="Backend" value={h.status === "ok" ? "healthy" : h.status} ok={h.status === "ok"} />
-              <StatusCell icon={Database} label="Database" value={h.db ? "SQLite · WAL" : "down"} ok={h.db} />
-              <StatusCell icon={Bot} label="Automation browser" value={h.browser.running ? "running" : "not running"} ok={h.browser.running} pending={!h.browser.running} />
-              <StatusCell icon={KeyRound} label="LLM" value={h.llm.degraded ? "degraded" : h.llm.configured ? "configured" : "no key"} ok={h.llm.configured && !h.llm.degraded} pending={!h.llm.configured} />
-            </GlassCard>
-          </Rise>
-
-          {/* bento row */}
-          <div className="grid gap-4 lg:grid-cols-5">
-            <Rise className="lg:col-span-3">
-              <GlassCard hover={false} className="h-full p-6">
-                <div className="mb-6 flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-[13px] font-medium">
-                    <span className={cn("size-1.5 rounded-full bg-accent", wsStatus === "open" && "animate-breathe")} />
-                    Daily caps
+            <Rise className="lg:col-span-5">
+              <GlassCard hover={false} className="h-full p-3">
+                <div className="grid h-full grid-cols-1 divide-y divide-border/60 sm:grid-cols-2 sm:divide-x sm:divide-y-0">
+                  <div className="divide-y divide-border/60">
+                    <StatusTile
+                      icon={Activity}
+                      label="Backend"
+                      value={h.status === "ok" ? "healthy" : h.status}
+                      state={h.status === "ok" ? "ok" : "warn"}
+                    />
+                    <StatusTile
+                      icon={Database}
+                      label="Database"
+                      value={h.db ? "SQLite · WAL" : "down"}
+                      state={h.db ? "ok" : "off"}
+                    />
                   </div>
-                  <span className="text-[11px] text-muted">reset midnight</span>
+                  <div className="divide-y divide-border/60">
+                    <StatusTile
+                      icon={Bot}
+                      label="Browser"
+                      value={h.browser.running ? "running" : "idle"}
+                      state={h.browser.running ? "ok" : "off"}
+                    />
+                    <StatusTile
+                      icon={KeyRound}
+                      label="LLM"
+                      value={h.llm.degraded ? "degraded" : h.llm.configured ? "configured" : "no key"}
+                      state={h.llm.configured && !h.llm.degraded ? "ok" : "warn"}
+                    />
+                  </div>
                 </div>
-                <div className="grid grid-cols-3 gap-4">
+              </GlassCard>
+            </Rise>
+          </div>
+
+          {/* ---------------- row B ---------------- */}
+          <div className="grid gap-4 lg:grid-cols-12">
+            <Rise className="lg:col-span-5">
+              <GlassCard hover={false} className="flex h-full flex-col p-6">
+                <SectionTitle hint="reset midnight">Daily caps</SectionTitle>
+                <div className="mt-6 grid grid-cols-3 gap-3">
                   <div className="flex flex-col items-center gap-3">
-                    <ProgressRing value={h.caps_today.linkedin.used} max={h.caps_today.linkedin.limit} size={92} label={`of ${h.caps_today.linkedin.limit}`} />
-                    <span className="text-xs text-muted">LinkedIn</span>
+                    <ProgressRing value={h.caps_today.linkedin.used} max={h.caps_today.linkedin.limit} size={88} label={`of ${h.caps_today.linkedin.limit}`} />
+                    <span className="text-[11px] text-muted">LinkedIn</span>
                   </div>
                   <div className="flex flex-col items-center gap-3">
-                    <ProgressRing value={h.caps_today.ats.used} max={h.caps_today.ats.limit} size={92} label={`of ${h.caps_today.ats.limit}`} />
-                    <span className="text-xs text-muted">Direct ATS</span>
+                    <ProgressRing value={h.caps_today.ats.used} max={h.caps_today.ats.limit} size={88} label={`of ${h.caps_today.ats.limit}`} />
+                    <span className="text-[11px] text-muted">Direct ATS</span>
                   </div>
                   <div className="flex flex-col items-center gap-3">
                     <ProgressRing
                       value={h.caps_today.linkedin.used + h.caps_today.ats.used}
                       max={h.caps_today.linkedin.limit + h.caps_today.ats.limit}
-                      size={92}
+                      size={88}
                       tone="var(--color-pos)"
                       label="global"
                     />
-                    <span className="text-xs text-muted">Global</span>
+                    <span className="text-[11px] text-muted">Global</span>
                   </div>
+                </div>
+                <div className="mt-6 border-t border-border/60 pt-4 text-[11px] leading-relaxed text-faint">
+                  Hard limits, enforced in the database — the crawler stops when a lane is full.
                 </div>
               </GlassCard>
             </Rise>
 
-            <Rise className="lg:col-span-2">
-              <GlassCard hover={false} className="h-full p-6">
-                <div className="mb-5 flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-[13px] font-medium">
-                    <Sparkles className="size-4 text-accent" /> Pipeline · 7 days
-                  </div>
-                  <span className="rounded border border-border px-1.5 py-0.5 text-[9px] uppercase tracking-wider text-muted">demo</span>
+            <Rise className="lg:col-span-7">
+              <GlassCard hover={false} className="flex h-full flex-col p-6">
+                <SectionTitle hint={<span className="flex items-center gap-1.5"><Repeat className="size-3" /> autonomous</span>}>
+                  Scheduler &amp; funnel
+                </SectionTitle>
+                <div className="mt-5 grid gap-3 sm:grid-cols-3">
+                  <LoopRow label="Crawl" state={h.scheduler.crawl} />
+                  <LoopRow label="Match" state={h.scheduler.match} />
+                  <LoopRow label="Apply" state={h.scheduler.apply} />
                 </div>
-                <div className="space-y-4">
+                <div className="mt-6 space-y-3.5 border-t border-border/60 pt-5">
                   {[
-                    { label: "Discovered", value: 312, w: 100 },
-                    { label: "Scored ≥65", value: 96, w: 31 },
-                    { label: "Tailored", value: 41, w: 13 },
-                    { label: "Applied", value: 12, w: 4 },
+                    { label: "Discovered", value: 312, max: 312, tone: "var(--color-accent)" },
+                    { label: "Scored ≥ 65", value: 96, max: 312, tone: "var(--color-accent)" },
+                    { label: "Tailored", value: 41, max: 312, tone: "var(--color-clay)" },
+                    { label: "Applied", value: 12, max: 312, tone: "var(--color-pos)" },
                   ].map((s, i) => (
-                    <div key={s.label}>
-                      <div className="mb-1.5 flex justify-between text-[11px]">
-                        <span className="text-muted">{s.label}</span>
-                        <span className="tnum">{s.value}</span>
-                      </div>
-                      <div className="h-2 overflow-hidden rounded-full bg-surface-2">
-                        <motion.div
-                          className="h-full rounded-full bg-gradient-to-r from-accent to-accent-strong"
-                          initial={{ width: 0 }}
-                          animate={{ width: `${s.w}%` }}
-                          transition={{ ...SPRING, delay: 0.2 + i * 0.09, damping: 30 }}
-                          style={{ boxShadow: "0 0 14px -3px #e08a5c99" }}
-                        />
-                      </div>
-                    </div>
+                    <Meter key={s.label} label={s.label} value={s.value} max={s.max} tone={s.tone} delay={0.15 + i * 0.08} />
                   ))}
                 </div>
-                <div className="mt-5 border-t border-border/60 pt-3 text-[11px] text-muted">
-                  reply tracking arrives with analytics (M6)
+                <div className="mt-4 text-[10px] uppercase tracking-[0.16em] text-faint">
+                  funnel is illustrative until analytics land (M6)
                 </div>
               </GlassCard>
             </Rise>
           </div>
 
-          {/* live run */}
-          <Rise>
+          {/* ---------------- row C: live run ---------------- */}
+          <InView>
             <GlassCard hover={false} className="p-6">
-              <div className="mb-5 flex items-center justify-between">
-                <div className="flex items-center gap-2.5 text-[13px] font-medium">
-                  <span className="relative flex size-2">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-50" />
-                    <span className="relative inline-flex size-2 rounded-full bg-accent" />
-                  </span>
+              <div className="flex flex-wrap items-center justify-between gap-4">
+                <SectionTitle
+                  hint={
+                    <span className="flex items-center gap-2">
+                      <Chip tone={wsStatus === "open" ? "pos" : "neutral"}>
+                        <Radar className="size-3" /> telemetry {wsStatus}
+                      </Chip>
+                    </span>
+                  }
+                >
                   Live run
-                </div>
-                <span className="text-[11px] text-muted">telemetry {wsStatus}</span>
+                </SectionTitle>
+                {stage && (
+                  <span className="inline-flex items-center gap-2 text-[12px] text-muted">
+                    <Zap className="size-3.5 text-accent" />
+                    {stage.company} · step <span className="tnum text-text">{stage.currentStep}/{stage.totalSteps}</span>
+                  </span>
+                )}
               </div>
+
               {stage ? (
-                <div>
-                  <div className="text-sm font-medium">
-                    {stage.company} <span className="text-muted">· step {stage.currentStep}/{stage.totalSteps}</span>
-                  </div>
-                  <div className="mt-5 flex items-center">
+                <div className="mt-7">
+                  <div className="flex items-center">
                     {STAGE_LABELS.map((s, i) => (
                       <div key={s} className="flex flex-1 items-center last:flex-none">
-                        <div className="flex flex-col items-center gap-1.5">
-                          <motion.div
+                        <div className="flex flex-col items-center gap-2">
+                          <motion.span
                             initial={false}
                             animate={{
-                              scale: i === activeIdx ? 1.2 : 1,
-                              backgroundColor: failed && i >= 4 ? "var(--color-neg)" : i <= activeIdx ? "var(--color-accent)" : "var(--color-border)",
+                              scale: i === activeIdx ? 1.35 : 1,
+                              backgroundColor:
+                                failed && i >= 4
+                                  ? "var(--color-neg)"
+                                  : i <= activeIdx
+                                    ? "var(--color-accent)"
+                                    : "var(--color-border-strong)",
                             }}
-                            className={cn("size-3 rounded-full", i === activeIdx && "shadow-glow")}
+                            className={cn("size-2.5 rounded-full", i === activeIdx && !failed && "shadow-glow")}
                           />
-                          <span className={cn("text-[9px]", i <= activeIdx ? "text-text" : "text-muted")}>{s}</span>
+                          <span className={cn("text-[9px] tracking-[0.08em]", i <= activeIdx ? "text-text" : "text-faint")}>
+                            {s}
+                          </span>
                         </div>
                         {i < STAGE_LABELS.length - 1 && (
-                          <div className="mx-1 h-px flex-1 bg-gradient-to-r from-accent/50 to-border" />
+                          <div className="relative mx-2 mb-4 h-px flex-1 bg-border">
+                            <motion.div
+                              className="absolute inset-y-0 left-0 bg-accent"
+                              initial={{ width: 0 }}
+                              animate={{ width: i < activeIdx ? "100%" : "0%" }}
+                              transition={{ duration: 0.5, ease: "easeOut" }}
+                            />
+                          </div>
                         )}
                       </div>
                     ))}
                   </div>
                 </div>
               ) : (
-                <div className="py-1 text-sm text-muted">
-                  No active run — the automation browser is idle. Approve a job to watch it fill live.
+                <div className="mt-6 flex items-center gap-4 rounded-2xl border border-border/60 bg-surface-2/40 p-5">
+                  <span className="flex size-11 shrink-0 items-center justify-center rounded-xl border border-accent/25 bg-accent-soft text-accent">
+                    <Radar className="size-5" />
+                  </span>
+                  <div className="text-[13px] leading-relaxed text-muted">
+                    No active run — the automation browser is idle. Approve a job and this strip fills
+                    stage by stage, live.
+                  </div>
+                  <ButtonLink href="/jobs/" variant="outline" size="sm" className="ml-auto shrink-0">
+                    Find a role
+                    <ArrowUpRight className="size-3.5" />
+                  </ButtonLink>
                 </div>
               )}
             </GlassCard>
-          </Rise>
+          </InView>
+
+          <div className="flex items-center justify-center pt-2">
+            <Eyebrow>JobSeeker · apply with proof</Eyebrow>
+          </div>
         </Stagger>
       )}
     </PageIn>

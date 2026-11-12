@@ -20,7 +20,7 @@ export function PlannedScreen({
       <h1 className="display text-[30px] font-semibold">{title}</h1>
       <p className="mt-1.5 text-sm text-muted">{subtitle}</p>
       <Rise className="mt-7">
-        <div className="glass edge-glow rounded-2xl p-7">
+        <div className="panel p-7">
           <PlannedList items={items} />
           {extra}
         </div>

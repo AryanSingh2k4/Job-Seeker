@@ -7,10 +7,11 @@
 
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import { Check, Pencil } from "lucide-react";
+import { Check, Pencil, Gauge } from "lucide-react";
 import { toast } from "sonner";
 import { apiFetch } from "@/lib/api/client";
-import { GlassCard, PageIn, Rise } from "@/components/motion";
+import { PageIn, Rise } from "@/components/motion";
+import { Button, Chip, PageHeader, Panel, SectionTitle } from "@/components/ui";
 
 interface SettingsShape {
   mode: string;
@@ -23,8 +24,17 @@ interface SettingsShape {
   crawl_max_companies_per_day: number;
 }
 
-const inputCls =
-  "w-full rounded-lg border border-border bg-surface-2/60 px-3 py-2 text-sm outline-none transition-colors focus:border-accent/50";
+function Row({ label, value, hint }: { label: string; value: string; hint: string }) {
+  return (
+    <div className="flex items-center justify-between gap-4 rounded-xl border border-border/60 bg-surface-2/40 px-4 py-3">
+      <div>
+        <div className="text-[13px]">{label}</div>
+        <div className="mt-0.5 text-[11px] text-faint">{hint}</div>
+      </div>
+      <Chip tone="accent" className="shrink-0 capitalize">{value}</Chip>
+    </div>
+  );
+}
 
 export default function SettingsPage() {
   const qc = useQueryClient();
@@ -62,58 +72,64 @@ export default function SettingsPage() {
 
   return (
     <PageIn className="mx-auto max-w-3xl">
-      <h1 className="display text-[30px] font-semibold">Settings</h1>
-      <p className="mt-1.5 text-sm text-muted">Discovery pace, safety gates, risk lanes.</p>
+      <PageHeader
+        eyebrow="Configuration"
+        title="Settings"
+        subtitle="Discovery pace, safety gates and risk lanes. Limits are enforced in the database, not the UI."
+      />
 
-      <Rise className="mt-7 space-y-5">
-        <GlassCard hover={false} className="p-6">
-          <div className="mb-1 text-sm font-semibold">Discovery pacing</div>
-          <p className="mb-5 text-xs text-muted">
-            How often the crawler sweeps, and how many companies it may touch per day.
-          </p>
-          <div className="grid grid-cols-2 gap-4">
+      <Rise className="mt-10 space-y-5">
+        <Panel className="p-6">
+          <div className="flex items-center gap-2.5">
+            <span className="flex size-9 items-center justify-center rounded-xl border border-accent/25 bg-accent-soft text-accent">
+              <Gauge className="size-4" />
+            </span>
             <div>
-              <label htmlFor="set-interval" className="mb-1.5 block text-xs text-muted">
+              <div className="text-sm font-semibold">Discovery pacing</div>
+              <div className="text-[11px] text-faint">How often the crawler sweeps, and how many companies it may touch per day.</div>
+            </div>
+          </div>
+
+          <div className="mt-6 grid grid-cols-2 gap-4">
+            <div>
+              <label htmlFor="set-interval" className="mb-2 block text-[11px] font-semibold uppercase tracking-[0.14em] text-faint">
                 Sweep interval (minutes)
               </label>
               <input
                 id="set-interval"
                 inputMode="numeric"
-                className={inputCls}
+                className="field"
                 value={interval}
                 onChange={(e) => { setInterval_(e.target.value); setDirty(true); }}
               />
             </div>
             <div>
-              <label htmlFor="set-cap" className="mb-1.5 block text-xs text-muted">
+              <label htmlFor="set-cap" className="mb-2 block text-[11px] font-semibold uppercase tracking-[0.14em] text-faint">
                 Companies per day
               </label>
               <input
                 id="set-cap"
                 inputMode="numeric"
-                className={inputCls}
+                className="field"
                 value={cap}
                 onChange={(e) => { setCap(e.target.value); setDirty(true); }}
               />
             </div>
           </div>
-          <div className="mt-4 flex items-center justify-between">
-            <span className="text-[11px] text-muted">
+
+          <div className="mt-5 flex items-center justify-between gap-4">
+            <span className="text-[11px] leading-relaxed text-faint">
               Default 5 min · 50 companies. Lower = gentler on boards.
             </span>
-            <button
-              onClick={() => void save()}
-              disabled={!dirty || q.isLoading}
-              className="flex items-center gap-1.5 rounded-lg bg-accent px-4 py-2 text-xs font-semibold text-bg transition-opacity disabled:opacity-40"
-            >
+            <Button variant="primary" size="md" onClick={() => void save()} disabled={!dirty || q.isLoading}>
               <Check className="size-3.5" /> Save
-            </button>
+            </Button>
           </div>
-        </GlassCard>
+        </Panel>
 
-        <GlassCard hover={false} className="p-6">
-          <div className="mb-4 text-sm font-semibold">Submission & risk lanes</div>
-          <div className="space-y-3 text-sm">
+        <Panel className="p-6">
+          <SectionTitle>Submission &amp; risk lanes</SectionTitle>
+          <div className="mt-5 space-y-3">
             <Row label="Submission mode" value={q.data?.mode ?? "assisted"} hint="Assisted = you click Submit" />
             <Row label="Autonomous mode" value={q.data?.autonomous_opt_in ? "on" : "off"} hint="needs ≥95 match + 100% deterministic + opt-in" />
             <Row label="LinkedIn lane" value={q.data?.linkedin_opt_in ? "opted in" : "off"} hint="typed acknowledgment required" />
@@ -124,23 +140,11 @@ export default function SettingsPage() {
               hint="hard limits, DB-enforced"
             />
           </div>
-          <div className="mt-4 flex items-center gap-1.5 text-[11px] text-muted">
+          <div className="mt-5 flex items-center gap-1.5 text-[11px] text-faint">
             <Pencil className="size-3" /> editable controls land with F3 — values live via API now
           </div>
-        </GlassCard>
+        </Panel>
       </Rise>
     </PageIn>
-  );
-}
-
-function Row({ label, value, hint }: { label: string; value: string; hint: string }) {
-  return (
-    <div className="flex items-center justify-between rounded-lg border border-border/60 bg-surface-2/40 px-4 py-2.5">
-      <div>
-        <div>{label}</div>
-        <div className="text-[11px] text-muted">{hint}</div>
-      </div>
-      <span className="tnum rounded-md border border-border px-2 py-1 text-xs capitalize text-accent">{value}</span>
-    </div>
   );
 }
