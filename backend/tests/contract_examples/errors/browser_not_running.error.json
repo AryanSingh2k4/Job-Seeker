@@ -1,0 +1,7 @@
+{
+  "error": {
+    "code": "browser_not_running",
+    "message": "Browser is not running - launch it first via POST /api/v1/browser/launch",
+    "details": {}
+  }
+}

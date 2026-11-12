@@ -1,0 +1,55 @@
+{
+  "items": [
+    {
+      "id": "d2a6f3c8-5b19-4e72-a9c4-8f1d6b3e5a07",
+      "job_id": "9a1d0f5e-3c7b-4e8a-b2d6-1f4a8c6e9b73",
+      "company": "Notion",
+      "title": "Senior Backend Engineer, Realtime Sync",
+      "platform": "GREENHOUSE",
+      "submission_mode": "ASSISTED_REVIEW",
+      "status": "SUBMITTED",
+      "started_at": "2026-11-10T18:32:10Z",
+      "completed_at": "2026-11-10T18:35:06Z",
+      "duration_seconds": 176,
+      "confirmation_receipt": "GH-88412-20261110T183506Z",
+      "screenshot_path": "/api/v1/applications/d2a6f3c8-5b19-4e72-a9c4-8f1d6b3e5a07/screenshot",
+      "failure_stage": null,
+      "failure_reason": null
+    },
+    {
+      "id": "e6b9d4f2-8c35-4a61-b7d8-3e5a9c1f6b28",
+      "job_id": "b7e4c2a9-6f31-4d58-9a7c-2e8b5d1f4a60",
+      "company": "Stripe",
+      "title": "Senior Backend Engineer, Payments",
+      "platform": "GREENHOUSE",
+      "submission_mode": "ASSISTED_REVIEW",
+      "status": "PAUSED_FOR_REVIEW",
+      "started_at": "2026-11-11T14:05:36Z",
+      "completed_at": null,
+      "duration_seconds": 134,
+      "confirmation_receipt": null,
+      "screenshot_path": "/api/v1/applications/e6b9d4f2-8c35-4a61-b7d8-3e5a9c1f6b28/screenshot",
+      "failure_stage": null,
+      "failure_reason": null
+    },
+    {
+      "id": "f1c3a8e6-2d94-4b57-8a2f-9c6e1b4d7a35",
+      "job_id": "8f3e2d1c-4b5a-4c69-8d7e-1a2b3c4d5e6f",
+      "company": "Linear",
+      "title": "Senior Backend Engineer, Billing",
+      "platform": "ASHBY",
+      "submission_mode": "ASSISTED_REVIEW",
+      "status": "FAILED",
+      "started_at": "2026-11-11T13:21:13Z",
+      "completed_at": "2026-11-11T13:22:41Z",
+      "duration_seconds": 88,
+      "confirmation_receipt": null,
+      "screenshot_path": "/api/v1/applications/f1c3a8e6-2d94-4b57-8a2f-9c6e1b4d7a35/screenshot",
+      "failure_stage": "QA_FIELDS",
+      "failure_reason": "No confident answer for 'Are you legally authorized to work in Canada?' (EXACT_YEARS, no deterministic hit)"
+    }
+  ],
+  "total": 57,
+  "page": 1,
+  "page_size": 50
+}

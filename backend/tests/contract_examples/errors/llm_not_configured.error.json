@@ -1,0 +1,10 @@
+{
+  "error": {
+    "code": "llm_not_configured",
+    "message": "No LLM API key stored for provider 'openai'",
+    "details": {
+      "provider": "openai",
+      "hint": "Store a key via POST /api/v1/settings/llm-key"
+    }
+  }
+}

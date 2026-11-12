@@ -1,0 +1,10 @@
+{
+  "error": {
+    "code": "budget_exceeded",
+    "message": "Monthly LLM budget of $30 exceeded ($31.42 spent this month)",
+    "details": {
+      "monthly_budget_usd": 30,
+      "spend_this_month_usd": 31.42
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "error": {
+    "code": "render_failed",
+    "message": "Typst compile failed for template 'ats_classic.typ'",
+    "details": {
+      "job_id": "b7e4c2a9-6f31-4d58-9a7c-2e8b5d1f4a60",
+      "reason": "unknown variable: sectitle"
+    }
+  }
+}

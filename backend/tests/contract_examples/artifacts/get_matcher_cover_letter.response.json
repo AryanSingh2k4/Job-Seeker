@@ -1,0 +1,6 @@
+{
+  "status": 200,
+  "content_type": "text/plain",
+  "job_id": "b7e4c2a9-6f31-4d58-9a7c-2e8b5d1f4a60",
+  "note": "Binary endpoint (format=txt): the body is the plain-text cover letter, not JSON. format=pdf returns application/pdf instead. This descriptor documents the envelope only."
+}

@@ -1,0 +1,30 @@
+[
+  {
+    "company": "stripe",
+    "providers": [
+      "greenhouse"
+    ],
+    "enabled": true
+  },
+  {
+    "company": "notion",
+    "providers": [
+      "greenhouse"
+    ],
+    "enabled": true
+  },
+  {
+    "company": "ramp",
+    "providers": [
+      "lever"
+    ],
+    "enabled": true
+  },
+  {
+    "company": "linear",
+    "providers": [
+      "ashby"
+    ],
+    "enabled": false
+  }
+]

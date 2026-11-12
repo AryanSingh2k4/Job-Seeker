@@ -1,0 +1,9 @@
+{
+  "error": {
+    "code": "not_found",
+    "message": "Candidate profile not found - complete onboarding first (POST /api/v1/profile)",
+    "details": {
+      "resource": "profile"
+    }
+  }
+}

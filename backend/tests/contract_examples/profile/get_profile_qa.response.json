@@ -1,0 +1,56 @@
+[
+  {
+    "id": "f1a2b3c4-d5e6-4f70-8abc-0123456789ab",
+    "category": "AUTHORIZATION",
+    "question_canonical": "Are you legally authorized to work in the United States?",
+    "question_patterns": [
+      "legally authorized to work",
+      "work authorization",
+      "authorized to work in the united states"
+    ],
+    "answer_value": "Yes",
+    "answer_type": "boolean",
+    "source": "DETERMINISTIC",
+    "confidence_score": 1.0
+  },
+  {
+    "id": "f2b3c4d5-e6f7-4a81-9bcd-123456789abc",
+    "category": "SPONSORSHIP",
+    "question_canonical": "Will you now or in the future require visa sponsorship?",
+    "question_patterns": [
+      "sponsorship",
+      "require sponsorship",
+      "visa sponsorship"
+    ],
+    "answer_value": "No",
+    "answer_type": "boolean",
+    "source": "USER_VERIFIED",
+    "confidence_score": 1.0
+  },
+  {
+    "id": "f3c4d5e6-f7a8-4b92-8abc-23456789abcd",
+    "category": "EXACT_YEARS",
+    "question_canonical": "How many years of professional backend engineering experience do you have?",
+    "question_patterns": [
+      "years of experience",
+      "years of professional experience"
+    ],
+    "answer_value": "7",
+    "answer_type": "number",
+    "source": "USER_VERIFIED",
+    "confidence_score": 1.0
+  },
+  {
+    "id": "f4d5e6f7-a8b9-4ca3-9bcd-3456789abcde",
+    "category": "NOTICE",
+    "question_canonical": "What is your notice period with your current employer?",
+    "question_patterns": [
+      "notice period",
+      "when can you start"
+    ],
+    "answer_value": "2 weeks",
+    "answer_type": "text",
+    "source": "DETERMINISTIC",
+    "confidence_score": 0.95
+  }
+]

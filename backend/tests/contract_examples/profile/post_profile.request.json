@@ -1,0 +1,204 @@
+{
+  "contact": {
+    "full_name": "Ada Lovelace",
+    "email": "ada.lovelace@example.com",
+    "phone": "+1-415-555-0142",
+    "location": "San Francisco, CA",
+    "links": {
+      "linkedin": "https://www.linkedin.com/in/ada-lovelace",
+      "github": "https://github.com/ada-lovelace",
+      "portfolio": "https://ada.example.com"
+    }
+  },
+  "summary": "Senior backend engineer with 7 years building payments and finance-automation platforms at Stripe and Ramp. Specializes in high-throughput Python/FastAPI services, PostgreSQL data integrity, and latency-sensitive APIs. Led migrations that cut p99 latency 45% and drove reconciliation errors to zero.",
+  "work_authorization": "us_citizen",
+  "requires_sponsorship": false,
+  "years_experience": 7,
+  "skills": [
+    {
+      "name": "Python",
+      "category": "language",
+      "proficiency": "expert",
+      "years_of_experience": 7
+    },
+    {
+      "name": "FastAPI",
+      "category": "framework",
+      "proficiency": "expert",
+      "years_of_experience": 4
+    },
+    {
+      "name": "PostgreSQL",
+      "category": "database",
+      "proficiency": "advanced",
+      "years_of_experience": 6
+    },
+    {
+      "name": "Redis",
+      "category": "database",
+      "proficiency": "advanced",
+      "years_of_experience": 5
+    },
+    {
+      "name": "Kafka",
+      "category": "tooling",
+      "proficiency": "advanced",
+      "years_of_experience": 4
+    },
+    {
+      "name": "TypeScript",
+      "category": "language",
+      "proficiency": "advanced",
+      "years_of_experience": 5
+    },
+    {
+      "name": "Playwright",
+      "category": "testing",
+      "proficiency": "intermediate",
+      "years_of_experience": 2
+    },
+    {
+      "name": "AWS",
+      "category": "cloud",
+      "proficiency": "advanced",
+      "years_of_experience": 6
+    }
+  ],
+  "experiences": [
+    {
+      "company": "Stripe",
+      "title": "Senior Backend Engineer, Payments Infrastructure",
+      "location": "San Francisco, CA (Hybrid)",
+      "employment_type": "full_time",
+      "start_date": "2024-03-01",
+      "end_date": null,
+      "current": true,
+      "bullets": [
+        {
+          "text": "Cut p99 payment API latency 45% by introducing Redis caching across 12 services",
+          "metrics": [
+            "45%",
+            "12"
+          ]
+        },
+        {
+          "text": "Reduced payment-processing failures 31% by adding idempotency keys and automatic retries",
+          "metrics": [
+            "31%"
+          ]
+        },
+        {
+          "text": "Scaled webhook delivery from 4,000 to 22,000 events per second with Kafka partition rebalancing",
+          "metrics": [
+            "4,000",
+            "22,000"
+          ]
+        }
+      ]
+    },
+    {
+      "company": "Ramp",
+      "title": "Senior Backend Engineer, Finance Automation",
+      "location": "New York, NY (Hybrid)",
+      "employment_type": "full_time",
+      "start_date": "2021-06-01",
+      "end_date": "2024-02-28",
+      "current": false,
+      "bullets": [
+        {
+          "text": "Built the reconciliation engine processing $2.1B in monthly transaction volume with zero double-charges",
+          "metrics": [
+            "$2.1B"
+          ]
+        },
+        {
+          "text": "Cut card-issuing onboarding time from 14 days to 3 by automating KYB document checks",
+          "metrics": [
+            "14",
+            "3"
+          ]
+        }
+      ]
+    },
+    {
+      "company": "Notion",
+      "title": "Backend Engineer, Sync Platform",
+      "location": "Remote (US)",
+      "employment_type": "full_time",
+      "start_date": "2019-07-01",
+      "end_date": "2021-05-31",
+      "current": false,
+      "bullets": [
+        {
+          "text": "Reduced real-time sync conflicts 62% by introducing CRDT-based document merging",
+          "metrics": [
+            "62%"
+          ]
+        }
+      ]
+    }
+  ],
+  "education": [
+    {
+      "id": "e5f6a7b8-c9d0-4c89-9abc-89abcdef0123",
+      "institution": "UC Berkeley",
+      "degree": "B.S.",
+      "field": "Computer Science",
+      "start_year": 2015,
+      "graduation_year": 2019
+    }
+  ],
+  "projects": [
+    {
+      "id": "e7b8c9d0-e1f2-4eab-89cd-abcdef012345",
+      "name": "openledger",
+      "description": "Self-hosted double-entry accounting engine with 1.8k GitHub stars.",
+      "url": "https://github.com/ada-lovelace/openledger",
+      "start_date": "2023-01-01",
+      "end_date": null
+    }
+  ],
+  "certifications": [
+    {
+      "id": "e6a7b8c9-d0e1-4d9a-8bcd-9abcdef01234",
+      "name": "AWS Certified Solutions Architect - Professional",
+      "issuer": "Amazon Web Services",
+      "issued_at": "2023-04-15",
+      "expires_at": "2026-04-15",
+      "credential_id": "AWS-PSA-482913"
+    }
+  ],
+  "preferences": {
+    "target_titles": [
+      "Senior Backend Engineer",
+      "Staff Backend Engineer",
+      "Senior Platform Engineer"
+    ],
+    "seniority": [
+      "senior",
+      "staff"
+    ],
+    "workplace_type": "remote",
+    "remote_only": true,
+    "allowed_locations": [
+      "US Remote",
+      "Canada Remote"
+    ],
+    "salary_floor": 180000,
+    "salary_currency": "USD",
+    "requires_sponsorship": false,
+    "exclude_titles": [
+      "director",
+      "vp",
+      "vice president",
+      "sales",
+      "account executive",
+      "recruiter"
+    ],
+    "industries": [
+      "fintech",
+      "developer tools",
+      "SaaS"
+    ]
+  }
+}

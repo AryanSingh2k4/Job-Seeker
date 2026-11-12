@@ -1,0 +1,10 @@
+{
+  "fact_check_status": "PASSED",
+  "resume_pdf_url": "/api/v1/matcher/resume/b7e4c2a9-6f31-4d58-9a7c-2e8b5d1f4a60",
+  "cover_letter_pdf_url": "/api/v1/matcher/cover-letter/b7e4c2a9-6f31-4d58-9a7c-2e8b5d1f4a60?format=pdf",
+  "selected_bullet_ids": [
+    "41a2c6e8-9b35-4d17-8f5a-2c6e9b1d4a73",
+    "63c4e8fa-7d57-4f39-8b7c-4e8a9d3f6c95",
+    "74d5f9ab-6e68-4a4a-8c8d-5f9b8e4a7da6"
+  ]
+}

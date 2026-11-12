@@ -1,0 +1,98 @@
+{
+  "id": "c4f8e1b3-9a27-4b65-8d3e-6a9c2f7b1d84",
+  "title": "Senior Backend Engineer, Finance Automation",
+  "company": "Ramp",
+  "company_logo_url": null,
+  "location": "US Remote",
+  "workplace_type": "remote",
+  "source": "lever",
+  "ats_provider": "lever",
+  "application_type": "ats_direct",
+  "match_score": 83.9,
+  "status": "ready_to_apply",
+  "salary": {
+    "min_amount": 135000,
+    "max_amount": 175000,
+    "currency": "USD",
+    "interval": "yearly"
+  },
+  "date_posted": "2026-11-07T00:00:00Z",
+  "date_discovered": "2026-11-09T21:40:02Z",
+  "description_clean": "Ramp is looking for a Senior Backend Engineer to build the automation core of our finance platform. You will design high-throughput ledger services, own data integrity end to end, and partner with product to ship customer-facing automation. Requirements: 5+ years of backend experience, strong Python, production experience with relational databases, and a track record of operating services you built. Nice to have: event streaming (Kafka), workflow orchestration (Airflow), and infrastructure-as-code (Terraform).",
+  "parsed": {
+    "seniority_level": "senior",
+    "min_years_experience": 6,
+    "required_hard_skills": [
+      "Python",
+      "FastAPI",
+      "PostgreSQL",
+      "Docker"
+    ],
+    "preferred_hard_skills": [
+      "Kafka",
+      "Airflow",
+      "Terraform"
+    ],
+    "soft_skills": [
+      "ownership",
+      "written communication",
+      "mentorship"
+    ],
+    "core_responsibilities": [
+      "Design and operate ledger services processing millions of daily transactions",
+      "Own data integrity, idempotency, and reconciliation guarantees",
+      "Partner with product on finance automation features",
+      "Mentor mid-level engineers through design review"
+    ],
+    "domain_keywords": [
+      "fintech",
+      "automation",
+      "accounting",
+      "erp"
+    ],
+    "education_minimum": "bachelors",
+    "work_location_type": "remote",
+    "allowed_locations": [
+      "US",
+      "Canada"
+    ],
+    "visa_sponsorship_statement": "supported",
+    "salary_range": {
+      "min_amount": 135000,
+      "max_amount": 175000,
+      "currency": "USD",
+      "interval": "yearly"
+    },
+    "summary_mission": "Build the automation core that replaces manual finance back-office work for SMBs."
+  },
+  "score_breakdown": {
+    "final": 83.9,
+    "hard_gate": {
+      "passed": true,
+      "reasons": []
+    },
+    "components": {
+      "s_req": 0.89,
+      "s_pref": 0.68,
+      "s_vec": 0.81,
+      "s_llm": 0.9,
+      "s_exp": 0.83
+    },
+    "matched_skills": [
+      "Python",
+      "FastAPI",
+      "PostgreSQL"
+    ],
+    "missing_skills": [
+      "Kafka"
+    ],
+    "degraded": false
+  },
+  "tailored": {
+    "resume_pdf_url": "/api/v1/matcher/resume/c4f8e1b3-9a27-4b65-8d3e-6a9c2f7b1d84",
+    "cover_letter_txt": "/api/v1/matcher/cover-letter/c4f8e1b3-9a27-4b65-8d3e-6a9c2f7b1d84?format=txt",
+    "cover_letter_pdf_url": "/api/v1/matcher/cover-letter/c4f8e1b3-9a27-4b65-8d3e-6a9c2f7b1d84?format=pdf",
+    "fact_check_status": "PASSED",
+    "created_at": "2026-11-10T19:12:45Z"
+  }
+}

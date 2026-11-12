@@ -1,0 +1,34 @@
+{
+  "mode": "assisted",
+  "autonomous_opt_in": false,
+  "linkedin_opt_in": true,
+  "daily_caps": {
+    "linkedin": 25,
+    "ats": 40,
+    "global": 20
+  },
+  "working_hours": {
+    "start": "08:30",
+    "end": "18:30",
+    "days": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "company_cooldown_days": 14,
+  "crawl_interval_minutes": 30,
+  "llm": {
+    "provider": "openai",
+    "model": "gpt-4o-mini",
+    "model_strong": "gpt-4o",
+    "monthly_budget_usd": 30,
+    "spend_this_month_usd": 4.2
+  },
+  "inter_application_cooldown_min": [
+    3,
+    8
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "error": {
+    "code": "application_not_found",
+    "message": "Application a8d2f6b4-7e13-4c95-9b6a-4d8f2c1e6b39 does not exist",
+    "details": {
+      "application_id": "a8d2f6b4-7e13-4c95-9b6a-4d8f2c1e6b39"
+    }
+  }
+}

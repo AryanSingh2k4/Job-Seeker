@@ -1,0 +1,11 @@
+{
+  "content_type": "multipart/form-data",
+  "parts": {
+    "file": {
+      "filename": "resume.pdf",
+      "content_type": "application/pdf",
+      "note": "binary PDF bytes (required)"
+    }
+  },
+  "note": "Multipart endpoint: the request body is form-data with a single file part, not JSON. This descriptor documents the shape; no JSON body is sent."
+}

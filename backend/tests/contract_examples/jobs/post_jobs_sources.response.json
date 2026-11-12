@@ -1,0 +1,7 @@
+{
+  "company": "vercel",
+  "providers": [
+    "greenhouse"
+  ],
+  "enabled": true
+}

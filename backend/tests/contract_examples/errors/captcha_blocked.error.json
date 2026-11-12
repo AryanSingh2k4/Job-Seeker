@@ -1,0 +1,12 @@
+{
+  "error": {
+    "code": "captcha_blocked",
+    "message": "CAPTCHA challenge detected - run frozen and platform paused for review",
+    "details": {
+      "application_id": "6a5b4c3d-2e1f-4a0b-8c9d-0e1f2a3b4c5d",
+      "captcha_type": "CLOUDFLARE_TURNSTILE",
+      "action": "frozen_for_review",
+      "afk_timeout_seconds": 300
+    }
+  }
+}

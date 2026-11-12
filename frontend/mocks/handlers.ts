@@ -45,10 +45,41 @@ const demoJobs = [
     date_posted: "2026-11-11T00:00:00Z", date_discovered: "2026-11-11T14:00:00Z" },
 ];
 
+const demoJobDetail = (id: string) => {
+  const base = demoJobs.find((j) => j.id === id) ?? demoJobs[0];
+  return {
+    ...base,
+    description_clean:
+      "About the role\n\nYou will design and operate services that process millions of events per day.\n\nResponsibilities\n- Design, build, and operate distributed backend services\n- Own reliability, latency, and cost targets end to end\n- Mentor engineers and raise the code review bar\n\nRequirements\n- 5+ years building production systems in Python or Go\n- Strong API design and SQL skills; experience with Postgres and Redis\n- Track record of operating services in production (on-call, SLOs)\n\nNice to have\n- Kafka or equivalent streaming experience\n- Kubernetes and Terraform in production",
+    parsed: {
+      seniority_level: "senior",
+      min_years_experience: 5,
+      required_hard_skills: ["Python", "Postgres", "Redis", "API design", "Docker"],
+      preferred_hard_skills: ["Kafka", "Kubernetes", "Terraform"],
+      visa_sponsorship_statement: "unknown" as const,
+      core_responsibilities: [
+        "Design and operate distributed backend services",
+        "Own reliability, latency, and cost targets",
+        "Mentor engineers and raise the review bar",
+      ],
+    },
+    score_breakdown: {
+      final: base.match_score ?? 82,
+      hard_gate: { passed: true, reasons: [] },
+      components: { s_req: 0.91, s_pref: 0.7, s_vec: 0.82, s_llm: 0.88, s_exp: 1.0 },
+      matched_skills: ["Python", "Postgres", "Redis", "Docker", "API design"],
+      missing_skills: ["Kafka"],
+      degraded: false,
+    },
+    tailored: null,
+  };
+};
+
 export const handlers = [
   http.get("*/api/v1/health", () => HttpResponse.json(health)),
   http.get("*/api/v1/jobs", () =>
     HttpResponse.json({ items: demoJobs, total: demoJobs.length, page: 1, page_size: 50 })),
+  http.get("*/api/v1/jobs/:id", ({ params }) => HttpResponse.json(demoJobDetail(String(params.id)))),
   http.get("*/api/v1/applications", () =>
     HttpResponse.json({ items: [], total: 0, page: 1, page_size: 50 })),
 ];

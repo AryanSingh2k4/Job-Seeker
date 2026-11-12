@@ -1,0 +1,17 @@
+{
+  "draft_id": "2b8f6d4a-9c15-4e73-a8b2-6d1f9c4e3a58",
+  "accepted": {
+    "skill_ids": [
+      "bb22cc33-44dd-4e66-8f77-aa778899cb00",
+      "bb22cc33-44dd-4e77-8f88-aa778899cc00"
+    ],
+    "bullet_ids": [
+      "aa11bb22-33cc-4d44-8e55-ff6677889a00",
+      "aa11bb22-33cc-4d55-8e66-ff6677889b00"
+    ],
+    "experience_ids": [
+      "cc33dd44-55ee-4f77-8a88-bb8899aacd00"
+    ]
+  },
+  "edits": {}
+}

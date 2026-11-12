@@ -1,29 +1,17 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
+import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
-import { Briefcase, MapPin, Search, Inbox } from "lucide-react";
-import { useEffect, useState } from "react";
+import { MapPin, Search, Inbox } from "lucide-react";
+import { Suspense, useEffect, useState } from "react";
 import { apiFetch } from "@/lib/api/client";
 import type { JobListItem, Paged } from "@/lib/api/types";
 import { GlassCard, PageIn, Rise, Stagger } from "@/components/motion";
 import { ScoreChip } from "@/components/score-chip";
+import { CompanyAvatar } from "@/components/company-avatar";
+import { JobDetailPanel } from "@/components/job-detail";
 import { cn } from "@/lib/utils";
-
-function CompanyAvatar({ name }: { name: string }) {
-  const hue = [...name].reduce((a, c) => a + c.charCodeAt(0), 0) % 360;
-  return (
-    <div
-      className="flex size-10 shrink-0 items-center justify-center rounded-xl text-sm font-bold text-white"
-      style={{
-        background: `linear-gradient(135deg, hsl(${hue} 55% 32%), hsl(${(hue + 40) % 360} 60% 22%))`,
-        boxShadow: `0 0 16px -6px hsl(${hue} 60% 40% / 0.7)`,
-      }}
-    >
-      {name.slice(0, 1).toUpperCase()}
-    </div>
-  );
-}
 
 function SalaryTag({ job }: { job: JobListItem }) {
   if (!job.salary?.min_amount) return null;
@@ -35,7 +23,9 @@ function SalaryTag({ job }: { job: JobListItem }) {
   );
 }
 
-export default function JobsPage() {
+function JobsInner() {
+  const params = useSearchParams();
+  const selectedId = params.get("id");
   const q = useQuery<Paged<JobListItem>>({
     queryKey: ["jobs", 1],
     queryFn: () => apiFetch<Paged<JobListItem>>("/jobs?page=1&page_size=50"),
@@ -43,15 +33,19 @@ export default function JobsPage() {
   const [cursor, setCursor] = useState(0);
   const items = q.data?.items ?? [];
 
-  // keyboard triage: j/k walk the inbox
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
+      if (selectedId) return; // detail open — don't walk
       if (e.key === "j") setCursor((c) => Math.min(c + 1, items.length - 1));
       if (e.key === "k") setCursor((c) => Math.max(c - 1, 0));
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [items.length]);
+  }, [items.length, selectedId]);
+
+  if (selectedId) {
+    return <JobDetailPanel id={selectedId} onBack={() => history.replaceState(null, "", "/jobs/")} />;
+  }
 
   return (
     <PageIn className="mx-auto max-w-6xl">
@@ -59,9 +53,10 @@ export default function JobsPage() {
         <div>
           <h1 className="text-[26px] font-semibold tracking-tight">Job Inbox</h1>
           <p className="mt-1 text-sm text-muted">
-            {q.data ? `${q.data.total} discovered` : "loading…"} · <kbd className="rounded border border-white/10 px-1 font-mono text-[10px]">j</kbd>
-            <kbd className="ml-0.5 rounded border border-white/10 px-1 font-mono text-[10px]">k</kbd> to walk · detail opens as{" "}
-            <code className="font-mono text-xs">/jobs?id=…</code>
+            {q.data ? `${q.data.total} discovered` : "loading…"} ·{" "}
+            <kbd className="rounded border border-white/10 px-1 font-mono text-[10px]">j</kbd>
+            <kbd className="ml-0.5 rounded border border-white/10 px-1 font-mono text-[10px]">k</kbd> to walk ·
+            click a row for detail
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -121,7 +116,7 @@ export default function JobsPage() {
                 show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 260, damping: 26 } },
               }}
               whileHover={{ scale: 1.008 }}
-              onClick={() => setCursor(i)}
+              onClick={() => history.replaceState(null, "", `/jobs/?id=${j.id}`) }
               className={cn(
                 "glass edge-glow group block w-full rounded-xl p-4 text-left transition-colors",
                 cursor === i ? "border-accent/40 shadow-glow-accent" : "hover:border-white/15",
@@ -139,9 +134,7 @@ export default function JobsPage() {
                     )}
                   </div>
                   <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-muted">
-                    <span className="inline-flex items-center gap-1">
-                      <Briefcase className="size-3" /> {j.company}
-                    </span>
+                    <span>{j.company}</span>
                     <span className="inline-flex items-center gap-1">
                       <MapPin className="size-3" /> {j.location}
                     </span>
@@ -168,5 +161,13 @@ export default function JobsPage() {
         </div>
       )}
     </PageIn>
+  );
+}
+
+export default function JobsPage() {
+  return (
+    <Suspense fallback={<div className="skeleton mx-auto mt-6 h-64 max-w-6xl" />}>
+      <JobsInner />
+    </Suspense>
   );
 }

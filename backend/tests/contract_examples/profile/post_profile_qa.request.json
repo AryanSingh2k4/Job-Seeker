@@ -1,0 +1,10 @@
+{
+  "category": "RELOCATION",
+  "question_canonical": "Are you willing to relocate to New York City?",
+  "question_patterns": [
+    "willing to relocate",
+    "relocate to New York"
+  ],
+  "answer_value": "No",
+  "answer_type": "boolean"
+}

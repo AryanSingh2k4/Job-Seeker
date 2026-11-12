@@ -19,7 +19,7 @@ use std::process::{Child, Command, Stdio};
 use std::sync::Mutex;
 use tauri::Manager;
 
-#[derive(Debug, Clone, Serialize)]
+#[derive(Debug, Clone, Serialize, serde::Deserialize)]
 struct Bootstrap {
     port: u16,
     token: String,
@@ -102,10 +102,11 @@ fn spawn_sidecar() -> Result<Bootstrap, String> {
 
 fn main() {
     let sidecar = spawn_sidecar();
+    let boot_value = sidecar.clone().ok();
 
     let app = tauri::Builder::default()
         .manage(SidecarState {
-            bootstrap: Mutex::new(sidecar.ok()),
+            bootstrap: Mutex::new(boot_value),
         })
         .setup(move |app| {
             if sidecar.is_err() {

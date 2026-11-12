@@ -1,0 +1,98 @@
+[
+  {
+    "id": "mutation-01",
+    "mutation_type": "altered_percent",
+    "original_bullet": "Cut p99 payment API latency 45% by introducing Redis caching across 12 services",
+    "mutated_bullet": "Cut p99 payment API latency 54% by introducing Redis caching across 12 services",
+    "must_fail": true,
+    "reason": "Percent token 45% transposed to 54%. Fact-check requires every number token to match the verified master bullet exactly, so this must FAIL."
+  },
+  {
+    "id": "mutation-02",
+    "mutation_type": "altered_dollar",
+    "original_bullet": "Reduced AWS spend $310K annually by moving batch workloads to spot instances",
+    "mutated_bullet": "Reduced AWS spend $130K annually by moving batch workloads to spot instances",
+    "must_fail": true,
+    "reason": "Dollar token $310K altered to $130K (2.4x understated savings). Number-token mismatch must FAIL."
+  },
+  {
+    "id": "mutation-03",
+    "mutation_type": "scaled_number",
+    "original_bullet": "Scaled webhook delivery from 4,000 to 22,000 events per second with Kafka partition rebalancing",
+    "mutated_bullet": "Scaled webhook delivery from 40,000 to 220,000 events per second with Kafka partition rebalancing",
+    "must_fail": true,
+    "reason": "Both throughput numbers inflated 10x (4,000->40,000, 22,000->220,000). Scaled tokens must FAIL."
+  },
+  {
+    "id": "mutation-04",
+    "mutation_type": "invented_tool",
+    "original_bullet": "Cut p95 checkout latency from 820ms to 190ms by migrating the billing service to an event-driven FastAPI backend",
+    "mutated_bullet": "Cut p95 checkout latency from 820ms to 190ms by migrating the billing service to an event-driven FastAPI backend on Kubernetes with gRPC streaming",
+    "must_fail": true,
+    "reason": "Adds Kubernetes and gRPC, neither present in the master bullet. Text drift from verbatim equality must FAIL even though all numbers match."
+  },
+  {
+    "id": "mutation-05",
+    "mutation_type": "invented_metric",
+    "original_bullet": "Cut card-issuing onboarding time from 14 days to 3 by automating KYB document checks",
+    "mutated_bullet": "Cut card-issuing onboarding time from 14 days to 3, raising auto-approval rates 18%, by automating KYB document checks",
+    "must_fail": true,
+    "reason": "Injects a fabricated 18% approval-rate metric that exists nowhere in the master bullet. Extra number token must FAIL."
+  },
+  {
+    "id": "mutation-06",
+    "mutation_type": "reordered_words_changing_meaning",
+    "original_bullet": "Cut p99 API latency 45% by introducing Redis caching across 12 services",
+    "mutated_bullet": "Introduced Redis caching 45% by cutting p99 API latency across 12 services",
+    "must_fail": true,
+    "reason": "Word order reversed so the bullet now claims the caching itself was 'introduced 45%'. Same tokens, changed meaning - verbatim-equality check must FAIL."
+  },
+  {
+    "id": "mutation-07",
+    "mutation_type": "added_bullet",
+    "original_bullet": "Reduced real-time sync conflicts 62% by introducing CRDT-based document merging",
+    "mutated_bullet": "Reduced real-time sync conflicts 62% by introducing CRDT-based document merging. Also mentored 4 engineers who were promoted within a year.",
+    "must_fail": true,
+    "reason": "Fuses an unverified second claim (mentoring outcome) onto the master bullet. Rendered text no longer equals any verified bullet, so it must FAIL."
+  },
+  {
+    "id": "mutation-08",
+    "mutation_type": "deleted_metric",
+    "original_bullet": "Built the reconciliation engine processing $2.1B in monthly transaction volume with zero double-charges",
+    "mutated_bullet": "Built the reconciliation engine processing substantial monthly transaction volume with zero double-charges",
+    "must_fail": true,
+    "reason": "Deletes the $2.1B volume metric, replacing it with a vague qualifier. Missing number token and text drift must FAIL."
+  },
+  {
+    "id": "mutation-09",
+    "mutation_type": "swapped_company",
+    "original_bullet": "Cut p99 payment API latency 45% by introducing Redis caching across Stripe's 12 core billing services",
+    "mutated_bullet": "Cut p99 payment API latency 45% by introducing Redis caching across Adyen's 12 core billing services",
+    "must_fail": true,
+    "reason": "Employer attribution swapped from Stripe to Adyen. Verbatim-equality check against the master bullet must FAIL."
+  },
+  {
+    "id": "mutation-10",
+    "mutation_type": "changed_date",
+    "original_bullet": "Led the Q3 2024 re-platform of the invoice API, cutting serialization errors 38%",
+    "mutated_bullet": "Led the Q3 2023 re-platform of the invoice API, cutting serialization errors 38%",
+    "must_fail": true,
+    "reason": "Project date shifted from Q3 2024 to Q3 2023. Date token mismatch must FAIL."
+  },
+  {
+    "id": "mutation-11",
+    "mutation_type": "unit_change",
+    "original_bullet": "Reduced invoice render time from 820ms to 190ms per document by streaming Typst compilation",
+    "mutated_bullet": "Reduced invoice render time from 0.82s to 0.19s per document by streaming Typst compilation",
+    "must_fail": true,
+    "reason": "Same quantities re-expressed in seconds instead of milliseconds. Number-token comparison is unit-sensitive (820ms != 0.82s as tokens), so it must FAIL."
+  },
+  {
+    "id": "mutation-12",
+    "mutation_type": "invented_certification",
+    "original_bullet": "Cut p99 payment API latency 45% by introducing Redis caching across 12 services",
+    "mutated_bullet": "As a Redis Certified Developer, cut p99 API latency 45% by introducing Redis caching across 12 services",
+    "must_fail": true,
+    "reason": "Prepends a fabricated 'Redis Certified Developer' credential not present in the profile or the master bullet. Text drift must FAIL."
+  }
+]

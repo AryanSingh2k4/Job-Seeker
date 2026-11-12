@@ -1,0 +1,12 @@
+{
+  "error": {
+    "code": "company_cooldown",
+    "message": "Stripe is in a 14-day company cooldown after the application on 2026-11-02",
+    "details": {
+      "company": "Stripe",
+      "last_application_date": "2026-11-02T16:44:51Z",
+      "cooldown_days": 14,
+      "eligible_after": "2026-11-16T00:00:00Z"
+    }
+  }
+}

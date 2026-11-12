@@ -1,0 +1,12 @@
+{
+  "error": {
+    "code": "cap_reached",
+    "message": "Daily LinkedIn application cap reached (25/25)",
+    "details": {
+      "platform": "linkedin",
+      "used": 25,
+      "limit": 25,
+      "resets_at": "2026-11-12T00:00:00Z"
+    }
+  }
+}

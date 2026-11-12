@@ -1,0 +1,13 @@
+{
+  "id": "a5b6c7d8-e9f0-4a1b-8c2d-3e4f5a6b7c8d",
+  "category": "RELOCATION",
+  "question_canonical": "Are you willing to relocate to New York City?",
+  "question_patterns": [
+    "willing to relocate",
+    "relocate to New York"
+  ],
+  "answer_value": "No",
+  "answer_type": "boolean",
+  "source": "USER_VERIFIED",
+  "confidence_score": 1.0
+}

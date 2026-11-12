@@ -1,0 +1,76 @@
+{
+  "draft_id": "2b8f6d4a-9c15-4e73-a8b2-6d1f9c4e3a58",
+  "draft": {
+    "status": "DRAFT",
+    "skills": [
+      {
+        "id": "bb22cc33-44dd-4e66-8f77-aa778899cb00",
+        "name": "Go",
+        "category": "language",
+        "proficiency": "intermediate",
+        "years_of_experience": 2,
+        "verified": false
+      },
+      {
+        "id": "bb22cc33-44dd-4e77-8f88-aa778899cc00",
+        "name": "Docker",
+        "category": "tooling",
+        "proficiency": "advanced",
+        "years_of_experience": 4,
+        "verified": false
+      }
+    ],
+    "experiences": [
+      {
+        "id": "cc33dd44-55ee-4f77-8a88-bb8899aacd00",
+        "company": "Plaid",
+        "title": "Backend Engineer, Open Finance",
+        "location": "San Francisco, CA",
+        "employment_type": "full_time",
+        "start_date": "2017-07-01",
+        "end_date": "2019-06-30",
+        "current": false,
+        "bullets": [
+          {
+            "id": "aa11bb22-33cc-4d44-8e55-ff6677889a00",
+            "text": "Cut account-link latency 28% by moving token exchange to background jobs",
+            "metrics": [
+              "28%"
+            ],
+            "verified": false
+          },
+          {
+            "id": "aa11bb22-33cc-4d55-8e66-ff6677889b00",
+            "text": "Onboarded 40+ bank integrations across 6 providers",
+            "metrics": [
+              "40",
+              "6"
+            ],
+            "verified": false
+          }
+        ]
+      }
+    ],
+    "education": [
+      {
+        "id": "dd44ee55-66ff-4a88-9b99-cc99aabbde00",
+        "institution": "UC Berkeley",
+        "degree": "B.S.",
+        "field": "Computer Science",
+        "graduation_year": 2019,
+        "verified": false
+      }
+    ],
+    "projects": [],
+    "certifications": [
+      {
+        "id": "de55ff66-7700-4b99-8caa-dd00bbbaef00",
+        "name": "AWS Certified Solutions Architect - Professional",
+        "issuer": "Amazon Web Services",
+        "issued_at": "2023-04-15",
+        "verified": false
+      }
+    ],
+    "created_at": "2026-11-11T09:18:40Z"
+  }
+}

@@ -1,0 +1,294 @@
+{
+  "id": "7c9e6679-7425-40de-944b-e07fc1f90ae7",
+  "contact": {
+    "full_name": "Ada Lovelace",
+    "email": "ada.lovelace@example.com",
+    "phone": "+1-415-555-0142",
+    "location": "San Francisco, CA",
+    "links": {
+      "linkedin": "https://www.linkedin.com/in/ada-lovelace",
+      "github": "https://github.com/ada-lovelace",
+      "portfolio": "https://ada.example.com"
+    }
+  },
+  "summary": "Senior backend engineer with 7 years building payments and finance-automation platforms at Stripe and Ramp. Specializes in high-throughput Python/FastAPI services, PostgreSQL data integrity, and latency-sensitive APIs. Led migrations that cut p99 latency 45% and drove reconciliation errors to zero.",
+  "work_authorization": "us_citizen",
+  "requires_sponsorship": false,
+  "years_experience": 7,
+  "skills": [
+    {
+      "id": "d4e5f6a7-b8c9-4a01-8bcd-0123456789ab",
+      "name": "Python",
+      "category": "language",
+      "proficiency": "expert",
+      "years_of_experience": 7,
+      "verified": true
+    },
+    {
+      "id": "d5e6f7a8-c9d0-4b12-8cde-123456789abc",
+      "name": "FastAPI",
+      "category": "framework",
+      "proficiency": "expert",
+      "years_of_experience": 4,
+      "verified": true
+    },
+    {
+      "id": "d6f7a8b9-d0e1-4c23-8def-23456789abcd",
+      "name": "PostgreSQL",
+      "category": "database",
+      "proficiency": "advanced",
+      "years_of_experience": 6,
+      "verified": true
+    },
+    {
+      "id": "d7a8b9c0-e1f2-4d34-8abc-3456789abcde",
+      "name": "Redis",
+      "category": "database",
+      "proficiency": "advanced",
+      "years_of_experience": 5,
+      "verified": true
+    },
+    {
+      "id": "d8b9c0d1-f2a3-4e45-8bcd-456789abcdef",
+      "name": "Kafka",
+      "category": "tooling",
+      "proficiency": "advanced",
+      "years_of_experience": 4,
+      "verified": true
+    },
+    {
+      "id": "d9c0d1e2-a3b4-4f56-8abc-56789abcdef0",
+      "name": "TypeScript",
+      "category": "language",
+      "proficiency": "advanced",
+      "years_of_experience": 5,
+      "verified": true
+    },
+    {
+      "id": "dad1e2f3-b4c5-4a67-8bcd-6789abcdef01",
+      "name": "Playwright",
+      "category": "testing",
+      "proficiency": "intermediate",
+      "years_of_experience": 2,
+      "verified": true
+    },
+    {
+      "id": "dbe2f3a4-c5d6-4b78-8abc-789abcdef012",
+      "name": "AWS",
+      "category": "cloud",
+      "proficiency": "advanced",
+      "years_of_experience": 6,
+      "verified": true
+    }
+  ],
+  "experiences": [
+    {
+      "id": "a1b2c3d4-e5f6-4789-8abc-def012345678",
+      "company": "Stripe",
+      "title": "Senior Backend Engineer, Payments Infrastructure",
+      "location": "San Francisco, CA (Hybrid)",
+      "employment_type": "full_time",
+      "start_date": "2024-03-01",
+      "end_date": null,
+      "current": true,
+      "bullets": [
+        {
+          "id": "41a2c6e8-9b35-4d17-8f5a-2c6e9b1d4a73",
+          "text": "Cut p99 payment API latency 45% by introducing Redis caching across 12 services",
+          "verified": true,
+          "metrics": [
+            "45%",
+            "12"
+          ]
+        },
+        {
+          "id": "52b3d7f9-8c46-4e28-9a6b-3d7f8c2e5b84",
+          "text": "Reduced payment-processing failures 31% by adding idempotency keys and automatic retries",
+          "verified": true,
+          "metrics": [
+            "31%"
+          ]
+        },
+        {
+          "id": "63c4e8fa-7d57-4f39-8b7c-4e8a9d3f6c95",
+          "text": "Scaled webhook delivery from 4,000 to 22,000 events per second with Kafka partition rebalancing",
+          "verified": true,
+          "metrics": [
+            "4,000",
+            "22,000"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b2c3d4e5-f6a7-489b-8bcd-ef0123456789",
+      "company": "Ramp",
+      "title": "Senior Backend Engineer, Finance Automation",
+      "location": "New York, NY (Hybrid)",
+      "employment_type": "full_time",
+      "start_date": "2021-06-01",
+      "end_date": "2024-02-28",
+      "current": false,
+      "bullets": [
+        {
+          "id": "74d5f9ab-6e68-4a4a-8c8d-5f9b8e4a7da6",
+          "text": "Built the reconciliation engine processing $2.1B in monthly transaction volume with zero double-charges",
+          "verified": true,
+          "metrics": [
+            "$2.1B"
+          ]
+        },
+        {
+          "id": "85e6fabc-5d79-4b5b-9d9e-6a8c7d5b8eb7",
+          "text": "Cut card-issuing onboarding time from 14 days to 3 by automating KYB document checks",
+          "verified": true,
+          "metrics": [
+            "14",
+            "3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c3d4e5f6-a7b8-49cd-8abc-def01234567a",
+      "company": "Notion",
+      "title": "Backend Engineer, Sync Platform",
+      "location": "Remote (US)",
+      "employment_type": "full_time",
+      "start_date": "2019-07-01",
+      "end_date": "2021-05-31",
+      "current": false,
+      "bullets": [
+        {
+          "id": "96f7abcd-4c8a-4c6c-8eaf-7b9d6c4c9fc8",
+          "text": "Reduced real-time sync conflicts 62% by introducing CRDT-based document merging",
+          "verified": true,
+          "metrics": [
+            "62%"
+          ]
+        }
+      ]
+    }
+  ],
+  "education": [
+    {
+      "id": "e5f6a7b8-c9d0-4c89-9abc-89abcdef0123",
+      "institution": "UC Berkeley",
+      "degree": "B.S.",
+      "field": "Computer Science",
+      "start_year": 2015,
+      "graduation_year": 2019
+    }
+  ],
+  "projects": [
+    {
+      "id": "e7b8c9d0-e1f2-4eab-89cd-abcdef012345",
+      "name": "openledger",
+      "description": "Self-hosted double-entry accounting engine with 1.8k GitHub stars.",
+      "url": "https://github.com/ada-lovelace/openledger",
+      "start_date": "2023-01-01",
+      "end_date": null
+    }
+  ],
+  "certifications": [
+    {
+      "id": "e6a7b8c9-d0e1-4d9a-8bcd-9abcdef01234",
+      "name": "AWS Certified Solutions Architect - Professional",
+      "issuer": "Amazon Web Services",
+      "issued_at": "2023-04-15",
+      "expires_at": "2026-04-15",
+      "credential_id": "AWS-PSA-482913"
+    }
+  ],
+  "qa": [
+    {
+      "id": "f1a2b3c4-d5e6-4f70-8abc-0123456789ab",
+      "category": "AUTHORIZATION",
+      "question_canonical": "Are you legally authorized to work in the United States?",
+      "question_patterns": [
+        "legally authorized to work",
+        "work authorization",
+        "authorized to work in the united states"
+      ],
+      "answer_value": "Yes",
+      "answer_type": "boolean",
+      "source": "DETERMINISTIC",
+      "confidence_score": 1.0
+    },
+    {
+      "id": "f2b3c4d5-e6f7-4a81-9bcd-123456789abc",
+      "category": "SPONSORSHIP",
+      "question_canonical": "Will you now or in the future require visa sponsorship?",
+      "question_patterns": [
+        "sponsorship",
+        "require sponsorship",
+        "visa sponsorship"
+      ],
+      "answer_value": "No",
+      "answer_type": "boolean",
+      "source": "USER_VERIFIED",
+      "confidence_score": 1.0
+    },
+    {
+      "id": "f3c4d5e6-f7a8-4b92-8abc-23456789abcd",
+      "category": "EXACT_YEARS",
+      "question_canonical": "How many years of professional backend engineering experience do you have?",
+      "question_patterns": [
+        "years of experience",
+        "years of professional experience"
+      ],
+      "answer_value": "7",
+      "answer_type": "number",
+      "source": "USER_VERIFIED",
+      "confidence_score": 1.0
+    },
+    {
+      "id": "f4d5e6f7-a8b9-4ca3-9bcd-3456789abcde",
+      "category": "NOTICE",
+      "question_canonical": "What is your notice period with your current employer?",
+      "question_patterns": [
+        "notice period",
+        "when can you start"
+      ],
+      "answer_value": "2 weeks",
+      "answer_type": "text",
+      "source": "DETERMINISTIC",
+      "confidence_score": 0.95
+    }
+  ],
+  "preferences": {
+    "target_titles": [
+      "Senior Backend Engineer",
+      "Staff Backend Engineer",
+      "Senior Platform Engineer"
+    ],
+    "seniority": [
+      "senior",
+      "staff"
+    ],
+    "workplace_type": "remote",
+    "remote_only": true,
+    "allowed_locations": [
+      "US Remote",
+      "Canada Remote"
+    ],
+    "salary_floor": 180000,
+    "salary_currency": "USD",
+    "requires_sponsorship": false,
+    "exclude_titles": [
+      "director",
+      "vp",
+      "vice president",
+      "sales",
+      "account executive",
+      "recruiter"
+    ],
+    "industries": [
+      "fintech",
+      "developer tools",
+      "SaaS"
+    ]
+  },
+  "created_at": "2026-10-01T09:00:00Z",
+  "updated_at": "2026-11-11T09:12:00Z"
+}

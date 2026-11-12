@@ -1,0 +1,4 @@
+{
+  "status": "stored",
+  "note": "The API key is persisted to the OS keyring and is never returned by any endpoint."
+}

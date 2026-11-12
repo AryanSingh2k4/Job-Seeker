@@ -1,0 +1,9 @@
+{
+  "error": {
+    "code": "linkedin_not_opted_in",
+    "message": "LinkedIn automation requires explicit opt-in. Enable it in Settings with the exact acknowledgment phrase.",
+    "details": {
+      "platform": "linkedin"
+    }
+  }
+}

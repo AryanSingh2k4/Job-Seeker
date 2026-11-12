@@ -1,0 +1,135 @@
+{
+  "id": "e6b9d4f2-8c35-4a61-b7d8-3e5a9c1f6b28",
+  "job_id": "b7e4c2a9-6f31-4d58-9a7c-2e8b5d1f4a60",
+  "company": "Stripe",
+  "title": "Senior Backend Engineer, Payments",
+  "platform": "GREENHOUSE",
+  "submission_mode": "ASSISTED_REVIEW",
+  "status": "PAUSED_FOR_REVIEW",
+  "started_at": "2026-11-11T14:05:36Z",
+  "completed_at": null,
+  "duration_seconds": 134,
+  "confirmation_receipt": null,
+  "screenshot_path": "/api/v1/applications/e6b9d4f2-8c35-4a61-b7d8-3e5a9c1f6b28/screenshot",
+  "failure_stage": null,
+  "failure_reason": null,
+  "qa_answers": [
+    {
+      "id": "6a7b8c9d-0e1f-4a2b-8c3d-4e5f6a7b8c9d",
+      "question_text": "Are you legally authorized to work in the United States?",
+      "question_category": "AUTHORIZATION",
+      "answer_value": "Yes, I am legally authorized to work in the United States",
+      "answer_source": "DETERMINISTIC",
+      "confidence_score": 1.0,
+      "user_verified": false,
+      "created_at": "2026-11-11T14:07:05Z"
+    },
+    {
+      "id": "7b8c9d0e-1f2a-4b3c-9d4e-5f6a7b8c9d0e",
+      "question_text": "How many years of professional backend engineering experience do you have?",
+      "question_category": "EXACT_YEARS",
+      "answer_value": "7",
+      "answer_source": "DETERMINISTIC",
+      "confidence_score": 0.98,
+      "user_verified": false,
+      "created_at": "2026-11-11T14:07:06Z"
+    },
+    {
+      "id": "8c9d0e1f-2a3b-4c4d-8e5f-6a7b8c9d0e1f",
+      "question_text": "Describe a time you debugged a production incident under pressure.",
+      "question_category": "BEHAVIORAL",
+      "answer_value": "During a 2024 peak-season incident, I traced a duplicate-webhook storm to a misconfigured consumer lag alert, added idempotency keys, and replayed 12,000 events with no customer impact.",
+      "answer_source": "LLM_GENERATED",
+      "confidence_score": 0.81,
+      "user_verified": false,
+      "created_at": "2026-11-11T14:07:22Z"
+    },
+    {
+      "id": "9d0e1f2a-3b4c-4d5e-9f6a-7b8c9d0e1f2a",
+      "question_text": "How many years of hands-on Kubernetes operations experience do you have?",
+      "question_category": "EXACT_YEARS",
+      "answer_value": null,
+      "answer_source": "UNRESOLVED",
+      "confidence_score": 0.0,
+      "user_verified": false,
+      "created_at": "2026-11-11T14:07:48Z"
+    }
+  ],
+  "events": [
+    {
+      "id": "11223344-5566-4777-8888-99aabbccddee",
+      "event_type": "APPLICATION_STAGE_CHANGED",
+      "payload": {
+        "applicationId": "e6b9d4f2-8c35-4a61-b7d8-3e5a9c1f6b28",
+        "jobId": "b7e4c2a9-6f31-4d58-9a7c-2e8b5d1f4a60",
+        "company": "Stripe",
+        "stage": "NAVIGATING",
+        "currentStep": 1,
+        "totalSteps": 4
+      },
+      "created_at": "2026-11-11T14:05:36Z"
+    },
+    {
+      "id": "22334455-6677-4888-9999-aabbccddeeff",
+      "event_type": "APPLICATION_STAGE_CHANGED",
+      "payload": {
+        "applicationId": "e6b9d4f2-8c35-4a61-b7d8-3e5a9c1f6b28",
+        "jobId": "b7e4c2a9-6f31-4d58-9a7c-2e8b5d1f4a60",
+        "company": "Stripe",
+        "stage": "FILLING_FIELDS",
+        "currentStep": 2,
+        "totalSteps": 4
+      },
+      "created_at": "2026-11-11T14:06:02Z"
+    },
+    {
+      "id": "33445566-7788-4999-8aaa-bbccddeeff00",
+      "event_type": "APPLICATION_STAGE_CHANGED",
+      "payload": {
+        "applicationId": "e6b9d4f2-8c35-4a61-b7d8-3e5a9c1f6b28",
+        "jobId": "b7e4c2a9-6f31-4d58-9a7c-2e8b5d1f4a60",
+        "company": "Stripe",
+        "stage": "UPLOADING_RESUME",
+        "currentStep": 2,
+        "totalSteps": 4
+      },
+      "created_at": "2026-11-11T14:06:40Z"
+    },
+    {
+      "id": "44556677-8899-4aaa-9bbb-ccddeeff0011",
+      "event_type": "APPLICATION_STAGE_CHANGED",
+      "payload": {
+        "applicationId": "e6b9d4f2-8c35-4a61-b7d8-3e5a9c1f6b28",
+        "jobId": "b7e4c2a9-6f31-4d58-9a7c-2e8b5d1f4a60",
+        "company": "Stripe",
+        "stage": "ANSWERING_QA",
+        "currentStep": 3,
+        "totalSteps": 4
+      },
+      "created_at": "2026-11-11T14:07:05Z"
+    },
+    {
+      "id": "55667788-99aa-4bbb-8ccc-ddeeff001122",
+      "event_type": "HITL_REVIEW_REQUIRED",
+      "payload": {
+        "applicationId": "e6b9d4f2-8c35-4a61-b7d8-3e5a9c1f6b28",
+        "company": "Stripe",
+        "title": "Senior Backend Engineer, Payments",
+        "tailoredResumePdfUrl": "/api/v1/matcher/resume/b7e4c2a9-6f31-4d58-9a7c-2e8b5d1f4a60",
+        "qaAnswers": [
+          {
+            "question": "Are you legally authorized to work in the United States?",
+            "answer": "Yes, I am legally authorized to work in the United States",
+            "confidence": 0.95
+          },
+          {
+            "question": "How many years of hands-on Kubernetes operations experience do you have?",
+            "answer": "",
+            "confidence": 0.0
+          }
+        ]
+      },
+      "created_at": "2026-11-11T14:07:50Z"
+    }
+  ]
+}

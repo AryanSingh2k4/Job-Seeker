@@ -1,0 +1,28 @@
+{
+  "error": {
+    "code": "validation_error",
+    "message": "Request body failed validation",
+    "details": {
+      "errors": [
+        {
+          "loc": [
+            "body",
+            "daily_caps",
+            "global"
+          ],
+          "msg": "global cap must be <= ats + linkedin caps",
+          "type": "value_error"
+        },
+        {
+          "loc": [
+            "body",
+            "working_hours",
+            "start"
+          ],
+          "msg": "invalid time, expected HH:MM",
+          "type": "value_error"
+        }
+      ]
+    }
+  }
+}

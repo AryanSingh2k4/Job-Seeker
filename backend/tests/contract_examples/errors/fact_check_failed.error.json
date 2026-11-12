@@ -1,0 +1,19 @@
+{
+  "error": {
+    "code": "fact_check_failed",
+    "message": "Fact-diff guardrail failed: rendered bullet drifts from the verified master bullet",
+    "details": {
+      "job_id": "b7e4c2a9-6f31-4d58-9a7c-2e8b5d1f4a60",
+      "bullet_id": "41a2c6e8-9b35-4d17-8f5a-2c6e9b1d4a73",
+      "diffs": [
+        {
+          "bullet_id": "41a2c6e8-9b35-4d17-8f5a-2c6e9b1d4a73",
+          "kind": "metric_token",
+          "master": "45%",
+          "rendered": "54%"
+        }
+      ],
+      "fallback": "baseline_master_resume"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "error": {
+    "code": "rate_limited",
+    "message": "Source 'linkedin' is rate-limited after repeated 429 responses",
+    "details": {
+      "source": "linkedin",
+      "retry_after_seconds": 3600
+    }
+  }
+}
