@@ -1,0 +1,126 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "JobSeeker API (contract skeleton — Week 0)",
+    "version": "0.1.0",
+    "description": "Frozen contract v1 baseline per docs/FINAL_EXECUTION_PLAN.md §6. This is the lead-published SKELETON: Gemini replaces it with the real openapi-M0.json snapshot (exported from GET /openapi.json) at the end of M0. Full endpoint surface is defined in docs/BACKEND_IMPLEMENTATION_SPEC.md §7-8. Transport-level items (bearer token, Host check, /internal/shutdown) are sidecar-mode only and never appear in snapshot diffs.",
+    "contact": { "name": "ZCode (integration lead)" }
+  },
+  "servers": [
+    { "url": "http://127.0.0.1:8000/api/v1", "description": "web dev" }
+  ],
+  "paths": {
+    "/health": {
+      "get": {
+        "operationId": "getHealth",
+        "summary": "Subsystem health summary (§7.0)",
+        "responses": {
+          "200": {
+            "description": "Health snapshot",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/Health" } }
+            }
+          }
+        }
+      }
+    },
+    "/internal/shutdown": {
+      "post": {
+        "operationId": "shutdown",
+        "summary": "INTERNAL (sidecar mode only): graceful shutdown with --shutdown-grace",
+        "tags": ["internal"],
+        "description": "Not part of the public /api/v1 surface. Token-gated; returns 202 then the process exits within the grace period.",
+        "responses": {
+          "202": {
+            "description": "Shutting down",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": { "status": { "const": "shutting_down" } },
+                  "required": ["status"]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ApiError": {
+        "type": "object",
+        "description": "Error envelope on every non-2xx (§7).",
+        "properties": {
+          "error": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string",
+                "description": "validation_error | not_found | job_not_found | application_not_found | cap_reached | company_cooldown | outside_working_hours | browser_not_running | linkedin_not_opted_in | fact_check_failed | budget_exceeded | llm_not_configured | render_failed | captcha_blocked | rate_limited"
+              },
+              "message": { "type": "string" },
+              "details": { "type": "object", "additionalProperties": true }
+            },
+            "required": ["code", "message"]
+          }
+        },
+        "required": ["error"]
+      },
+      "Health": {
+        "type": "object",
+        "properties": {
+          "status": { "type": "string" },
+          "db": { "type": "boolean" },
+          "browser": {
+            "type": "object",
+            "properties": { "running": { "type": "boolean" } },
+            "required": ["running"]
+          },
+          "llm": {
+            "type": "object",
+            "properties": {
+              "configured": { "type": "boolean" },
+              "degraded": { "type": "boolean" }
+            },
+            "required": ["configured", "degraded"]
+          },
+          "scheduler": {
+            "type": "object",
+            "properties": {
+              "crawl": { "type": "string" },
+              "match": { "type": "string" },
+              "apply": { "type": "string" }
+            },
+            "required": ["crawl", "match", "apply"]
+          },
+          "caps_today": {
+            "type": "object",
+            "properties": {
+              "linkedin": { "$ref": "#/components/schemas/CapUsage" },
+              "ats": { "$ref": "#/components/schemas/CapUsage" }
+            },
+            "required": ["linkedin", "ats"]
+          },
+          "version": { "type": "string" },
+          "contract_version": { "type": "string" },
+          "runtime": {
+            "type": "object",
+            "description": "Additive (v2.2): present in sidecar mode.",
+            "properties": { "mode": { "enum": ["sidecar", "web_dev"] } }
+          }
+        },
+        "required": ["status", "db", "browser", "llm", "scheduler", "caps_today", "version", "contract_version"]
+      },
+      "CapUsage": {
+        "type": "object",
+        "properties": {
+          "used": { "type": "integer" },
+          "limit": { "type": "integer" }
+        },
+        "required": ["used", "limit"]
+      }
+    }
+  }
+}

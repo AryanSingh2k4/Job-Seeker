@@ -1,0 +1,14 @@
+{
+  "status": "ok",
+  "db": true,
+  "browser": { "running": false },
+  "llm": { "configured": true, "degraded": false },
+  "scheduler": { "crawl": "idle", "match": "idle", "apply": "idle" },
+  "caps_today": {
+    "linkedin": { "used": 2, "limit": 25 },
+    "ats": { "used": 5, "limit": 40 }
+  },
+  "version": "2.0.0",
+  "contract_version": "1",
+  "runtime": { "mode": "web_dev" }
+}
