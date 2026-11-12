@@ -23,6 +23,10 @@ desktop/    Tauri 2 Rust shell (ZCode)      scripts/   dev/package/release (ZCod
 core/       frozen reference only           docs/      plans, contract snapshots, reviews
 ```
 
+## Run it
+
+Full guide: **[docs/RUN_GUIDE.md](docs/RUN_GUIDE.md)** — backend only, frontend fixture mode, real mode, production build, desktop shell, troubleshooting.
+
 ## Quick start (Week 0)
 
 ```powershell
