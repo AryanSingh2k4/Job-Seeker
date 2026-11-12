@@ -342,10 +342,12 @@ Codes: `validation_error` (422), `not_found`, `job_not_found`, `application_not_
 - `POST /jobs/crawl` ← `{"sources": ["greenhouse","lever"]}` (optional) → `{"started": true, "sweep_id": "..."}` (async; results appear via WS + list refresh).
 - `GET /jobs/{id}` → JobListItem + `description_clean` + `parsed` (ParsedJobProfile) + `score_breakdown`:
 ```json
-{ "score_breakdown": { "final": 87.5, "hard_gate": {"passed": true, "reasons": []},
+{ "score_breakdown": { "final": 86.4, "hard_gate": {"passed": true, "reasons": []},
   "components": { "s_req": 0.91, "s_pref": 0.7, "s_vec": 0.82, "s_llm": 0.88, "s_exp": 1.0 },
   "matched_skills": ["Python", "FastAPI"], "missing_skills": ["Kafka"], "degraded": false },
   "tailored": null }
+```
+> Note: `final` must equal the weighted sum x100 (0.35*0.91 + 0.15*0.7 + 0.20*0.82 + 0.20*0.88 + 0.10*1.0 = 0.8635 -> 86.4). Contract examples must be arithmetically consistent.
 ```
 (`tailored` = artifact summary `{resume_pdf_url, cover_letter_txt, cover_letter_pdf_url, fact_check_status, created_at}` when present.)
 - `POST /jobs/{id}/action` ← `{"action": "approve"|"skip"|"archive"|"tailor", "reason": "optional"}` → `{"id": "...", "status": "tailoring|skipped|archived"}`. `approve` on ≥80 → enqueue tailoring then `ready_to_apply`; 65–79 → `ready_to_apply` but requires explicit `applications/start` (HITL band).

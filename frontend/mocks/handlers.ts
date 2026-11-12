@@ -64,7 +64,7 @@ const demoJobDetail = (id: string) => {
       ],
     },
     score_breakdown: {
-      final: base.match_score ?? 82,
+      final: 86.4,
       hard_gate: { passed: true, reasons: [] },
       components: { s_req: 0.91, s_pref: 0.7, s_vec: 0.82, s_llm: 0.88, s_exp: 1.0 },
       matched_skills: ["Python", "Postgres", "Redis", "Docker", "API design"],
