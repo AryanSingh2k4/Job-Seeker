@@ -40,6 +40,10 @@ class Settings(BaseSettings):
         default=Path("fixtures"),
         validation_alias=AliasChoices("AUTOJOB_FIXTURES_DIR", "fixtures_dir"),
     )
+    templates_dir: Path = Field(
+        default=Path("templates"),
+        validation_alias=AliasChoices("AUTOJOB_TEMPLATES_DIR", "templates_dir"),
+    )
     llm_provider: str = Field(
         default="openai",
         validation_alias=AliasChoices("LLM_PROVIDER", "llm_provider"),
@@ -77,6 +81,22 @@ class Settings(BaseSettings):
     token: str | None = Field(
         default=None,
         validation_alias=AliasChoices("AUTOJOB_TOKEN", "token"),
+    )
+    linkedin_opt_in: bool = Field(
+        default=False,
+        validation_alias=AliasChoices("AUTOJOB_LINKEDIN_OPT_IN", "linkedin_opt_in"),
+    )
+    autonomous_opt_in: bool = Field(
+        default=False,
+        validation_alias=AliasChoices("AUTOJOB_AUTONOMOUS_OPT_IN", "autonomous_opt_in"),
+    )
+    daily_app_limit: int = Field(
+        default=20,
+        validation_alias=AliasChoices("AUTOJOB_DAILY_APP_LIMIT", "daily_app_limit"),
+    )
+    browser_headless: bool = Field(
+        default=False,
+        validation_alias=AliasChoices("AUTOJOB_BROWSER_HEADLESS", "browser_headless"),
     )
 
     @property

@@ -144,3 +144,12 @@ Bugs filed: none
 **Gemini P1 CLOSED:** /api/v1/health alias live (both 200, verified by lead boot test) — openapi-M0 real snapshot still owed.
 **Spec fix:** §7.2 score_breakdown example corrected to arithmetically consistent 86.4 (finding from contract-examples agent); frontend MSW mock aligned.
 **Phase 1 = COMPLETE.** All four fixture agents delivered: GH/Lever recordings, JD corpus, contract examples + mutations, LinkedIn/Ashby/CAPTCHA. Adapter test foundation is final.
+
+### 2026-11-11 — BACKEND TAKEOVER (ZCode): rate limits + live crawl + 8390 real jobs
+**Taken over from Gemini at owner's order.** Found & fixed:
+- 3 QA AttributeErrors in applier/qa.py (target_role→target_preferences, skills.name→canonical_name, experiences→work_experiences)
+- Manifest drift (3 agents, 3 shapes) → normalized 11 entries (total_steps/step_index/fields) → fixture tests 88 passed 0 failed (subagent enriched recorded entries with REAL options from companion JSONs + HTML, manifest v1.2.0)
+- Crawler crash: metadata_→job_metadata kwarg (sweep was dead on arrival)
+- CORS: dev ports 3010/3011 allowlisted (browser blocked localhost:3011→8000; WS connected but fetch died — subtle)
+**RATE LIMITS (owner spec):** crawl_interval_minutes default 30→**5**; NEW crawl_max_companies_per_day=**50**; enforced in scheduler crawl_loop (reads settings each cycle, counts distinct companies discovered today, sweeps only the remainder) + manual POST /jobs/crawl returns 409 cap_reached when exhausted; both user-changeable via GET/POST /settings.
+**LIVE PROOF:** sweep on 50-company cap → **8,390 real jobs in SQLite** (Intercom/Stripe/etc. from real Greenhouse boards); dashboard + inbox verified visually against live backend (sidecar 2.0.0 · contract v1 · WS telemetry open). Intercom same-role-multiple-offices rows are correct distinct postings (London/Berlin/Dublin, distinct source ids).

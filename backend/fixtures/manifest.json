@@ -1,5 +1,5 @@
 {
-  "manifest_version": "1.1.0",
+  "manifest_version": "1.2.0",
   "schema": "autojob.fixture-manifest.v1",
   "generated_at": "2026-11-11T00:00:00Z",
   "owner": "DeepSeek (fixtures, golden corpus, contract parity)",
@@ -128,7 +128,10 @@
             "notes": "Optional; leaving empty must not block advancement."
           }
         ],
-        "next": {"selector": "[data-test=\"next\"]", "label": "Continue"},
+        "next": {
+          "selector": "[data-test=\"next\"]",
+          "label": "Continue"
+        },
         "outcome": "fill_and_advance"
       }
     },
@@ -149,7 +152,13 @@
             "selector": "#work_authorization",
             "kind": "select",
             "required": true,
-            "options": ["us_citizen", "us_permanent_resident", "us_work_visa", "require_sponsorship", "other"],
+            "options": [
+              "us_citizen",
+              "us_permanent_resident",
+              "us_work_visa",
+              "require_sponsorship",
+              "other"
+            ],
             "expected_value": "us_citizen",
             "high_stakes": true,
             "profile_path": "work_authorization"
@@ -159,7 +168,10 @@
             "selector": "input[name=\"requires_sponsorship\"]",
             "kind": "radio",
             "required": true,
-            "options": ["yes", "no"],
+            "options": [
+              "yes",
+              "no"
+            ],
             "expected_value": "no",
             "high_stakes": true,
             "notes": "Radio group; select the input whose value equals expected_value."
@@ -178,7 +190,10 @@
             "selector": "input[name=\"willing_to_relocate\"]",
             "kind": "radio",
             "required": false,
-            "options": ["yes", "no"],
+            "options": [
+              "yes",
+              "no"
+            ],
             "expected_value": "no"
           },
           {
@@ -186,7 +201,13 @@
             "selector": "#hear_about_us",
             "kind": "select",
             "required": true,
-            "options": ["LinkedIn", "Company website", "Referral", "Job board", "Other"],
+            "options": [
+              "LinkedIn",
+              "Company website",
+              "Referral",
+              "Job board",
+              "Other"
+            ],
             "expected_value": "Company website",
             "profile_path": "hear_about_us"
           },
@@ -206,8 +227,14 @@
             "expected_value": true
           }
         ],
-        "next": {"selector": "[data-test=\"next\"]", "label": "Review application"},
-        "back": {"selector": "[data-test=\"back\"]", "label": "Back"},
+        "next": {
+          "selector": "[data-test=\"next\"]",
+          "label": "Review application"
+        },
+        "back": {
+          "selector": "[data-test=\"back\"]",
+          "label": "Back"
+        },
         "outcome": "answer_and_advance"
       }
     },
@@ -223,13 +250,34 @@
       "notes": "Step 3: read-only summary plus certify + submit/discard. Assisted mode must stop here; the human clicks Submit in the page (or the backend clicks it via applications/approve).",
       "expected": {
         "fields": [],
-        "summary": {"selector": "#review_summary", "kind": "readonly"},
-        "certify": {"selector": "#certify", "kind": "checkbox", "required": true},
-        "submit": {"selector": "[data-test=\"submit\"]", "label": "Submit application"},
-        "discard": {"selector": "[data-test=\"discard\"]", "label": "Discard application"},
+        "summary": {
+          "selector": "#review_summary",
+          "kind": "readonly"
+        },
+        "certify": {
+          "selector": "#certify",
+          "kind": "checkbox",
+          "required": true
+        },
+        "submit": {
+          "selector": "[data-test=\"submit\"]",
+          "label": "Submit application"
+        },
+        "discard": {
+          "selector": "[data-test=\"discard\"]",
+          "label": "Discard application"
+        },
         "terminal": {
-          "submitted": {"selector": "#confirmation", "attribute": "data-status", "value": "SUBMITTED"},
-          "discarded": {"selector": "#discarded", "attribute": "data-status", "value": "DISCARDED"}
+          "submitted": {
+            "selector": "#confirmation",
+            "attribute": "data-status",
+            "value": "SUBMITTED"
+          },
+          "discarded": {
+            "selector": "#discarded",
+            "attribute": "data-status",
+            "value": "DISCARDED"
+          }
         },
         "outcome": "review_then_submit"
       }
@@ -256,8 +304,8 @@
       "path": "ashby/amplitude_board.json",
       "platform": "ashby",
       "form_state": "board_index",
-      "step_index": null,
-      "total_steps": null,
+      "step_index": 1,
+      "total_steps": 1,
       "source": "recorded",
       "recorded_on": "2026-11-11",
       "companion_of": "ashby.amplitude.job",
@@ -289,8 +337,8 @@
       "path": "ashby/cohere_board.json",
       "platform": "ashby",
       "form_state": "board_index",
-      "step_index": null,
-      "total_steps": null,
+      "step_index": 1,
+      "total_steps": 1,
       "source": "recorded",
       "recorded_on": "2026-11-11",
       "companion_of": "ashby.cohere.job",
@@ -319,7 +367,9 @@
             "selector": "#single-type-text-form-input-email",
             "kind": "select",
             "required": true,
-            "options": ["ada.lovelace@example.com"],
+            "options": [
+              "ada.lovelace@example.com"
+            ],
             "expected_value": "ada.lovelace@example.com",
             "profile_path": "email"
           },
@@ -333,7 +383,10 @@
             "notes": "id=\"phoneNumber-national\"; the adapter ladder input[id*=\"phoneNumber\"] must resolve exactly one tel input (the country code lives in a separate select)."
           }
         ],
-        "next": {"selector": "[aria-label=\"Continue to next step\"]", "label": "Next"},
+        "next": {
+          "selector": "[aria-label=\"Continue to next step\"]",
+          "label": "Next"
+        },
         "outcome": "fill_and_advance"
       }
     },
@@ -356,7 +409,10 @@
             "selector": "input[name=\"resume-selection\"]",
             "kind": "radio",
             "required": true,
-            "options": ["ada_lovelace_resume.pdf", "upload-new"],
+            "options": [
+              "ada_lovelace_resume.pdf",
+              "upload-new"
+            ],
             "expected_value": "upload-new",
             "notes": "Choose 'upload-new' to exercise the file-upload path; the saved-resume option mirrors §4.1's radio-list variant."
           },
@@ -369,8 +425,14 @@
             "notes": "Hidden input; upload via setInputFiles and verify files.length === 1."
           }
         ],
-        "back": {"selector": "[aria-label=\"Back to previous step\"]", "label": "Back"},
-        "next": {"selector": "[aria-label=\"Review your application\"]", "label": "Review"},
+        "back": {
+          "selector": "[aria-label=\"Back to previous step\"]",
+          "label": "Back"
+        },
+        "next": {
+          "selector": "[aria-label=\"Review your application\"]",
+          "label": "Review"
+        },
         "outcome": "upload_and_advance"
       }
     },
@@ -393,7 +455,10 @@
             "selector": "input[name=\"workAuthorization\"]",
             "kind": "radio",
             "required": true,
-            "options": ["Yes", "No"],
+            "options": [
+              "Yes",
+              "No"
+            ],
             "expected_value": "Yes",
             "high_stakes": true,
             "notes": "fieldset legend text: 'Are you legally authorized to work in the US?'"
@@ -403,7 +468,10 @@
             "selector": "input[name=\"requiresSponsorship\"]",
             "kind": "radio",
             "required": true,
-            "options": ["Yes", "No"],
+            "options": [
+              "Yes",
+              "No"
+            ],
             "expected_value": "No",
             "high_stakes": true,
             "notes": "fieldset legend text: 'Will you now or in the future require sponsorship for an employment visa status?'"
@@ -423,18 +491,41 @@
             "selector": "#single-type-select-hear-about-us",
             "kind": "select",
             "required": false,
-            "options": ["LinkedIn", "Company website", "Referral", "Job board", "Other"],
+            "options": [
+              "LinkedIn",
+              "Company website",
+              "Referral",
+              "Job board",
+              "Other"
+            ],
             "expected_value": "Company website",
             "profile_path": "hear_about_us",
             "notes": "artdeco-style dropdown."
           }
         ],
-        "back": {"selector": "[aria-label=\"Back to previous step\"]", "label": "Back"},
-        "submit": {"selector": "[aria-label=\"Submit application\"]", "label": "Submit application"},
-        "discard": {"selector": "#discard-confirm-discard", "label": "Discard application"},
+        "back": {
+          "selector": "[aria-label=\"Back to previous step\"]",
+          "label": "Back"
+        },
+        "submit": {
+          "selector": "[aria-label=\"Submit application\"]",
+          "label": "Submit application"
+        },
+        "discard": {
+          "selector": "#discard-confirm-discard",
+          "label": "Discard application"
+        },
         "terminal": {
-          "submitted": {"selector": "#easy-apply-confirmation", "attribute": "data-status", "value": "SUBMITTED"},
-          "discarded": {"selector": "#easy-apply-discarded", "attribute": "data-status", "value": "DISCARDED"}
+          "submitted": {
+            "selector": "#easy-apply-confirmation",
+            "attribute": "data-status",
+            "value": "SUBMITTED"
+          },
+          "discarded": {
+            "selector": "#easy-apply-discarded",
+            "attribute": "data-status",
+            "value": "DISCARDED"
+          }
         },
         "outcome": "answer_then_submit"
       }
@@ -444,16 +535,19 @@
       "path": "captcha/recaptcha.html",
       "platform": "captcha",
       "form_state": "challenge_present",
-      "step_index": null,
-      "total_steps": null,
+      "step_index": 1,
+      "total_steps": 1,
       "source": "synthetic",
       "recorded_on": null,
       "synthetic": true,
       "reason": "live challenges are interactive by design; fixture replicates only the DOM detection markers",
       "notes": "Marker-only replica per §7.4: the detector must report iframe[src*=recaptcha] and freeze automation; the challenge itself is inert and can never render or be solved from the fixture. Post-solve counterpart: captcha.cleared.",
       "expected": {
-        "markers": ["iframe[src*=recaptcha]"],
-        "outcome": "freeze_for_human"
+        "markers": [
+          "iframe[src*=recaptcha]"
+        ],
+        "outcome": "freeze_for_human",
+        "fields": []
       }
     },
     {
@@ -461,16 +555,20 @@
       "path": "captcha/turnstile.html",
       "platform": "captcha",
       "form_state": "challenge_present",
-      "step_index": null,
-      "total_steps": null,
+      "step_index": 1,
+      "total_steps": 1,
       "source": "synthetic",
       "recorded_on": null,
       "synthetic": true,
       "reason": "live challenges are interactive by design; fixture replicates only the DOM detection markers",
       "notes": "Marker-only replica per §7.4: div.cf-turnstile plus an iframe from challenges.cloudflare.com/turnstile — the 'turnstile' signature must trigger the freeze. Post-solve counterpart: captcha.cleared.",
       "expected": {
-        "markers": [".cf-turnstile", "iframe[src*=\"challenges.cloudflare.com/turnstile\"]"],
-        "outcome": "freeze_for_human"
+        "markers": [
+          ".cf-turnstile",
+          "iframe[src*=\"challenges.cloudflare.com/turnstile\"]"
+        ],
+        "outcome": "freeze_for_human",
+        "fields": []
       }
     },
     {
@@ -478,16 +576,20 @@
       "path": "captcha/arkose.html",
       "platform": "captcha",
       "form_state": "challenge_present",
-      "step_index": null,
-      "total_steps": null,
+      "step_index": 1,
+      "total_steps": 1,
       "source": "synthetic",
       "recorded_on": null,
       "synthetic": true,
       "reason": "live challenges are interactive by design; fixture replicates only the DOM detection markers",
       "notes": "Marker-only replica per §7.4: div.arkose-box wrapping #captcha-internal with an inert arkoselabs iframe — the 'arkose' and '#captcha-internal' signatures must trigger the freeze. Post-solve counterpart: captcha.cleared.",
       "expected": {
-        "markers": ["div.arkose-box", "#captcha-internal"],
-        "outcome": "freeze_for_human"
+        "markers": [
+          "div.arkose-box",
+          "#captcha-internal"
+        ],
+        "outcome": "freeze_for_human",
+        "fields": []
       }
     },
     {
@@ -495,8 +597,8 @@
       "path": "captcha/captcha_cleared.html",
       "platform": "captcha",
       "form_state": "cleared",
-      "step_index": null,
-      "total_steps": null,
+      "step_index": 1,
+      "total_steps": 1,
       "source": "synthetic",
       "recorded_on": null,
       "synthetic": true,
@@ -504,7 +606,8 @@
       "notes": "Same synthetic application page as captcha.recaptcha/turnstile/arkose with every challenge marker block REMOVED (§7.4 step 3: human solved it in the visible window, automation resumes on clearance). Contains none of the four documented markers anywhere in the DOM or file content, so tests can assert the detector reports clean and the freeze lifts.",
       "expected": {
         "markers": [],
-        "outcome": "resume"
+        "outcome": "resume",
+        "fields": []
       }
     },
     {
@@ -520,29 +623,267 @@
       "notes": "Affirm 'Machine Learning Engineer II (ROA + LTV ML)', Remote Canada. boards.greenhouse.io serves (via redirect to job-boards.greenhouse.io) a single page embedding the full SSR application <form>. Modern Greenhouse board: inputs carry id= attributes but no name= attributes; selectors must use ids. Resume and cover letter are visually-hidden file inputs behind a custom dropzone. Custom-question schema (19 questions) captured in the companion questions JSON (boards-api .../jobs/{id}?questions=true).",
       "expected": {
         "fields": [
-          {"key": "first_name", "selector": "#first_name", "kind": "text", "required": true},
-          {"key": "last_name", "selector": "#last_name", "kind": "text", "required": true},
-          {"key": "email", "selector": "#email", "kind": "email", "required": true},
-          {"key": "phone", "selector": "#phone", "kind": "tel", "required": true},
-          {"key": "resume", "selector": "#resume", "kind": "file", "required": true, "notes": "visually-hidden input; resolve the input, not the dropzone"},
-          {"key": "cover_letter", "selector": "#cover_letter", "kind": "file", "required": false},
-          {"key": "country", "selector": "#country", "kind": "select", "required": false, "notes": "react-select combobox (type=text, aria-haspopup=true) for work-location country"},
-          {"key": "linkedin_profile", "selector": "#question_33135509003", "kind": "url", "required": false},
-          {"key": "current_company", "selector": "#question_33135510003", "kind": "text", "required": false},
-          {"key": "preferred_name", "selector": "#question_33135511003", "kind": "text", "required": true},
-          {"key": "name_pronunciation", "selector": "#question_33135512003", "kind": "text", "required": false},
-          {"key": "pronouns", "selector": "#question_33135513003", "kind": "select", "required": true},
-          {"key": "require_sponsorship_canada", "selector": "#question_33135514003", "kind": "select", "required": true, "high_stakes": true},
-          {"key": "residence_state_province", "selector": "#question_33135515003", "kind": "select", "required": true},
-          {"key": "hear_about_affirm", "selector": "#question_33135516003", "kind": "select", "required": true},
-          {"key": "github", "selector": "#question_33135517003", "kind": "url", "required": false},
-          {"key": "twitter", "selector": "#question_33135518003", "kind": "url", "required": false},
-          {"key": "portfolio", "selector": "#question_33135519003", "kind": "url", "required": false},
-          {"key": "other_links", "selector": "#question_33135520003", "kind": "textarea", "required": false},
-          {"key": "previously_employed_at_affirm", "selector": "#question_33135521003", "kind": "select", "required": true}
+          {
+            "key": "first_name",
+            "selector": "#first_name",
+            "kind": "text",
+            "required": true,
+            "expected_value": "Ada",
+            "profile_path": "full_name.first"
+          },
+          {
+            "key": "last_name",
+            "selector": "#last_name",
+            "kind": "text",
+            "required": true,
+            "expected_value": "Lovelace",
+            "profile_path": "full_name.last"
+          },
+          {
+            "key": "email",
+            "selector": "#email",
+            "kind": "email",
+            "required": true,
+            "expected_value": "ada.lovelace@example.com",
+            "profile_path": "email"
+          },
+          {
+            "key": "phone",
+            "selector": "#phone",
+            "kind": "tel",
+            "required": true,
+            "expected_value": "+1-415-555-0142",
+            "profile_path": "phone"
+          },
+          {
+            "key": "resume",
+            "selector": "#resume",
+            "kind": "file",
+            "required": true,
+            "notes": "visually-hidden input; resolve the input, not the dropzone",
+            "upload_fixture": "mock_ats/artifacts/resume.pdf"
+          },
+          {
+            "key": "cover_letter",
+            "selector": "#cover_letter",
+            "kind": "file",
+            "required": false
+          },
+          {
+            "key": "country",
+            "selector": "#country",
+            "kind": "text",
+            "required": false,
+            "notes": "react-select combobox (type=text, aria-haspopup=true) for work-location country react-select combobox backed by <input type=text role=combobox>; its option menu renders client-side on open and is not captured in the recording, so the control is tracked as text-kind like the other free comboboxes."
+          },
+          {
+            "key": "linkedin_profile",
+            "selector": "#question_33135509003",
+            "kind": "url",
+            "required": false,
+            "expected_value": "https://www.linkedin.com/in/ada-lovelace",
+            "profile_path": "links.linkedin"
+          },
+          {
+            "key": "current_company",
+            "selector": "#question_33135510003",
+            "kind": "text",
+            "required": false
+          },
+          {
+            "key": "preferred_name",
+            "selector": "#question_33135511003",
+            "kind": "text",
+            "required": true,
+            "expected_value": "Ada",
+            "notes": "deterministic value: mirrors profile full_name.first (no dedicated preferred-name path)."
+          },
+          {
+            "key": "name_pronunciation",
+            "selector": "#question_33135512003",
+            "kind": "text",
+            "required": false
+          },
+          {
+            "key": "pronouns",
+            "selector": "#question_33135513003",
+            "kind": "select",
+            "required": true,
+            "expected_value": "She/her/hers",
+            "options": [
+              "He/him/his",
+              "She/her/hers",
+              "They/them/theirs",
+              "My pronouns are not listed",
+              "I prefer not to say",
+              "I prefer to self describe"
+            ],
+            "notes": "options are the recorded labels from greenhouse/affirm_questions.json."
+          },
+          {
+            "key": "require_sponsorship_canada",
+            "selector": "#question_33135514003",
+            "kind": "select",
+            "required": true,
+            "high_stakes": true,
+            "expected_value": "No",
+            "options": [
+              "Yes",
+              "No"
+            ],
+            "notes": "'No' mirrors profile requires_sponsorship=false and requires_future_sponsorship=false."
+          },
+          {
+            "key": "residence_state_province",
+            "selector": "#question_33135515003",
+            "kind": "select",
+            "required": true,
+            "expected_value": "California",
+            "options": [
+              "Alabama",
+              "Alaska",
+              "Arizona",
+              "Arkansas",
+              "California",
+              "Colorado",
+              "Connecticut",
+              "District of Columbia",
+              "Delaware",
+              "Florida",
+              "Georgia",
+              "Hawaii",
+              "Idaho",
+              "Illinois",
+              "Indiana",
+              "Iowa",
+              "Kansas",
+              "Kentucky",
+              "Louisiana",
+              "Maine",
+              "Maryland",
+              "Massachusetts",
+              "Michigan",
+              "Minnesota",
+              "Mississippi",
+              "Missouri",
+              "Montana",
+              "Nebraska",
+              "Nevada",
+              "New Hampshire",
+              "New Jersey",
+              "New Mexico",
+              "New York",
+              "North Carolina",
+              "North Dakota",
+              "Ohio",
+              "Oklahoma",
+              "Oregon",
+              "Pennsylvania",
+              "Rhode Island",
+              "South Carolina",
+              "South Dakota",
+              "Tennessee",
+              "Texas",
+              "Utah",
+              "Vermont",
+              "Virginia",
+              "Washington",
+              "West Virginia",
+              "Wisconsin",
+              "Wyoming",
+              "Alberta",
+              "Ontario",
+              "British Columbia",
+              "Saskatchewan",
+              "Manitoba",
+              "Nova Scotia",
+              "New Brunswick",
+              "Newfoundland",
+              "Prince Edward Island",
+              "Quebec"
+            ],
+            "notes": "full recorded label list from greenhouse/affirm_questions.json; 'California' mirrors profile location.state."
+          },
+          {
+            "key": "hear_about_affirm",
+            "selector": "#question_33135516003",
+            "kind": "select",
+            "required": true,
+            "expected_value": "LinkedIn",
+            "options": [
+              "Affirm blog",
+              "Affirm Recruiting Team reached out",
+              "Affirm’s Career Site",
+              "AfroTech",
+              "Alumni Forum",
+              "Built In",
+              "Facebook",
+              "Glassdoor",
+              "I have used Affirm as a product",
+              "I know someone that works at Affirm",
+              "Include.io",
+              "Indeed",
+              "Infoshare",
+              "Instagram",
+              "LinkedIn",
+              "Nextplay",
+              "POCIT",
+              "SheTO",
+              "The Muse",
+              "Twitter",
+              "Virtual Career Fair",
+              "Other"
+            ],
+            "notes": "options from greenhouse/affirm_questions.json; profile's hear_about_us ('Company website') is not an Affirm option, so the deterministic answer is 'LinkedIn' (the profile also carries a LinkedIn profile)."
+          },
+          {
+            "key": "github",
+            "selector": "#question_33135517003",
+            "kind": "url",
+            "required": false,
+            "expected_value": "https://github.com/ada-lovelace",
+            "profile_path": "links.github"
+          },
+          {
+            "key": "twitter",
+            "selector": "#question_33135518003",
+            "kind": "url",
+            "required": false
+          },
+          {
+            "key": "portfolio",
+            "selector": "#question_33135519003",
+            "kind": "url",
+            "required": false,
+            "expected_value": "https://ada.example.com",
+            "profile_path": "links.portfolio"
+          },
+          {
+            "key": "other_links",
+            "selector": "#question_33135520003",
+            "kind": "textarea",
+            "required": false
+          },
+          {
+            "key": "previously_employed_at_affirm",
+            "selector": "#question_33135521003",
+            "kind": "select",
+            "required": true,
+            "expected_value": "I have not previously been employed at Affirm",
+            "options": [
+              "I have not previously been employed at Affirm",
+              "I have been employed at Affirm as a full-time employee",
+              "I have been employed at Affirm as a part-time employee",
+              "I have been employed at Affirm as an intern",
+              "I have been employed at Affirm as a contractor"
+            ],
+            "notes": "deterministic 'never employed' answer; options from greenhouse/affirm_questions.json."
+          }
         ],
         "outcome": "fill_and_submit"
-      }
+      },
+      "total_steps": 1,
+      "step_index": 1
     },
     {
       "id": "greenhouse.discord",
@@ -557,26 +898,152 @@
       "notes": "Discord 'Senior Software Engineer, Consumer Revenue', San Francisco Bay Area. Standard job-boards.greenhouse.io page with SSR application <form>; id-based selectors, no name attributes. Includes an education block (school/degree/discipline) and a candidate-location react-select. Per the questions API the resume field is NOT required on this board. Custom-question schema (13 questions) in companion questions JSON.",
       "expected": {
         "fields": [
-          {"key": "first_name", "selector": "#first_name", "kind": "text", "required": true},
-          {"key": "last_name", "selector": "#last_name", "kind": "text", "required": true},
-          {"key": "email", "selector": "#email", "kind": "email", "required": true},
-          {"key": "phone", "selector": "#phone", "kind": "tel", "required": true},
-          {"key": "resume", "selector": "#resume", "kind": "file", "required": false, "notes": "visually-hidden input; required=false for this posting per questions API"},
-          {"key": "cover_letter", "selector": "#cover_letter", "kind": "file", "required": false},
-          {"key": "candidate_location", "selector": "#candidate-location", "kind": "text", "required": false, "notes": "react-select combobox"},
-          {"key": "school", "selector": "#school--0", "kind": "text", "required": false},
-          {"key": "degree", "selector": "#degree--0", "kind": "select", "required": false},
-          {"key": "discipline", "selector": "#discipline--0", "kind": "select", "required": false},
-          {"key": "why_discord", "selector": "#question_35679824002", "kind": "textarea", "required": true},
-          {"key": "linkedin_profile", "selector": "#question_35679825002", "kind": "url", "required": false},
-          {"key": "website", "selector": "#question_35679826002", "kind": "url", "required": false},
-          {"key": "hear_about_job", "selector": "#question_35679827002", "kind": "text", "required": false},
-          {"key": "work_authorized_us", "selector": "#question_35679828002", "kind": "select", "required": true, "high_stakes": true},
-          {"key": "based_sf_bay_area", "selector": "#question_35679830002", "kind": "select", "required": true},
-          {"key": "willing_to_relocate_sf", "selector": "#question_35790299002", "kind": "select", "required": true}
+          {
+            "key": "first_name",
+            "selector": "#first_name",
+            "kind": "text",
+            "required": true,
+            "expected_value": "Ada",
+            "profile_path": "full_name.first"
+          },
+          {
+            "key": "last_name",
+            "selector": "#last_name",
+            "kind": "text",
+            "required": true,
+            "expected_value": "Lovelace",
+            "profile_path": "full_name.last"
+          },
+          {
+            "key": "email",
+            "selector": "#email",
+            "kind": "email",
+            "required": true,
+            "expected_value": "ada.lovelace@example.com",
+            "profile_path": "email"
+          },
+          {
+            "key": "phone",
+            "selector": "#phone",
+            "kind": "tel",
+            "required": true,
+            "expected_value": "+1-415-555-0142",
+            "profile_path": "phone"
+          },
+          {
+            "key": "resume",
+            "selector": "#resume",
+            "kind": "file",
+            "required": false,
+            "notes": "visually-hidden input; required=false for this posting per questions API"
+          },
+          {
+            "key": "cover_letter",
+            "selector": "#cover_letter",
+            "kind": "file",
+            "required": false
+          },
+          {
+            "key": "candidate_location",
+            "selector": "#candidate-location",
+            "kind": "text",
+            "required": false,
+            "notes": "react-select combobox"
+          },
+          {
+            "key": "school",
+            "selector": "#school--0",
+            "kind": "text",
+            "required": false
+          },
+          {
+            "key": "degree",
+            "selector": "#degree--0",
+            "kind": "text",
+            "required": false,
+            "notes": "react-select combobox backed by <input type=text role=combobox> (aria-required=false); option menu renders client-side on open and is not captured in the recording, so tracked as text-kind."
+          },
+          {
+            "key": "discipline",
+            "selector": "#discipline--0",
+            "kind": "text",
+            "required": false,
+            "notes": "react-select combobox backed by <input type=text role=combobox>; option menu renders client-side on open and is not captured in the recording, so tracked as text-kind."
+          },
+          {
+            "key": "why_discord",
+            "selector": "#question_35679824002",
+            "kind": "textarea",
+            "required": true,
+            "expected_value": "Led the migration of a billing service to an event-driven FastAPI backend, cutting p95 latency from 820 ms to 190 ms while preserving exactly-once invoice delivery.",
+            "profile_path": "project_story",
+            "notes": "required free-text: replay fills the profile's deterministic canned answer (project_story)."
+          },
+          {
+            "key": "linkedin_profile",
+            "selector": "#question_35679825002",
+            "kind": "url",
+            "required": false,
+            "expected_value": "https://www.linkedin.com/in/ada-lovelace",
+            "profile_path": "links.linkedin"
+          },
+          {
+            "key": "website",
+            "selector": "#question_35679826002",
+            "kind": "url",
+            "required": false,
+            "expected_value": "https://ada.example.com",
+            "profile_path": "links.portfolio",
+            "notes": "personal website maps to the profile portfolio link."
+          },
+          {
+            "key": "hear_about_job",
+            "selector": "#question_35679827002",
+            "kind": "text",
+            "required": false
+          },
+          {
+            "key": "work_authorized_us",
+            "selector": "#question_35679828002",
+            "kind": "select",
+            "required": true,
+            "high_stakes": true,
+            "expected_value": "Yes",
+            "options": [
+              "Yes",
+              "No"
+            ],
+            "notes": "'Yes' mirrors profile work_authorization=us_citizen."
+          },
+          {
+            "key": "based_sf_bay_area",
+            "selector": "#question_35679830002",
+            "kind": "select",
+            "required": true,
+            "expected_value": "Yes",
+            "options": [
+              "Yes",
+              "No"
+            ],
+            "notes": "'Yes' mirrors profile location.city=San Francisco."
+          },
+          {
+            "key": "willing_to_relocate_sf",
+            "selector": "#question_35790299002",
+            "kind": "select",
+            "required": true,
+            "expected_value": "No",
+            "options": [
+              "Yes",
+              "No"
+            ],
+            "notes": "'No' mirrors profile willing_to_relocate=false."
+          }
         ],
         "outcome": "fill_and_submit"
-      }
+      },
+      "total_steps": 1,
+      "step_index": 1
     },
     {
       "id": "greenhouse.robinhood",
@@ -591,29 +1058,204 @@
       "notes": "Robinhood 'Full Stack Software Engineer, Credit Cards & Banking', Bellevue WA / Menlo Park CA / New York NY. Standard job-boards.greenhouse.io page with SSR application <form>; id-based selectors. Long compliance questionnaire (conflicts-of-interest, government-official disclosure) captured verbatim. Custom-question schema (19 questions) in companion questions JSON.",
       "expected": {
         "fields": [
-          {"key": "first_name", "selector": "#first_name", "kind": "text", "required": true},
-          {"key": "last_name", "selector": "#last_name", "kind": "text", "required": true},
-          {"key": "email", "selector": "#email", "kind": "email", "required": true},
-          {"key": "phone", "selector": "#phone", "kind": "tel", "required": true},
-          {"key": "resume", "selector": "#resume", "kind": "file", "required": true, "notes": "visually-hidden input; resolve the input, not the dropzone"},
-          {"key": "cover_letter", "selector": "#cover_letter", "kind": "file", "required": false},
-          {"key": "candidate_location", "selector": "#candidate-location", "kind": "text", "required": false, "notes": "react-select combobox"},
-          {"key": "linkedin_profile", "selector": "#question_67634731", "kind": "url", "required": false},
-          {"key": "website", "selector": "#question_67634732", "kind": "url", "required": false},
-          {"key": "hear_about_job", "selector": "#question_67634733", "kind": "text", "required": false},
-          {"key": "used_robinhood", "selector": "#question_67634734", "kind": "select", "required": false},
-          {"key": "previously_worked_at_robinhood", "selector": "#question_67634735", "kind": "select", "required": true, "high_stakes": true},
-          {"key": "work_authorized_us", "selector": "#question_67634737", "kind": "select", "required": true, "high_stakes": true},
-          {"key": "require_sponsorship_us", "selector": "#question_67634738", "kind": "select", "required": true, "high_stakes": true},
-          {"key": "willing_office_locations", "selector": "#question_67634739", "kind": "select", "required": true},
-          {"key": "preferred_office", "selector": "#question_67634740", "kind": "select", "required": true},
-          {"key": "conflicts_disclosure", "selector": "#question_67634741", "kind": "select", "required": true, "high_stakes": true},
-          {"key": "conflicts_details", "selector": "#question_67634742", "kind": "text", "required": false},
-          {"key": "government_official_disclosure", "selector": "#question_67634743", "kind": "select", "required": true, "high_stakes": true},
-          {"key": "government_official_details", "selector": "#question_67634744", "kind": "text", "required": false}
+          {
+            "key": "first_name",
+            "selector": "#first_name",
+            "kind": "text",
+            "required": true,
+            "expected_value": "Ada",
+            "profile_path": "full_name.first"
+          },
+          {
+            "key": "last_name",
+            "selector": "#last_name",
+            "kind": "text",
+            "required": true,
+            "expected_value": "Lovelace",
+            "profile_path": "full_name.last"
+          },
+          {
+            "key": "email",
+            "selector": "#email",
+            "kind": "email",
+            "required": true,
+            "expected_value": "ada.lovelace@example.com",
+            "profile_path": "email"
+          },
+          {
+            "key": "phone",
+            "selector": "#phone",
+            "kind": "tel",
+            "required": true,
+            "expected_value": "+1-415-555-0142",
+            "profile_path": "phone"
+          },
+          {
+            "key": "resume",
+            "selector": "#resume",
+            "kind": "file",
+            "required": true,
+            "notes": "visually-hidden input; resolve the input, not the dropzone",
+            "upload_fixture": "mock_ats/artifacts/resume.pdf"
+          },
+          {
+            "key": "cover_letter",
+            "selector": "#cover_letter",
+            "kind": "file",
+            "required": false
+          },
+          {
+            "key": "candidate_location",
+            "selector": "#candidate-location",
+            "kind": "text",
+            "required": false,
+            "notes": "react-select combobox"
+          },
+          {
+            "key": "linkedin_profile",
+            "selector": "#question_67634731",
+            "kind": "url",
+            "required": false,
+            "expected_value": "https://www.linkedin.com/in/ada-lovelace",
+            "profile_path": "links.linkedin"
+          },
+          {
+            "key": "website",
+            "selector": "#question_67634732",
+            "kind": "url",
+            "required": false,
+            "expected_value": "https://ada.example.com",
+            "profile_path": "links.portfolio",
+            "notes": "personal website maps to the profile portfolio link."
+          },
+          {
+            "key": "hear_about_job",
+            "selector": "#question_67634733",
+            "kind": "text",
+            "required": false
+          },
+          {
+            "key": "used_robinhood",
+            "selector": "#question_67634734",
+            "kind": "select",
+            "required": false,
+            "expected_value": "No",
+            "options": [
+              "Yes",
+              "No"
+            ],
+            "notes": "deterministic fresh-candidate answer."
+          },
+          {
+            "key": "previously_worked_at_robinhood",
+            "selector": "#question_67634735",
+            "kind": "select",
+            "required": true,
+            "high_stakes": true,
+            "expected_value": "I have never worked at Robinhood",
+            "options": [
+              "I currently work at Robinhood as a full-time employee or intern",
+              "I have previously worked at Robinhood as a full-time employee or intern (Hoodie Alumni)",
+              "I currently work at Robinhood in a contractor role",
+              "I have previously worked at Robinhood in a contractor role",
+              "I have never worked at Robinhood"
+            ],
+            "notes": "'I have never worked at Robinhood' is the deterministic answer; options from greenhouse/robinhood_questions.json."
+          },
+          {
+            "key": "work_authorized_us",
+            "selector": "#question_67634737",
+            "kind": "select",
+            "required": true,
+            "high_stakes": true,
+            "expected_value": "Yes",
+            "options": [
+              "Yes",
+              "No"
+            ],
+            "notes": "'Yes' mirrors profile work_authorization=us_citizen."
+          },
+          {
+            "key": "require_sponsorship_us",
+            "selector": "#question_67634738",
+            "kind": "select",
+            "required": true,
+            "high_stakes": true,
+            "expected_value": "No",
+            "options": [
+              "Yes",
+              "No"
+            ],
+            "notes": "'No' mirrors profile requires_sponsorship=false and requires_future_sponsorship=false."
+          },
+          {
+            "key": "willing_office_locations",
+            "selector": "#question_67634739",
+            "kind": "select",
+            "required": true,
+            "expected_value": "Yes",
+            "options": [
+              "Yes",
+              "No"
+            ]
+          },
+          {
+            "key": "preferred_office",
+            "selector": "#question_67634740",
+            "kind": "select",
+            "required": true,
+            "expected_value": "Menlo Park, CA",
+            "options": [
+              "Menlo Park, CA",
+              "New York, NY",
+              "Bellevue, WA",
+              "Toronto, Canada"
+            ],
+            "notes": "closest recorded office to the profile's San Francisco location."
+          },
+          {
+            "key": "conflicts_disclosure",
+            "selector": "#question_67634741",
+            "kind": "select",
+            "required": true,
+            "high_stakes": true,
+            "expected_value": "No",
+            "options": [
+              "Yes",
+              "No"
+            ],
+            "notes": "deterministic no-conflicts answer for the synthetic candidate."
+          },
+          {
+            "key": "conflicts_details",
+            "selector": "#question_67634742",
+            "kind": "text",
+            "required": false
+          },
+          {
+            "key": "government_official_disclosure",
+            "selector": "#question_67634743",
+            "kind": "select",
+            "required": true,
+            "high_stakes": true,
+            "expected_value": "No",
+            "options": [
+              "Yes",
+              "No"
+            ],
+            "notes": "deterministic no-disclosure answer for the synthetic candidate."
+          },
+          {
+            "key": "government_official_details",
+            "selector": "#question_67634744",
+            "kind": "text",
+            "required": false
+          }
         ],
         "outcome": "fill_and_submit"
-      }
+      },
+      "total_steps": 1,
+      "step_index": 1
     },
     {
       "id": "lever.palantir",
@@ -627,27 +1269,191 @@
       "notes": "Palantir 'Edge Infrastructure Engineer' (posting 3d06b4bc-6a7b-4f73-b5c5-4544354e3d0f). Lever job detail pages now render the application form client-side, so this fixture records the same posting's /apply URL, which server-renders the full <form id=\"application-form\" enctype=\"multipart/form-data\">. Classic Lever field names (name/email/phone/org/urls[...]/resume/comments) plus card-based custom questions (cards[<uuid>][fieldN]). Resume input is invisible behind a dropzone (data-qa=input-resume). Submit is protected by hCaptcha (hidden input name=h-captcha-response) - offline tests can fill but not submit.",
       "expected": {
         "fields": [
-          {"key": "name", "selector": "input[name=\"name\"]", "kind": "text", "required": true, "notes": "data-qa=name-input"},
-          {"key": "email", "selector": "input[name=\"email\"]", "kind": "email", "required": true},
-          {"key": "phone", "selector": "input[name=\"phone\"]", "kind": "tel", "required": false},
-          {"key": "location", "selector": "#location-input", "kind": "text", "required": true, "notes": "name=location; paired hidden input name=selectedLocation"},
-          {"key": "org", "selector": "input[name=\"org\"]", "kind": "text", "required": false, "notes": "current company"},
-          {"key": "resume", "selector": "#resume-upload-input", "kind": "file", "required": true, "notes": "invisible input behind custom dropzone"},
-          {"key": "linkedin_url", "selector": "input[name=\"urls[LinkedIn]\"]", "kind": "url", "required": false},
-          {"key": "github_url", "selector": "input[name=\"urls[GitHub]\"]", "kind": "url", "required": false},
-          {"key": "portfolio_url", "selector": "input[name=\"urls[Portfolio]\"]", "kind": "url", "required": false},
-          {"key": "cover_letter", "selector": "#additional-information", "kind": "textarea", "required": false, "notes": "name=comments"},
-          {"key": "languages", "selector": "input[name=\"cards[a69a985a-eae9-4c14-90fb-b5a4b891523e][field0]\"]", "kind": "checkbox", "required": false, "notes": "multi-select checkbox group (spoken languages); same name repeated with different value attributes"},
-          {"key": "work_authorization", "selector": "input[name=\"cards[1c719ca9-5069-4afe-9e82-39ca420e0edb][field0]\"]", "kind": "radio", "required": true, "high_stakes": true, "notes": "Yes/No radios; card also has [field1] second Yes/No question"},
-          {"key": "university", "selector": "select[name=\"cards[3da58b41-acf5-40a1-945e-c7f047ef8050][field0]\"]", "kind": "select", "required": true},
-          {"key": "hear_about", "selector": "select[name=\"cards[a6197d84-549e-4a91-8bb0-6af972510013][field0]\"]", "kind": "select", "required": true},
-          {"key": "additional_info_1", "selector": "textarea[name=\"cards[ce72d538-c9ad-41f3-8e9a-618d40c82e3a][field0]\"]", "kind": "textarea", "required": false},
-          {"key": "additional_info_2", "selector": "textarea[name=\"cards[ce72d538-c9ad-41f3-8e9a-618d40c82e3a][field1]\"]", "kind": "textarea", "required": false},
-          {"key": "ai_notetaker_consent", "selector": "input[name=\"cards[73796cde-fc01-4758-9002-c85155f3503d][field0]\"]", "kind": "radio", "required": true, "notes": "Yes, I consent / No, I do not consent"},
-          {"key": "marketing_consent", "selector": "input[name=\"consent[marketing]\"]", "kind": "checkbox", "required": false, "notes": "paired hidden input value=0 and checkbox value=1"}
+          {
+            "key": "name",
+            "selector": "input[name=\"name\"]",
+            "kind": "text",
+            "required": true,
+            "notes": "data-qa=name-input single full-name input; value is profile full_name.first + ' ' + full_name.last (profile has no full-name path).",
+            "expected_value": "Ada Lovelace"
+          },
+          {
+            "key": "email",
+            "selector": "input[name=\"email\"]",
+            "kind": "email",
+            "required": true,
+            "expected_value": "ada.lovelace@example.com",
+            "profile_path": "email"
+          },
+          {
+            "key": "phone",
+            "selector": "input[name=\"phone\"]",
+            "kind": "tel",
+            "required": false,
+            "expected_value": "+1-415-555-0142",
+            "profile_path": "phone"
+          },
+          {
+            "key": "location",
+            "selector": "#location-input",
+            "kind": "text",
+            "required": true,
+            "notes": "name=location; paired hidden input name=selectedLocation",
+            "expected_value": "San Francisco, CA",
+            "profile_path": "location.display"
+          },
+          {
+            "key": "org",
+            "selector": "input[name=\"org\"]",
+            "kind": "text",
+            "required": false,
+            "notes": "current company"
+          },
+          {
+            "key": "resume",
+            "selector": "#resume-upload-input",
+            "kind": "file",
+            "required": true,
+            "notes": "invisible input behind custom dropzone",
+            "upload_fixture": "mock_ats/artifacts/resume.pdf"
+          },
+          {
+            "key": "linkedin_url",
+            "selector": "input[name=\"urls[LinkedIn]\"]",
+            "kind": "url",
+            "required": false,
+            "expected_value": "https://www.linkedin.com/in/ada-lovelace",
+            "profile_path": "links.linkedin"
+          },
+          {
+            "key": "github_url",
+            "selector": "input[name=\"urls[GitHub]\"]",
+            "kind": "url",
+            "required": false,
+            "expected_value": "https://github.com/ada-lovelace",
+            "profile_path": "links.github"
+          },
+          {
+            "key": "portfolio_url",
+            "selector": "input[name=\"urls[Portfolio]\"]",
+            "kind": "url",
+            "required": false,
+            "expected_value": "https://ada.example.com",
+            "profile_path": "links.portfolio"
+          },
+          {
+            "key": "cover_letter",
+            "selector": "#additional-information",
+            "kind": "textarea",
+            "required": false,
+            "notes": "name=comments"
+          },
+          {
+            "key": "languages",
+            "selector": "input[name=\"cards[a69a985a-eae9-4c14-90fb-b5a4b891523e][field0]\"]",
+            "kind": "checkbox",
+            "required": false,
+            "notes": "multi-select checkbox group (spoken languages); same name repeated with different value attributes"
+          },
+          {
+            "key": "work_authorization",
+            "selector": "input[name=\"cards[1c719ca9-5069-4afe-9e82-39ca420e0edb][field0]\"]",
+            "kind": "radio",
+            "required": true,
+            "high_stakes": true,
+            "notes": "Yes/No radios; card also has [field1] second Yes/No question real radio values from the recorded HTML (cards[1c719ca9-...][field0]); 'Yes' mirrors profile work_authorization=us_citizen.",
+            "expected_value": "Yes",
+            "options": [
+              "Yes",
+              "No"
+            ]
+          },
+          {
+            "key": "university",
+            "selector": "select[name=\"cards[3da58b41-acf5-40a1-945e-c7f047ef8050][field0]\"]",
+            "kind": "select",
+            "required": true,
+            "expected_value": "University of Cambridge",
+            "options": [
+              "University of Cambridge",
+              "University of Oxford",
+              "Stanford University",
+              "Massachusetts Institute of Technology",
+              "University of Tokyo",
+              "Technical University of Munich - TUM",
+              "University of Michigan - Ann Arbor",
+              "Georgia Institute of Technology",
+              "Did not attend university",
+              "Other - School Not Listed"
+            ],
+            "notes": "the real select carries 3302 recorded university options; a representative subset of recorded labels (plus the two recorded sentinel options) is listed, including the deterministic expected_value."
+          },
+          {
+            "key": "hear_about",
+            "selector": "select[name=\"cards[a6197d84-549e-4a91-8bb0-6af972510013][field0]\"]",
+            "kind": "select",
+            "required": true,
+            "expected_value": "LinkedIn",
+            "options": [
+              "Agency or Non-Palantir Recruiter",
+              "America's Job Exchange",
+              "BuiltIn",
+              "Campus Ambassador",
+              "Friend or Family",
+              "Glassdoor",
+              "Hackajob",
+              "Hallo",
+              "Handshake",
+              "Job Board (Indeed, Monster, etc.)",
+              "LinkedIn",
+              "Palantir Event",
+              "Palantir Medium Blog",
+              "Palantir Recruiter",
+              "Palantir Website",
+              "Rewriting the Code",
+              "Tapia",
+              "University Job Board",
+              "University or University Organization",
+              "Other"
+            ],
+            "notes": "all recorded option labels from the HTML select; deterministic answer 'LinkedIn'."
+          },
+          {
+            "key": "additional_info_1",
+            "selector": "textarea[name=\"cards[ce72d538-c9ad-41f3-8e9a-618d40c82e3a][field0]\"]",
+            "kind": "textarea",
+            "required": false
+          },
+          {
+            "key": "additional_info_2",
+            "selector": "textarea[name=\"cards[ce72d538-c9ad-41f3-8e9a-618d40c82e3a][field1]\"]",
+            "kind": "textarea",
+            "required": false
+          },
+          {
+            "key": "ai_notetaker_consent",
+            "selector": "input[name=\"cards[73796cde-fc01-4758-9002-c85155f3503d][field0]\"]",
+            "kind": "radio",
+            "required": true,
+            "notes": "Yes, I consent / No, I do not consent real radio values from the recorded HTML; the deterministic candidate declines AI notetaking.",
+            "expected_value": "No, I do not consent",
+            "options": [
+              "Yes, I consent",
+              "No, I do not consent"
+            ]
+          },
+          {
+            "key": "marketing_consent",
+            "selector": "input[name=\"consent[marketing]\"]",
+            "kind": "checkbox",
+            "required": false,
+            "notes": "paired hidden input value=0 and checkbox value=1"
+          }
         ],
         "outcome": "fill_and_submit"
-      }
+      },
+      "total_steps": 1,
+      "step_index": 1
     },
     {
       "id": "lever.spotify",
@@ -661,24 +1467,137 @@
       "notes": "Spotify 'Senior Backend Engineer - Content Platform' (posting 9f66e598-8587-4a57-8552-2cdb8672014a). Recorded from the posting's /apply URL because Lever job detail pages render the application form client-side; this page server-renders the full <form id=\"application-form\">. All core contact fields are required on this board (unlike Palantir). Includes pronouns checkbox group, opportunityLocationId role-location select, urls[Other], a Previous Spotify Employment card, four demographic survey blocks (surveysResponses[<uuid>][responses][fieldN] radio groups), and consent[marketing]. hCaptcha hidden input present - offline tests can fill but not submit.",
       "expected": {
         "fields": [
-          {"key": "name", "selector": "input[name=\"name\"]", "kind": "text", "required": true, "notes": "data-qa=name-input"},
-          {"key": "email", "selector": "input[name=\"email\"]", "kind": "email", "required": true},
-          {"key": "phone", "selector": "input[name=\"phone\"]", "kind": "tel", "required": true},
-          {"key": "location", "selector": "#location-input", "kind": "text", "required": true, "notes": "name=location; paired hidden input name=selectedLocation"},
-          {"key": "org", "selector": "input[name=\"org\"]", "kind": "text", "required": true, "notes": "current company; required on this board"},
-          {"key": "resume", "selector": "#resume-upload-input", "kind": "file", "required": true, "notes": "invisible input behind custom dropzone"},
-          {"key": "linkedin_url", "selector": "input[name=\"urls[LinkedIn]\"]", "kind": "url", "required": false},
-          {"key": "github_url", "selector": "input[name=\"urls[GitHub]\"]", "kind": "url", "required": false},
-          {"key": "portfolio_url", "selector": "input[name=\"urls[Portfolio]\"]", "kind": "url", "required": false},
-          {"key": "other_url", "selector": "input[name=\"urls[Other]\"]", "kind": "url", "required": false},
-          {"key": "pronouns", "selector": "input[name=\"pronouns\"]", "kind": "checkbox", "required": false, "notes": "checkbox group incl. custom free-text option (#customPronounsTextField)"},
-          {"key": "opportunity_location", "selector": "select[name=\"opportunityLocationId\"]", "kind": "select", "required": false, "notes": "role-specific location select (data-qa=opportunity-location-select)"},
-          {"key": "previous_spotify_employment", "selector": "input[name=\"cards[92a51f92-d683-4f7b-be57-e25376f60abe][field0]\"]", "kind": "checkbox", "required": false, "notes": "No / Yes - Intern / Yes - Full Time Employment"},
-          {"key": "demographic_survey_gender", "selector": "input[name=\"surveysResponses[cbf1b3c9-4157-4ddd-a66e-41dae0d8badb][responses][field0]\"]", "kind": "radio", "required": false, "notes": "representative radio group; three more survey blocks follow the same surveysResponses[<uuid>] pattern"},
-          {"key": "marketing_consent", "selector": "input[name=\"consent[marketing]\"]", "kind": "checkbox", "required": false, "notes": "paired hidden input value=0 and checkbox value=1"}
+          {
+            "key": "name",
+            "selector": "input[name=\"name\"]",
+            "kind": "text",
+            "required": true,
+            "notes": "data-qa=name-input single full-name input; value is profile full_name.first + ' ' + full_name.last (profile has no full-name path).",
+            "expected_value": "Ada Lovelace"
+          },
+          {
+            "key": "email",
+            "selector": "input[name=\"email\"]",
+            "kind": "email",
+            "required": true,
+            "expected_value": "ada.lovelace@example.com",
+            "profile_path": "email"
+          },
+          {
+            "key": "phone",
+            "selector": "input[name=\"phone\"]",
+            "kind": "tel",
+            "required": true,
+            "expected_value": "+1-415-555-0142",
+            "profile_path": "phone"
+          },
+          {
+            "key": "location",
+            "selector": "#location-input",
+            "kind": "text",
+            "required": true,
+            "notes": "name=location; paired hidden input name=selectedLocation",
+            "expected_value": "San Francisco, CA",
+            "profile_path": "location.display"
+          },
+          {
+            "key": "org",
+            "selector": "input[name=\"org\"]",
+            "kind": "text",
+            "required": true,
+            "notes": "current company; required on this board required current-company input; profile has no employer field, so a reserved example-style placeholder is used.",
+            "expected_value": "Example Corp"
+          },
+          {
+            "key": "resume",
+            "selector": "#resume-upload-input",
+            "kind": "file",
+            "required": true,
+            "notes": "invisible input behind custom dropzone",
+            "upload_fixture": "mock_ats/artifacts/resume.pdf"
+          },
+          {
+            "key": "linkedin_url",
+            "selector": "input[name=\"urls[LinkedIn]\"]",
+            "kind": "url",
+            "required": false,
+            "expected_value": "https://www.linkedin.com/in/ada-lovelace",
+            "profile_path": "links.linkedin"
+          },
+          {
+            "key": "github_url",
+            "selector": "input[name=\"urls[GitHub]\"]",
+            "kind": "url",
+            "required": false,
+            "expected_value": "https://github.com/ada-lovelace",
+            "profile_path": "links.github"
+          },
+          {
+            "key": "portfolio_url",
+            "selector": "input[name=\"urls[Portfolio]\"]",
+            "kind": "url",
+            "required": false,
+            "expected_value": "https://ada.example.com",
+            "profile_path": "links.portfolio"
+          },
+          {
+            "key": "other_url",
+            "selector": "input[name=\"urls[Other]\"]",
+            "kind": "url",
+            "required": false
+          },
+          {
+            "key": "pronouns",
+            "selector": "input[name=\"pronouns\"]",
+            "kind": "checkbox",
+            "required": false,
+            "notes": "checkbox group incl. custom free-text option (#customPronounsTextField)"
+          },
+          {
+            "key": "opportunity_location",
+            "selector": "select[name=\"opportunityLocationId\"]",
+            "kind": "select",
+            "required": false,
+            "notes": "role-specific location select (data-qa=opportunity-location-select) real options from the recorded HTML select; underlying value attributes are 0e101fcd-f389-4971-8616-b917fbc34901/10e4c0bc-8b6d-46a6-8c86-32b14f28b561.",
+            "expected_value": "London",
+            "options": [
+              "London",
+              "Stockholm"
+            ]
+          },
+          {
+            "key": "previous_spotify_employment",
+            "selector": "input[name=\"cards[92a51f92-d683-4f7b-be57-e25376f60abe][field0]\"]",
+            "kind": "checkbox",
+            "required": false,
+            "notes": "No / Yes - Intern / Yes - Full Time Employment"
+          },
+          {
+            "key": "demographic_survey_gender",
+            "selector": "input[name=\"surveysResponses[cbf1b3c9-4157-4ddd-a66e-41dae0d8badb][responses][field0]\"]",
+            "kind": "radio",
+            "required": false,
+            "notes": "representative radio group; three more survey blocks follow the same surveysResponses[<uuid>] pattern real radio values from the recorded HTML; voluntary demographic survey left unset deterministically (no expected_value).",
+            "options": [
+              "Woman",
+              "Man",
+              "Non-binary",
+              "I use another term",
+              "Prefer not to disclose"
+            ]
+          },
+          {
+            "key": "marketing_consent",
+            "selector": "input[name=\"consent[marketing]\"]",
+            "kind": "checkbox",
+            "required": false,
+            "notes": "paired hidden input value=0 and checkbox value=1"
+          }
         ],
         "outcome": "fill_and_submit"
-      }
+      },
+      "total_steps": 1,
+      "step_index": 1
     }
   ]
 }
