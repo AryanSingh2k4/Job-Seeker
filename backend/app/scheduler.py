@@ -10,6 +10,8 @@ from typing import List
 
 logger = logging.getLogger(__name__)
 
+from app.db import SessionLocal
+
 _TASKS: List[asyncio.Task] = []
 
 
@@ -78,27 +80,53 @@ async def crawl_loop(db_session_factory) -> None:
 
 
 async def match_loop(interval_seconds: int = 10) -> None:
-    logger.info("Starting match loop with interval %d seconds", interval_seconds)
+    """Matcher worker: processes score_queued jobs via the composite scorer."""
+    from app.matcher.service import process_score_queue
+    logger.info("match_loop started (interval %ds)", interval_seconds)
     while True:
         try:
+            db = SessionLocal()
+            try:
+                processed = await process_score_queue(db, batch_size=5)
+                if processed:
+                    logger.info("match_loop scored %d jobs", processed)
+            finally:
+                db.close()
             await asyncio.sleep(interval_seconds)
-            # Matcher worker processes score_queued jobs here
         except asyncio.CancelledError:
             break
         except Exception as exc:
             logger.error("Error in match_loop: %s", exc)
+            await asyncio.sleep(30)
 
 
 async def apply_loop(interval_seconds: int = 30) -> None:
-    logger.info("Starting apply loop with interval %d seconds", interval_seconds)
+    """Applier worker: queued applications start when gates allow (caps/hours)."""
+    from app.applier.engine import ApplicationEngine
+    from app.models.application import Application
+    logger.info("apply_loop started (interval %ds)", interval_seconds)
     while True:
         try:
+            db = SessionLocal()
+            try:
+                queued = (
+                    db.query(Application)
+                    .filter(Application.status == "QUEUED")
+                    .order_by(Application.started_at.asc())
+                    .first()
+                )
+                if queued:
+                    logger.info("apply_loop launching application %s (%s)", queued.id, queued.platform)
+                    engine = ApplicationEngine(db)
+                    await engine.execute_application(queued.id)
+            finally:
+                db.close()
             await asyncio.sleep(interval_seconds)
-            # Applier worker processes ready_to_apply jobs here
         except asyncio.CancelledError:
             break
         except Exception as exc:
             logger.error("Error in apply_loop: %s", exc)
+            await asyncio.sleep(60)
 
 
 def start_schedulers(db_session_factory=None) -> None:

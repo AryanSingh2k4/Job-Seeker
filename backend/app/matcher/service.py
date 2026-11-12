@@ -42,9 +42,9 @@ async def process_score_queue(db: Session, batch_size: int = 5) -> int:
                 job.status = "scored"
                 job.match_reasons = [f"score_{breakdown.final}"]
 
-            meta = dict(job.metadata_ or {})
+            meta = dict(job.job_metadata or {})
             meta["parsed"] = parsed.model_dump()
-            job.metadata_ = meta
+            job.job_metadata = meta
 
             processed += 1
         except Exception as exc:
