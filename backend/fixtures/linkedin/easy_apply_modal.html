@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SYNTHETIC FIXTURE — LinkedIn Easy Apply modal (3 steps)</title>
+<!--
+  SYNTHETIC FIXTURE — NOT a LinkedIn recording.
+  LinkedIn's Easy Apply modal is login-walled, so a real capture is impossible for an
+  unauthenticated harness. This page is a high-fidelity replica built from the selectors
+  documented in docs/form_automation_engine_design.md §4.1:
+    div.jobs-easy-apply-modal, div[data-test-modal], button.jobs-apply-button,
+    input[id*="phoneNumber"], artdeco selects, div.jobs-document-upload__title,
+    input[type=file][name="file"], fieldset>legend screening questions,
+    footer aria-labels "Continue to next step" / "Review your application" /
+    "Submit application", and Dismiss.
+  Self-contained: no network requests, no external assets, no timestamps, no random ids.
+  State surface for tests: window.__EASY_APPLY_STATE__.
+-->
+<style>
+  body { margin: 0; font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #ececec; color: #000000e6; }
+  #job-page-backdrop { padding: 24px; }
+  .jobs-apply-button { background: #0a66c2; color: #fff; border: 0; border-radius: 16px; padding: 8px 16px; font-weight: 600; cursor: pointer; }
+  .modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.45); display: flex; align-items: flex-start; justify-content: center; overflow: auto; padding: 32px 12px; }
+  .jobs-easy-apply-modal { background: #fff; border-radius: 8px; width: 640px; max-width: 100%; box-shadow: 0 8px 32px rgba(0,0,0,.3); }
+  .jobs-easy-apply-modal__header { display: flex; justify-content: space-between; align-items: flex-start; padding: 20px 24px 12px; }
+  .jobs-easy-apply-modal__title { font-size: 20px; margin: 0; }
+  .jobs-easy-apply-modal__company { margin: 2px 0 0; font-size: 13px; color: #00000099; }
+  .artdeco-modal__dismiss { background: transparent; border: 0; font-size: 22px; line-height: 1; cursor: pointer; color: #00000099; }
+  .jobs-easy-apply-modal__rule { border: 0; border-top: 1px solid #e0e0e0; margin: 0; }
+  .jobs-easy-apply-modal__step-count { padding: 10px 24px 0; margin: 0; font-size: 12px; color: #00000099; }
+  .jobs-easy-apply-modal__body { padding: 8px 24px 16px; min-height: 320px; }
+  .jobs-easy-apply-form-section__heading { font-size: 16px; margin: 16px 0 4px; }
+  .fb-dash-form-element { margin: 14px 0; }
+  .fb-dash-form-element__label, .fb-dash-form-element__label-text { display: block; font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+  .fb-dash-form-element__required-indicator { color: #b24020; margin-left: 2px; }
+  .artdeco-select__wrapper { display: block; }
+  .artdeco-select { width: 100%; padding: 8px 32px 8px 10px; border: 1px solid #8c8c8c; border-radius: 4px; font-size: 14px; background: #fff; }
+  .artdeco-text-input__input { width: 100%; box-sizing: border-box; padding: 8px 10px; border: 1px solid #8c8c8c; border-radius: 4px; font-size: 14px; }
+  .phone-combo { display: flex; gap: 8px; }
+  .phone-combo .artdeco-select { width: 190px; flex: none; }
+  .fb-dash-form-element__radio-options { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
+  .fb-radio-button { display: flex; align-items: center; gap: 8px; font-size: 14px; }
+  fieldset.fb-dash-form-element { border: 0; padding: 0; margin: 14px 0; }
+  legend.fb-dash-form-element__label { font-size: 14px; font-weight: 600; padding: 0; margin-bottom: 4px; }
+  .jobs-document-upload__title { font-size: 14px; font-weight: 600; margin: 12px 0 6px; }
+  .jobs-document-upload__dropzone { border: 2px dashed #b8b8b8; border-radius: 8px; padding: 22px; text-align: center; background: #f8fafc; }
+  .jobs-document-upload__caption { margin: 0 0 10px; font-size: 13px; color: #00000099; }
+  .jobs-document-upload__input-file { display: none; }
+  .jobs-easy-apply-modal__discard-confirm { margin: 0 24px 12px; padding: 14px; border: 1px solid #e0e0e0; border-radius: 8px; background: #f8f8f8; }
+  .jobs-easy-apply-modal__discard-confirm p { margin: 0 0 10px; font-weight: 600; }
+  .jobs-easy-apply-footer { display: flex; justify-content: space-between; align-items: center; padding: 12px 24px 16px; border-top: 1px solid #e0e0e0; }
+  .jobs-easy-apply-footer__actions { display: flex; gap: 8px; }
+  .artdeco-button { border-radius: 16px; padding: 8px 16px; font-size: 14px; font-weight: 600; cursor: pointer; border: 1px solid transparent; }
+  .artdeco-button--primary { background: #0a66c2; color: #fff; }
+  .artdeco-button--muted { background: #fff; color: #0a66c2; border-color: #0a66c2; }
+  .artdeco-button--tertiary { background: transparent; color: #00000099; }
+  #easy-apply-confirmation, #easy-apply-discarded { position: fixed; top: 24px; left: 50%; transform: translateX(-50%); background: #0a66c2; color: #fff; padding: 12px 20px; border-radius: 8px; font-size: 14px; }
+  #easy-apply-discarded { background: #b24020; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body class="jobs-search-page">
+
+  <!-- Job page backdrop: the adapter detects Easy Apply routing via button.jobs-apply-button (§4.1 step 1). -->
+  <div id="job-page-backdrop">
+    <h1>Senior Python Engineer</h1>
+    <p>Example Corp &mdash; San Francisco, CA (Remote) &middot; Posted 2026-11-09</p>
+    <button class="jobs-apply-button" data-test="easy-apply-button" type="button">Easy Apply</button>
+  </div>
+
+  <div class="modal-backdrop" id="easy-apply-backdrop">
+    <!-- The modal: carries both documented handles — div.jobs-easy-apply-modal AND div[data-test-modal]. -->
+    <div class="jobs-easy-apply-modal" role="dialog" aria-labelledby="jobs-easy-apply-modal-header" data-test-modal>
+      <div class="jobs-easy-apply-modal__content">
+
+        <header class="jobs-easy-apply-modal__header">
+          <div>
+            <h2 id="jobs-easy-apply-modal-header" class="jobs-easy-apply-modal__title">Apply to Senior Python Engineer</h2>
+            <p class="jobs-easy-apply-modal__company">Example Corp &middot; San Francisco, CA (Remote)</p>
+          </div>
+          <button class="artdeco-modal__dismiss js-dismiss" aria-label="Dismiss" data-test="dismiss" title="Dismiss" type="button">&times;</button>
+        </header>
+        <hr class="jobs-easy-apply-modal__rule">
+        <p class="jobs-easy-apply-modal__step-count" id="easy-apply-step-count">Step 1 of 3</p>
+
+        <div class="jobs-easy-apply-modal__body">
+
+          <!-- ============ STEP 1: CONTACT INFO ============ -->
+          <section class="jobs-easy-apply-form-panel" id="easy-apply-step-1" data-step="1">
+            <h3 class="jobs-easy-apply-form-section__heading">Contact info</h3>
+
+            <div class="fb-dash-form-element">
+              <label class="fb-dash-form-element__label" for="single-type-text-form-input-email">Email address<span class="fb-dash-form-element__required-indicator">*</span></label>
+              <div class="artdeco-select__wrapper">
+                <select id="single-type-text-form-input-email" name="email" class="artdeco-select" aria-label="Email address" required>
+                  <option value="ada.lovelace@example.com" selected>ada.lovelace@example.com</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="fb-dash-form-element">
+              <label class="fb-dash-form-element__label" for="phoneNumber-national">Phone number<span class="fb-dash-form-element__required-indicator">*</span></label>
+              <div class="phone-combo">
+                <select id="phoneNumber-country" name="phoneNumber-country" class="artdeco-select" aria-label="Phone country code">
+                  <option value="us" selected>United States (+1)</option>
+                  <option value="ca">Canada (+1)</option>
+                  <option value="gb">United Kingdom (+44)</option>
+                </select>
+                <input id="phoneNumber-national" name="phoneNumber-national" type="tel" class="artdeco-text-input__input" autocomplete="tel-national" value="+1-415-555-0142" required>
+              </div>
+            </div>
+          </section>
+
+          <!-- ============ STEP 2: RESUME ============ -->
+          <section class="jobs-easy-apply-form-panel" id="easy-apply-step-2" data-step="2" hidden>
+            <h3 class="jobs-easy-apply-form-section__heading">Resume</h3>
+
+            <div class="jobs-document-upload__title">Resume* (pdf, doc, docx &mdash; 200 MB max)</div>
+
+            <fieldset class="fb-dash-form-element">
+              <legend class="fb-dash-form-element__label">Choose resume</legend>
+              <div class="fb-dash-form-element__radio-options">
+                <label class="fb-radio-button">
+                  <input class="fb-radio-button__input" type="radio" name="resume-selection" value="ada_lovelace_resume.pdf" checked>
+                  <span class="fb-radio-button__label-text">ada_lovelace_resume.pdf &mdash; uploaded 2026-11-01</span>
+                </label>
+                <label class="fb-radio-button">
+                  <input class="fb-radio-button__input" type="radio" name="resume-selection" value="upload-new">
+                  <span class="fb-radio-button__label-text">Upload a new resume</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <div class="jobs-document-upload" id="resume-document-upload">
+              <div class="jobs-document-upload__dropzone" id="resume-dropzone">
+                <p class="jobs-document-upload__caption">Drag &amp; drop your resume here, or</p>
+                <button class="artdeco-button artdeco-button--muted jobs-document-upload__upload-button" id="resume-upload-button" type="button">Upload</button>
+              </div>
+              <!-- The real file input: hidden behind the dropzone; the adapter must setInputFiles on it, not click the dropzone. -->
+              <input type="file" name="file" id="jobs-document-upload-file-input-0" class="jobs-document-upload__input-file" accept=".pdf,.doc,.docx">
+            </div>
+          </section>
+
+          <!-- ============ STEP 3: SCREENING QUESTIONS ============ -->
+          <section class="jobs-easy-apply-form-panel" id="easy-apply-step-3" data-step="3" hidden>
+            <h3 class="jobs-easy-apply-form-section__heading">Screening questions</h3>
+
+            <fieldset class="fb-dash-form-element" id="screening-work-authorization">
+              <legend class="fb-dash-form-element__label">Are you legally authorized to work in the US?<span class="fb-dash-form-element__required-indicator">*</span></legend>
+              <div class="fb-dash-form-element__radio-options">
+                <label class="fb-radio-button"><input class="fb-radio-button__input" type="radio" name="workAuthorization" value="Yes" required><span class="fb-radio-button__label-text">Yes</span></label>
+                <label class="fb-radio-button"><input class="fb-radio-button__input" type="radio" name="workAuthorization" value="No"><span class="fb-radio-button__label-text">No</span></label>
+              </div>
+            </fieldset>
+
+            <fieldset class="fb-dash-form-element" id="screening-sponsorship">
+              <legend class="fb-dash-form-element__label">Will you now or in the future require sponsorship for an employment visa status?<span class="fb-dash-form-element__required-indicator">*</span></legend>
+              <div class="fb-dash-form-element__radio-options">
+                <label class="fb-radio-button"><input class="fb-radio-button__input" type="radio" name="requiresSponsorship" value="Yes" required><span class="fb-radio-button__label-text">Yes</span></label>
+                <label class="fb-radio-button"><input class="fb-radio-button__input" type="radio" name="requiresSponsorship" value="No"><span class="fb-radio-button__label-text">No</span></label>
+              </div>
+            </fieldset>
+
+            <fieldset class="fb-dash-form-element" id="screening-years-python">
+              <legend class="fb-dash-form-element__label">How many years of work experience do you have with Python?<span class="fb-dash-form-element__required-indicator">*</span></legend>
+              <input type="number" id="numeric-input-years-python" name="yearsPython" class="artdeco-text-input__input" min="0" max="50" step="1" inputmode="numeric" aria-label="How many years of work experience do you have with Python?" required>
+            </fieldset>
+
+            <fieldset class="fb-dash-form-element" id="screening-hear-about-us">
+              <legend class="fb-dash-form-element__label">Where did you hear about this job?</legend>
+              <div class="artdeco-select__wrapper">
+                <select id="single-type-select-hear-about-us" name="hearAboutUs" class="artdeco-select" aria-label="Where did you hear about this job?">
+                  <option value="" selected>Please select</option>
+                  <option value="LinkedIn">LinkedIn</option>
+                  <option value="Company website">Company website</option>
+                  <option value="Referral">Referral</option>
+                  <option value="Job board">Job board</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+            </fieldset>
+          </section>
+        </div>
+
+        <!-- Failure recovery surface (§4.1 step 4): dismiss → "Discard application" → clean reset. -->
+        <div class="jobs-easy-apply-modal__discard-confirm" id="discard-confirm" hidden>
+          <p>Discard application? Your answers will not be saved.</p>
+          <button class="artdeco-button artdeco-button--primary" id="discard-confirm-discard" data-test="discard-application" type="button">Discard application</button>
+          <button class="artdeco-button artdeco-button--muted" id="discard-confirm-cancel" data-test="discard-cancel" type="button">Cancel</button>
+        </div>
+
+        <footer class="jobs-easy-apply-footer">
+          <button class="artdeco-button artdeco-button--tertiary js-dismiss" aria-label="Dismiss" data-test="dismiss" type="button">Dismiss</button>
+          <div class="jobs-easy-apply-footer__actions">
+            <button class="artdeco-button artdeco-button--muted" aria-label="Back to previous step" data-test="back-to-previous-step" type="button" hidden>Back</button>
+            <button class="artdeco-button artdeco-button--primary" aria-label="Continue to next step" data-test="continue-to-next-step" type="button">Next</button>
+            <button class="artdeco-button artdeco-button--primary" aria-label="Review your application" data-test="review-your-application" type="button" hidden>Review</button>
+            <button class="artdeco-button artdeco-button--primary" aria-label="Submit application" data-test="submit-application" type="button" hidden>Submit application</button>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </div>
+
+  <!-- Terminal states for fixture assertions (same data-status pattern as mock_ats). -->
+  <div id="easy-apply-confirmation" data-status="SUBMITTED" hidden>Application sent to Example Corp &mdash; see window.__EASY_APPLY_STATE__</div>
+  <div id="easy-apply-discarded" data-status="DISCARDED" hidden>Application discarded &mdash; modal state reset</div>
+
+<script>
+/* Deterministic stepper — no Date.now(), no randomness, no network. */
+(function () {
+  'use strict';
+
+  window.__EASY_APPLY_STATE__ = {
+    fixture: 'linkedin/easy_apply_modal.html',
+    synthetic: true,
+    currentStep: 1,
+    totalSteps: 3,
+    submitted: false,
+    dismissed: false,
+    discarded: false,
+    answers: {}
+  };
+
+  var state = window.__EASY_APPLY_STATE__;
+
+  function $(sel, root) { return (root || document).querySelector(sel); }
+  function $all(sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
+
+  function collectAnswers() {
+    $all('.jobs-easy-apply-form-panel input, .jobs-easy-apply-form-panel select').forEach(function (el) {
+      if (!el.name) { return; }
+      if (el.type === 'radio') {
+        if (el.checked) { state.answers[el.name] = el.value; }
+        return;
+      }
+      if (el.type === 'file') { return; }
+      state.answers[el.name] = el.value;
+    });
+    var fileInput = $('input[type="file"][name="file"]');
+    state.answers.resumeFile = (fileInput && fileInput.files && fileInput.files.length > 0)
+      ? fileInput.files[0].name
+      : null;
+  }
+
+  function syncButtons(step) {
+    $('[aria-label="Back to previous step"]').hidden = (step === 1);
+    $('[aria-label="Continue to next step"]').hidden = (step !== 1);
+    $('[aria-label="Review your application"]').hidden = (step !== 2);
+    $('[aria-label="Submit application"]').hidden = (step !== 3);
+  }
+
+  function showStep(n) {
+    state.currentStep = n;
+    $all('.jobs-easy-apply-form-panel').forEach(function (panel) {
+      panel.hidden = (Number(panel.getAttribute('data-step')) !== n);
+    });
+    $('#easy-apply-step-count').textContent = 'Step ' + n + ' of ' + state.totalSteps;
+    $('#discard-confirm').hidden = true;
+    syncButtons(n);
+    collectAnswers();
+  }
+
+  function hideModal() {
+    $('#easy-apply-backdrop').hidden = true;
+    state.dismissed = true;
+  }
+
+  function openDiscardConfirm() {
+    $('#discard-confirm').hidden = false;
+  }
+
+  document.addEventListener('click', function (event) {
+    var button = event.target.closest('button');
+    if (!button) { return; }
+    var label = button.getAttribute('aria-label');
+
+    if (label === 'Continue to next step') { showStep(2); return; }
+    if (label === 'Review your application') { showStep(3); return; }
+    if (label === 'Back to previous step') { showStep(Math.max(1, state.currentStep - 1)); return; }
+    if (label === 'Submit application') {
+      collectAnswers();
+      state.submitted = true;
+      hideModal();
+      $('#easy-apply-confirmation').hidden = false;
+      return;
+    }
+    if (label === 'Dismiss' || button.classList.contains('js-dismiss')) {
+      state.dismissed = true;
+      openDiscardConfirm();
+      return;
+    }
+    if (button.id === 'discard-confirm-discard' || button.getAttribute('data-test') === 'discard-application') {
+      state.discarded = true;
+      state.answers = {};
+      hideModal();
+      $('#easy-apply-discarded').hidden = false;
+      return;
+    }
+    if (button.id === 'discard-confirm-cancel' || button.getAttribute('data-test') === 'discard-cancel') {
+      state.dismissed = false;
+      $('#discard-confirm').hidden = true;
+      return;
+    }
+    if (button.id === 'resume-upload-button') {
+      $('input[type="file"][name="file"]').click();
+      return;
+    }
+    if (button.classList.contains('jobs-apply-button')) {
+      $('#easy-apply-backdrop').hidden = false;
+      state.dismissed = false;
+    }
+  });
+
+  document.addEventListener('change', function (event) {
+    if (!event.target.closest('.jobs-easy-apply-modal')) { return; }
+    if (event.target.name === 'resume-selection') {
+      var uploadNew = (event.target.value === 'upload-new');
+      $('#resume-dropzone').style.display = uploadNew ? '' : 'none';
+    }
+    collectAnswers();
+  });
+
+  document.addEventListener('input', function (event) {
+    if (!event.target.closest('.jobs-easy-apply-modal')) { return; }
+    collectAnswers();
+  });
+
+  /* Initial render. */
+  showStep(1);
+})();
+</script>
+</body>
+</html>

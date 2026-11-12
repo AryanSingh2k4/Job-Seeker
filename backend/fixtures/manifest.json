@@ -1,5 +1,5 @@
 {
-  "manifest_version": "1.0.0",
+  "manifest_version": "1.1.0",
   "schema": "autojob.fixture-manifest.v1",
   "generated_at": "2026-11-11T00:00:00Z",
   "owner": "DeepSeek (fixtures, golden corpus, contract parity)",
@@ -232,6 +232,279 @@
           "discarded": {"selector": "#discarded", "attribute": "data-status", "value": "DISCARDED"}
         },
         "outcome": "review_then_submit"
+      }
+    },
+    {
+      "id": "ashby.amplitude.job",
+      "path": "ashby/amplitude_job.html",
+      "platform": "ashby",
+      "form_state": "application",
+      "step_index": 1,
+      "total_steps": 1,
+      "source": "recorded",
+      "recorded_on": "2026-11-11",
+      "spa_shell": true,
+      "companion_data": "ashby/amplitude_board.json",
+      "notes": "Recorded public application page for 'Staff Software Engineer, Business Systems & Data' (https://jobs.ashbyhq.com/amplitude/548cba17-0fb9-437f-83a8-021c4be3b664/application). Ashby is a React SPA per §4.4: the saved HTML has div#root + window.__appData (organization + posting metadata) and NO <form> — the form definition is fetched client-side on mount. csp-nonce, Datadog tokens and the recaptcha public site key were replaced with fixed REDACTED-FIXTURE literals; the CDN bundle loader was replaced with a no-op so the page is static and network-silent. A fixture test injects form HTML (built from the posting data in companion_data) via page.set_content and drives the §4.4 selectors: semantic name/ARIA mapping, hidden input[type=file], label-text adjacency for questions.",
+      "expected": {
+        "fields": [],
+        "outcome": "spa_shell_inject"
+      }
+    },
+    {
+      "id": "ashby.amplitude.board",
+      "path": "ashby/amplitude_board.json",
+      "platform": "ashby",
+      "form_state": "board_index",
+      "step_index": null,
+      "total_steps": null,
+      "source": "recorded",
+      "recorded_on": "2026-11-11",
+      "companion_of": "ashby.amplitude.job",
+      "notes": "Job-board JSON for token 'amplitude' (https://api.ashbyhq.com/posting-api/job-board/amplitude). NOTE: the documented POST with body {} returns 401 since Ashby changed the API; GET on the same endpoint returns 200 and is what was recorded. 54 listed jobs with id/title/jobUrl/applyUrl/descriptionHtml; a fixture test uses this data to synthesize the application form HTML injected into the spa_shell page.",
+      "expected": {
+        "fields": [],
+        "outcome": "data_only"
+      }
+    },
+    {
+      "id": "ashby.cohere.job",
+      "path": "ashby/cohere_job.html",
+      "platform": "ashby",
+      "form_state": "application",
+      "step_index": 1,
+      "total_steps": 1,
+      "source": "recorded",
+      "recorded_on": "2026-11-11",
+      "spa_shell": true,
+      "companion_data": "ashby/cohere_board.json",
+      "notes": "Recorded public application page for 'Senior Full-Stack Engineer, Annotation Platform' (https://jobs.ashbyhq.com/cohere/7133d205-5421-4336-a8e2-6037b5f55073/application). Same spa_shell handling as ashby.amplitude.job: div#root + window.__appData, no <form>; tokens redacted and CDN loader no-op'd; form HTML injected from companion_data at test time.",
+      "expected": {
+        "fields": [],
+        "outcome": "spa_shell_inject"
+      }
+    },
+    {
+      "id": "ashby.cohere.board",
+      "path": "ashby/cohere_board.json",
+      "platform": "ashby",
+      "form_state": "board_index",
+      "step_index": null,
+      "total_steps": null,
+      "source": "recorded",
+      "recorded_on": "2026-11-11",
+      "companion_of": "ashby.cohere.job",
+      "notes": "Job-board JSON for token 'cohere' (https://api.ashbyhq.com/posting-api/job-board/cohere, via GET; the documented POST returns 401). 124 listed jobs with id/title/jobUrl/applyUrl/descriptionHtml for form-HTML synthesis.",
+      "expected": {
+        "fields": [],
+        "outcome": "data_only"
+      }
+    },
+    {
+      "id": "linkedin.easy_apply.contact",
+      "path": "linkedin/easy_apply_modal.html",
+      "platform": "linkedin",
+      "form_state": "contact",
+      "step_index": 1,
+      "total_steps": 3,
+      "source": "synthetic",
+      "recorded_on": null,
+      "synthetic": true,
+      "reason": "login-walled flow; structure from documented selectors",
+      "notes": "Step 1 contact info of the Easy Apply modal replica (§4.1). Modal carries both documented handles: div.jobs-easy-apply-modal and div[data-test-modal]. Email is an artdeco select, phone uses input[id*=\"phoneNumber\"] behind a country-code select. Backdrop includes button.jobs-apply-button so Easy Apply vs external-redirect routing is testable. State surface: window.__EASY_APPLY_STATE__.",
+      "expected": {
+        "fields": [
+          {
+            "key": "email",
+            "selector": "#single-type-text-form-input-email",
+            "kind": "select",
+            "required": true,
+            "options": ["ada.lovelace@example.com"],
+            "expected_value": "ada.lovelace@example.com",
+            "profile_path": "email"
+          },
+          {
+            "key": "phone",
+            "selector": "input[id*=\"phoneNumber\"]",
+            "kind": "tel",
+            "required": true,
+            "expected_value": "+1-415-555-0142",
+            "profile_path": "phone",
+            "notes": "id=\"phoneNumber-national\"; the adapter ladder input[id*=\"phoneNumber\"] must resolve exactly one tel input (the country code lives in a separate select)."
+          }
+        ],
+        "next": {"selector": "[aria-label=\"Continue to next step\"]", "label": "Next"},
+        "outcome": "fill_and_advance"
+      }
+    },
+    {
+      "id": "linkedin.easy_apply.resume",
+      "path": "linkedin/easy_apply_modal.html",
+      "platform": "linkedin",
+      "form_state": "resume",
+      "step_index": 2,
+      "total_steps": 3,
+      "source": "synthetic",
+      "recorded_on": null,
+      "synthetic": true,
+      "reason": "login-walled flow; structure from documented selectors",
+      "notes": "Step 2 resume of the Easy Apply modal replica (§4.1): saved-resume radio list plus the upload path — div.jobs-document-upload__title marks the section and the real input[type=file][name=\"file\"] is hidden behind the dropzone (resolve the input, never click the dropzone). Selecting the 'upload-new' radio reveals the dropzone.",
+      "expected": {
+        "fields": [
+          {
+            "key": "resume_selection",
+            "selector": "input[name=\"resume-selection\"]",
+            "kind": "radio",
+            "required": true,
+            "options": ["ada_lovelace_resume.pdf", "upload-new"],
+            "expected_value": "upload-new",
+            "notes": "Choose 'upload-new' to exercise the file-upload path; the saved-resume option mirrors §4.1's radio-list variant."
+          },
+          {
+            "key": "resume",
+            "selector": "input[type=\"file\"][name=\"file\"]",
+            "kind": "file",
+            "required": true,
+            "upload_fixture": "mock_ats/artifacts/resume.pdf",
+            "notes": "Hidden input; upload via setInputFiles and verify files.length === 1."
+          }
+        ],
+        "back": {"selector": "[aria-label=\"Back to previous step\"]", "label": "Back"},
+        "next": {"selector": "[aria-label=\"Review your application\"]", "label": "Review"},
+        "outcome": "upload_and_advance"
+      }
+    },
+    {
+      "id": "linkedin.easy_apply.screening",
+      "path": "linkedin/easy_apply_modal.html",
+      "platform": "linkedin",
+      "form_state": "screening",
+      "step_index": 3,
+      "total_steps": 3,
+      "source": "synthetic",
+      "recorded_on": null,
+      "synthetic": true,
+      "reason": "login-walled flow; structure from documented selectors",
+      "notes": "Step 3 screening questions of the Easy Apply modal replica (§4.1): all four questions are fieldset>legend structures — work authorization, sponsorship, years-of-experience numeric input, and an artdeco select. High-stakes answers must come from the verified profile or pause for the human. Terminal states use the same data-status pattern as mock_ats; the Dismiss button opens the 'Discard application' confirm (§4.1 failure recovery).",
+      "expected": {
+        "fields": [
+          {
+            "key": "work_authorization",
+            "selector": "input[name=\"workAuthorization\"]",
+            "kind": "radio",
+            "required": true,
+            "options": ["Yes", "No"],
+            "expected_value": "Yes",
+            "high_stakes": true,
+            "notes": "fieldset legend text: 'Are you legally authorized to work in the US?'"
+          },
+          {
+            "key": "requires_sponsorship",
+            "selector": "input[name=\"requiresSponsorship\"]",
+            "kind": "radio",
+            "required": true,
+            "options": ["Yes", "No"],
+            "expected_value": "No",
+            "high_stakes": true,
+            "notes": "fieldset legend text: 'Will you now or in the future require sponsorship for an employment visa status?'"
+          },
+          {
+            "key": "years_python",
+            "selector": "#numeric-input-years-python",
+            "kind": "number",
+            "required": true,
+            "expected_value": 7,
+            "high_stakes": true,
+            "profile_path": "years_experience.python",
+            "notes": "fieldset legend text + aria-label: 'How many years of work experience do you have with Python?'"
+          },
+          {
+            "key": "hear_about_us",
+            "selector": "#single-type-select-hear-about-us",
+            "kind": "select",
+            "required": false,
+            "options": ["LinkedIn", "Company website", "Referral", "Job board", "Other"],
+            "expected_value": "Company website",
+            "profile_path": "hear_about_us",
+            "notes": "artdeco-style dropdown."
+          }
+        ],
+        "back": {"selector": "[aria-label=\"Back to previous step\"]", "label": "Back"},
+        "submit": {"selector": "[aria-label=\"Submit application\"]", "label": "Submit application"},
+        "discard": {"selector": "#discard-confirm-discard", "label": "Discard application"},
+        "terminal": {
+          "submitted": {"selector": "#easy-apply-confirmation", "attribute": "data-status", "value": "SUBMITTED"},
+          "discarded": {"selector": "#easy-apply-discarded", "attribute": "data-status", "value": "DISCARDED"}
+        },
+        "outcome": "answer_then_submit"
+      }
+    },
+    {
+      "id": "captcha.recaptcha",
+      "path": "captcha/recaptcha.html",
+      "platform": "captcha",
+      "form_state": "challenge_present",
+      "step_index": null,
+      "total_steps": null,
+      "source": "synthetic",
+      "recorded_on": null,
+      "synthetic": true,
+      "reason": "live challenges are interactive by design; fixture replicates only the DOM detection markers",
+      "notes": "Marker-only replica per §7.4: the detector must report iframe[src*=recaptcha] and freeze automation; the challenge itself is inert and can never render or be solved from the fixture. Post-solve counterpart: captcha.cleared.",
+      "expected": {
+        "markers": ["iframe[src*=recaptcha]"],
+        "outcome": "freeze_for_human"
+      }
+    },
+    {
+      "id": "captcha.turnstile",
+      "path": "captcha/turnstile.html",
+      "platform": "captcha",
+      "form_state": "challenge_present",
+      "step_index": null,
+      "total_steps": null,
+      "source": "synthetic",
+      "recorded_on": null,
+      "synthetic": true,
+      "reason": "live challenges are interactive by design; fixture replicates only the DOM detection markers",
+      "notes": "Marker-only replica per §7.4: div.cf-turnstile plus an iframe from challenges.cloudflare.com/turnstile — the 'turnstile' signature must trigger the freeze. Post-solve counterpart: captcha.cleared.",
+      "expected": {
+        "markers": [".cf-turnstile", "iframe[src*=\"challenges.cloudflare.com/turnstile\"]"],
+        "outcome": "freeze_for_human"
+      }
+    },
+    {
+      "id": "captcha.arkose",
+      "path": "captcha/arkose.html",
+      "platform": "captcha",
+      "form_state": "challenge_present",
+      "step_index": null,
+      "total_steps": null,
+      "source": "synthetic",
+      "recorded_on": null,
+      "synthetic": true,
+      "reason": "live challenges are interactive by design; fixture replicates only the DOM detection markers",
+      "notes": "Marker-only replica per §7.4: div.arkose-box wrapping #captcha-internal with an inert arkoselabs iframe — the 'arkose' and '#captcha-internal' signatures must trigger the freeze. Post-solve counterpart: captcha.cleared.",
+      "expected": {
+        "markers": ["div.arkose-box", "#captcha-internal"],
+        "outcome": "freeze_for_human"
+      }
+    },
+    {
+      "id": "captcha.cleared",
+      "path": "captcha/captcha_cleared.html",
+      "platform": "captcha",
+      "form_state": "cleared",
+      "step_index": null,
+      "total_steps": null,
+      "source": "synthetic",
+      "recorded_on": null,
+      "synthetic": true,
+      "reason": "post-solve state cannot be captured from a live solve; replicated as the challenge pages with markers removed",
+      "notes": "Same synthetic application page as captcha.recaptcha/turnstile/arkose with every challenge marker block REMOVED (§7.4 step 3: human solved it in the visible window, automation resumes on clearance). Contains none of the four documented markers anywhere in the DOM or file content, so tests can assert the detector reports clean and the freeze lifts.",
+      "expected": {
+        "markers": [],
+        "outcome": "resume"
       }
     }
   ]

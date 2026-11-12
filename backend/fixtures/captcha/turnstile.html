@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SYNTHETIC FIXTURE — challenge present: Cloudflare Turnstile</title>
+<!--
+  SYNTHETIC FIXTURE — NOT a recording of a live challenge page.
+  Replicates only the DOM signature the engine detects (docs/form_automation_engine_design.md §7.4):
+    turnstile  (div.cf-turnstile + iframe from challenges.cloudflare.com/turnstile)
+  No scripts are loaded, the challenge is never renderable, and nothing here can solve or
+  bypass anything: the marker exists so the detector can be asserted to freeze automation.
+  The post-solve counterpart is captcha/captcha_cleared.html (identical page with this
+  marker block removed).
+  Self-contained: no network requests, no timestamps, no random ids.
+-->
+<style>
+  body { margin: 0; font-family: "Segoe UI", Arial, sans-serif; background: #fafafa; color: #222; }
+  main { max-width: 560px; margin: 48px auto; padding: 24px; background: #fff; border: 1px solid #ddd; border-radius: 8px; }
+  label { display: block; font-size: 14px; font-weight: 600; margin: 12px 0 4px; }
+  input { width: 100%; box-sizing: border-box; padding: 8px 10px; border: 1px solid #999; border-radius: 4px; font-size: 14px; }
+  button { margin-top: 16px; padding: 8px 18px; border: 0; border-radius: 16px; background: #0a66c2; color: #fff; font-weight: 600; cursor: pointer; }
+  .challenge-block { margin-top: 20px; padding: 12px; border: 1px solid #e0e0e0; border-radius: 4px; background: #f9f9f9; }
+  .cf-turnstile { width: 300px; height: 65px; }
+  iframe { border: 0; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Apply to Backend Engineer &mdash; Example Corp</h1>
+  <p>This synthetic page carries a Cloudflare Turnstile signature so tests can assert the CAPTCHA freeze path.</p>
+
+  <form id="application-form" method="post" action="#">
+    <label for="email">Email</label>
+    <input id="email" name="email" type="email" autocomplete="email">
+    <label for="phone">Phone</label>
+    <input id="phone" name="phone" type="tel" autocomplete="tel">
+    <button type="submit">Submit application</button>
+  </form>
+
+  <!-- Inert Cloudflare Turnstile signature block (detection marker: turnstile). -->
+  <div class="challenge-block" id="challenge-block">
+    <div class="cf-turnstile" data-sitekey="0xFIXTURENOTAREALKEY0000000" data-theme="light" data-size="normal" data-callback="fixtureUnused"></div>
+    <iframe src="https://challenges.cloudflare.com/turnstile/v0/site.html?sitekey=0xFIXTURENOTAREALKEY0000000&amp;theme=light&amp;size=normal" title="Cloudflare Turnstile challenge pending" name="fixture-turnstile-widget" width="300" height="65" role="presentation" scrolling="no" frameborder="0" allow="cross-origin-isolated"></iframe>
+  </div>
+</main>
+</body>
+</html>

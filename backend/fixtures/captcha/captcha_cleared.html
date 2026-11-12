@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SYNTHETIC FIXTURE — post-solve state (challenge markers removed)</title>
+<!--
+  SYNTHETIC FIXTURE — post-solve counterpart of the three challenge fixtures in this directory
+  (their signature markers are intentionally absent from this whole file, including this comment).
+  Same synthetic application page with every challenge marker block REMOVED, i.e. the state
+  after a human solved the challenge in the visible window (docs/form_automation_engine_design.md
+  §7.4 step 3): automation resumes on clearance. Fixture tests assert the detector reports no
+  signature on this page, so none of the four documented markers may appear anywhere in the DOM.
+  Self-contained: no network requests, no timestamps, no random ids.
+-->
+<style>
+  body { margin: 0; font-family: "Segoe UI", Arial, sans-serif; background: #fafafa; color: #222; }
+  main { max-width: 560px; margin: 48px auto; padding: 24px; background: #fff; border: 1px solid #ddd; border-radius: 8px; }
+  label { display: block; font-size: 14px; font-weight: 600; margin: 12px 0 4px; }
+  input { width: 100%; box-sizing: border-box; padding: 8px 10px; border: 1px solid #999; border-radius: 4px; font-size: 14px; }
+  button { margin-top: 16px; padding: 8px 18px; border: 0; border-radius: 16px; background: #0a66c2; color: #fff; font-weight: 600; cursor: pointer; }
+  .status-banner { margin-top: 20px; padding: 12px; border: 1px solid #d6e9d6; border-radius: 4px; background: #f0f9f0; color: #1a5c1a; font-size: 14px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Apply to Backend Engineer &mdash; Example Corp</h1>
+  <p>Post-solve state: the human completed the challenge in the visible window, so automation may resume.</p>
+
+  <form id="application-form" method="post" action="#">
+    <label for="email">Email</label>
+    <input id="email" name="email" type="email" autocomplete="email">
+    <label for="phone">Phone</label>
+    <input id="phone" name="phone" type="tel" autocomplete="tel">
+    <button type="submit">Submit application</button>
+  </form>
+
+  <!-- Cleared-state banner (intentionally free of every documented challenge marker). -->
+  <div class="status-banner" id="captcha-status" data-state="cleared">
+    Human verified &mdash; freeze lifted, automation resumed.
+  </div>
+</main>
+</body>
+</html>
