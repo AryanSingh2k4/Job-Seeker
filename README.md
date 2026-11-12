@@ -45,3 +45,23 @@ cd backend && uvicorn app.main:app   # http://127.0.0.1:8000
 - **Gemini Antigravity** — backend (`backend/**`)
 - **ZCode** — frontend + desktop shell + integration lead/reviewer
 - **DeepSeek (OpenCode)** — fixtures, golden JD corpus, contract-parity tests
+
+## Build Tracker — live done/pending
+
+**DONE**
+- ✅ Docs v2.2: website→desktop architecture, frozen API contract (§7–8), 8-week→accelerated plan
+- ✅ Frontend Week 0: Next.js static export, tokens, app shell, typed API/WS clients, MSW, 9 routes — build GREEN
+- ✅ Desktop D0: Tauri 2 scaffold + stub sidecar handshake
+- ✅ Fixtures base: mock ATS (3-state), company registry (115 companies verified), manifest, parity tests (38→52 green)
+- ✅ Phase 0: git baseline (5 commits, venv excluded)
+- ✅ Frontend beauty pass: aurora/glass materials, framer-motion, ⌘K palette, glowing score chips, count-ups, progress rings, animated funnel — build GREEN, screens verified visually
+- ✅ MSVC Build Tools installed; Rust 1.99.1 working
+- ✅ Backend (Gemini) sprint: boots, full §7 route surface, 52 tests passing, /health shape exact
+
+**PENDING**
+- ⏳ Backend M0 close-out: /health under /api/v1 (P1 deviation), real openapi-M0.json, PyInstaller sidecar exe
+- ⏳ Backend M1–M6: crawler live sweep, matcher scoring, tailor+Typst, applier adapters, LinkedIn gate, stats
+- ⏳ Fixture agents running: GH/Lever recordings, 30-JD corpus, contract examples, LinkedIn/Ashby/CAPTCHA
+- ⏳ Desktop: cargo build verification (running), then Gate-0 desktop half
+- ⏳ Frontend F1: onboarding wizard + job detail
+- ⏳ QA orchestrator pass over Phase 2 frontend
