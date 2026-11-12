@@ -1,24 +1,24 @@
 "use client";
 
 /*
- * App shell v5 — "command rail". The old glass sidebar is gone: navigation is
- * a centred segmented control, telemetry lives in a live ticker under the rail,
- * and a scroll-progress hairline rides the very top edge.
+ * App shell v5.1 — collapsible sidebar. The top command rail is gone: the
+ * wordmark, navigation, search, telemetry and theme toggle now live in a
+ * left sidebar that collapses to an icon rail (state persisted). The marquee
+ * ticker was removed at the owner's request.
  */
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef } from "react";
-import { AnimatePresence, motion, useScroll } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { Toaster, toast } from "sonner";
 import {
   LayoutDashboard, Briefcase, ClipboardCheck, Radar, History, UserRound,
-  Settings, Search, Command as CommandIcon,
+  Settings, Search, ChevronsLeft, ChevronsRight,
 } from "lucide-react";
 import { CommandPalette, openPalette } from "@/components/command-palette";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { bindTelemetry, useLiveRun } from "@/lib/stores/liveRun";
-import type { TelemetryEvent } from "@/lib/ws/client";
 import { SPRING } from "@/components/motion";
 import { cn } from "@/lib/utils";
 
@@ -31,113 +31,6 @@ const NAV = [
   { href: "/profile/", label: "Profile", icon: UserRound },
   { href: "/settings/", label: "Settings", icon: Settings },
 ];
-
-const DEFAULT_TICKER = [
-  "crawler sweeps every 5 min",
-  "50 companies / day cap",
-  "scoring is deterministic + LLM",
-  "nothing submits without your sign-off",
-  "receipts and screenshots kept for every run",
-];
-
-function describe(e: TelemetryEvent): string {
-  switch (e.type) {
-    case "APPLICATION_STAGE_CHANGED":
-      return `${e.payload.company} · ${e.payload.stage.replace(/_/g, " ").toLowerCase()} · ${e.payload.currentStep}/${e.payload.totalSteps}`;
-    case "HITL_REVIEW_REQUIRED":
-      return `review needed · ${e.payload.company} — ${e.payload.title}`;
-    case "CAPTCHA_CHALLENGE_DETECTED":
-      return `security check · ${e.payload.company} · ${e.payload.captchaType.replace(/_/g, " ").toLowerCase()}`;
-    case "RATE_LIMIT_UPDATE":
-      return `quota · linkedin ${e.payload.dailyLinkedInUsed}/${e.payload.dailyLinkedInLimit} · ats ${e.payload.dailyATSUsed}/${e.payload.dailyATSLimit}`;
-    case "SWEEP_COMPLETED":
-      return `sweep complete · +${e.payload.new_jobs} new · ${e.payload.filtered} filtered`;
-    default:
-      return "telemetry";
-  }
-}
-
-function Wordmark() {
-  return (
-    <Link href="/dashboard/" className="group flex items-center gap-2.5">
-      <span className="relative flex size-7 items-center justify-center">
-        <span className="absolute inset-0 rounded-[9px] bg-gradient-to-br from-accent to-accent-hover shadow-glow transition-transform duration-500 group-hover:rotate-[18deg]" />
-        <span className="absolute inset-[5px] rounded-[5px] bg-bg/80" />
-        <span className="relative size-1.5 rounded-full bg-accent-strong" />
-      </span>
-      <span className="display text-[21px] leading-none text-text">JobSeeker</span>
-    </Link>
-  );
-}
-
-function TelemetryPill() {
-  const status = useLiveRun((s) => s.wsStatus);
-  const reviewPending = useLiveRun((s) => s.reviewPending);
-  const tone =
-    status === "open"
-      ? "text-pos"
-      : status === "connecting"
-        ? "text-warn"
-        : status === "closed"
-          ? "text-neg"
-          : "text-faint";
-  return (
-    <div className="flex items-center gap-2">
-      <AnimatePresence>
-        {reviewPending > 0 && (
-          <motion.button
-            initial={{ scale: 0.6, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.6, opacity: 0 }}
-            transition={{ type: "spring", stiffness: 400, damping: 18 }}
-            onClick={() => (window.location.href = "/review/")}
-            className="hidden rounded-full border border-warn/40 bg-warn/10 px-2.5 py-1 text-[11px] font-semibold text-warn sm:inline-flex"
-          >
-            {reviewPending} to review
-          </motion.button>
-        )}
-      </AnimatePresence>
-      <span
-        className={cn(
-          "hidden items-center gap-2 rounded-full border border-border/70 bg-surface-2/50 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] sm:flex",
-          tone,
-        )}
-        title={`telemetry ${status}`}
-      >
-        <span className="relative flex size-1.5">
-          {status === "open" && (
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-current opacity-60" />
-          )}
-          <span className="relative inline-flex size-1.5 rounded-full bg-current" />
-        </span>
-        {status}
-      </span>
-    </div>
-  );
-}
-
-function Ticker() {
-  const events = useLiveRun((s) => s.events);
-  const live = events.slice(-6).map(describe).reverse();
-  const items = live.length ? live : DEFAULT_TICKER;
-  return (
-    <div className="relative overflow-hidden border-b border-border/60 bg-surface/40">
-      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-bg to-transparent" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-bg to-transparent" />
-      <div className="marquee gap-10 py-1.5">
-        {[...items, ...items].map((t, i) => (
-          <span
-            key={`${t}-${i}`}
-            className="flex shrink-0 items-center gap-2 whitespace-nowrap text-[11px] tracking-[0.02em] text-faint"
-          >
-            <span className={cn("size-1 rounded-full", live.length ? "bg-accent/70" : "bg-border-strong")} />
-            {t}
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-}
 
 function ToastBridge() {
   const toasts = useLiveRun((s) => s.toasts);
@@ -158,9 +51,97 @@ function ToastBridge() {
   return null;
 }
 
+function Wordmark({ collapsed }: { collapsed: boolean }) {
+  return (
+    <Link href="/dashboard/" className={cn("group flex items-center", collapsed ? "justify-center" : "gap-2.5 px-1")}>
+      <span className="relative flex size-7 shrink-0 items-center justify-center">
+        <span className="absolute inset-0 rounded-[9px] bg-gradient-to-br from-accent to-accent-hover shadow-glow transition-transform duration-500 group-hover:rotate-[18deg]" />
+        <span className="absolute inset-[5px] rounded-[5px] bg-bg/80" />
+        <span className="relative size-1.5 rounded-full bg-accent-strong" />
+      </span>
+      <AnimatePresence>
+        {!collapsed && (
+          <motion.span
+            initial={{ opacity: 0, x: -6 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -6 }}
+            transition={{ duration: 0.18 }}
+            className="display text-[21px] leading-none text-text"
+          >
+            JobSeeker
+          </motion.span>
+        )}
+      </AnimatePresence>
+    </Link>
+  );
+}
+
+function TelemetryStatus({ collapsed }: { collapsed: boolean }) {
+  const status = useLiveRun((s) => s.wsStatus);
+  const reviewPending = useLiveRun((s) => s.reviewPending);
+  const tone =
+    status === "open" ? "text-pos" : status === "connecting" ? "text-warn" : status === "closed" ? "text-neg" : "text-faint";
+
+  if (collapsed) {
+    return (
+      <div className="flex flex-col items-center gap-2 py-1">
+        <span className={cn("relative flex size-2", tone)} title={`telemetry ${status}`}>
+          <span className="absolute inline-flex h-full w-full rounded-full bg-current opacity-40 animate-breathe" />
+          <span className="relative inline-flex size-2 rounded-full bg-current" />
+        </span>
+        {reviewPending > 0 && (
+          <motion.span
+            initial={{ scale: 0.5 }}
+            animate={{ scale: [1, 1.2, 1] }}
+            className="tnum rounded-md border border-warn/40 bg-warn/10 px-1 text-[9px] font-semibold text-warn"
+          >
+            {reviewPending}
+          </motion.span>
+        )}
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex items-center justify-between px-1">
+      <span
+        className={cn("flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.14em]", tone)}
+        title={`telemetry ${status}`}
+      >
+        <span className="relative flex size-1.5">
+          {status === "open" && (
+            <span className="absolute inline-flex h-full w-full rounded-full bg-current opacity-60 animate-ping" />
+          )}
+          <span className="relative inline-flex size-1.5 rounded-full bg-current" />
+        </span>
+        {status}
+      </span>
+      {reviewPending > 0 && (
+        <button
+          onClick={() => (window.location.href = "/review/")}
+          className="rounded-full border border-warn/40 bg-warn/10 px-2 py-0.5 text-[10px] font-semibold text-warn"
+        >
+          {reviewPending} to review
+        </button>
+      )}
+    </div>
+  );
+}
+
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const { scrollYProgress } = useScroll();
+  const [collapsed, setCollapsed] = useState(false);
+
+  useEffect(() => {
+    setCollapsed(localStorage.getItem("js-sidebar") === "1");
+  }, []);
+
+  const toggleCollapse = () => {
+    setCollapsed((c) => {
+      localStorage.setItem("js-sidebar", c ? "0" : "1");
+      return !c;
+    });
+  };
 
   useEffect(() => bindTelemetry(), []);
 
@@ -179,92 +160,87 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <div className="relative min-h-screen">
+    <div className="relative flex min-h-screen">
       <div className="aurora" aria-hidden />
       <div className="grain" aria-hidden />
 
-      <motion.div
-        style={{ scaleX: scrollYProgress }}
-        className="fixed inset-x-0 top-0 z-[70] h-[2px] origin-left bg-gradient-to-r from-accent via-accent-strong to-accent"
-        aria-hidden
-      />
-
-      <header className="sticky top-0 z-50">
-        <div className="border-b border-border/70 bg-bg/75 backdrop-blur-xl">
-          <div className="mx-auto flex h-16 max-w-[1440px] items-center gap-4 px-5 sm:px-8">
-            <Wordmark />
-
-            <nav className="ml-5 hidden items-center gap-0.5 lg:flex">
-              {NAV.map((item) => {
-                const active = pathname.startsWith(item.href.replace(/\/$/, ""));
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className={cn(
-                      "relative flex items-center gap-2 rounded-full px-3.5 py-2 text-[13px] font-medium transition-colors",
-                      active ? "text-text" : "text-muted hover:text-text",
-                    )}
-                  >
-                    {active && (
-                      <motion.span
-                        layoutId="rail-nav"
-                        className="absolute inset-0 rounded-full border border-accent/30 bg-accent-soft"
-                        transition={SPRING}
-                      />
-                    )}
-                    <item.icon
-                      className={cn("relative z-10 size-[15px]", active && "text-accent")}
-                    />
-                    <span className="relative z-10">{item.label}</span>
-                  </Link>
-                );
-              })}
-            </nav>
-
-            <div className="ml-auto flex items-center gap-2">
-              <button
-                onClick={() => openPalette()}
-                className="group flex items-center gap-2 rounded-full border border-border bg-surface-2/50 py-1.5 pl-3 pr-2 text-[12px] text-muted transition-colors hover:border-accent/40 hover:text-text"
-              >
-                <Search className="size-3.5" />
-                <span className="hidden sm:inline">Search</span>
-                <kbd className="hidden items-center gap-0.5 rounded-md border border-border bg-surface px-1.5 py-0.5 font-mono text-[10px] text-faint sm:flex">
-                  <CommandIcon className="size-2.5" />K
-                </kbd>
-              </button>
-              <TelemetryPill />
-              <ThemeToggle />
-            </div>
-          </div>
-
-          <nav className="flex items-center gap-1 overflow-x-auto px-5 pb-2 sm:px-8 lg:hidden">
-            {NAV.map((item) => {
-              const active = pathname.startsWith(item.href.replace(/\/$/, ""));
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={cn(
-                    "flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1.5 text-[12px] font-medium transition-colors",
-                    active
-                      ? "border-accent/35 bg-accent-soft text-accent"
-                      : "border-border/70 text-muted",
-                  )}
-                >
-                  <item.icon className="size-3.5" />
-                  {item.label}
-                </Link>
-              );
-            })}
-          </nav>
+      {/* collapsible sidebar */}
+      <motion.aside
+        animate={{ width: collapsed ? 64 : 236 }}
+        transition={SPRING}
+        className="glass sticky top-0 z-50 flex h-screen shrink-0 flex-col overflow-hidden border-r border-border/60"
+      >
+        <div className={cn("flex h-16 shrink-0 items-center pt-2", collapsed ? "justify-center px-0" : "px-4")}>
+          <Wordmark collapsed={collapsed} />
         </div>
-        <Ticker />
-      </header>
 
-      <main className="mx-auto w-full max-w-[1440px] px-5 py-10 sm:px-8 lg:py-14">
-        {children}
-      </main>
+        <div className={cn("shrink-0 pb-4", collapsed ? "px-2" : "px-3")}>
+          <button
+            onClick={() => openPalette()}
+            title="Search (⌘K)"
+            className={cn(
+              "group flex w-full items-center rounded-lg border border-border bg-surface-2/50 text-muted transition-colors hover:border-accent/40 hover:text-text",
+              collapsed ? "justify-center py-2.5" : "gap-2 px-3 py-2 text-xs",
+            )}
+          >
+            <Search className="size-3.5 shrink-0" />
+            {!collapsed && (
+              <>
+                <span className="flex-1 text-left">Search…</span>
+                <kbd className="rounded border border-border bg-surface px-1 py-0.5 font-mono text-[9px]">⌘K</kbd>
+              </>
+            )}
+          </button>
+        </div>
+
+        <nav className={cn("flex-1 space-y-0.5 overflow-y-auto", collapsed ? "px-2" : "px-3")}>
+          {NAV.map((item) => {
+            const active = pathname.startsWith(item.href.replace(/\/$/, ""));
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                title={collapsed ? item.label : undefined}
+                className={cn(
+                  "group relative flex items-center rounded-lg text-[13px] transition-colors",
+                  collapsed ? "justify-center py-2.5" : "gap-3 px-3 py-2.5",
+                  active ? "text-text" : "text-muted hover:bg-surface-2/70 hover:text-text",
+                )}
+              >
+                {active && (
+                  <motion.span
+                    layoutId="side-nav"
+                    className="absolute inset-0 rounded-lg border border-accent/30 bg-accent-soft"
+                    transition={SPRING}
+                  />
+                )}
+                <item.icon className={cn("relative z-10 size-4 shrink-0", active && "text-accent")} />
+                {!collapsed && <span className="relative z-10">{item.label}</span>}
+                {active && collapsed && (
+                  <span className="absolute -left-1 top-1/2 h-5 w-0.5 -translate-y-1/2 rounded-full bg-accent shadow-glow" />
+                )}
+              </Link>
+            );
+          })}
+        </nav>
+
+        <div className={cn("shrink-0 space-y-3 border-t border-border/60 py-3.5", collapsed ? "px-2" : "px-4")}>
+          <TelemetryStatus collapsed={collapsed} />
+          <div className={cn("flex items-center justify-between", collapsed && "flex-col gap-2")}>
+            <ThemeToggle />
+            <button
+              onClick={toggleCollapse}
+              title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+              aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+              className="flex size-7 items-center justify-center rounded-lg border border-border text-muted transition-colors hover:border-accent/40 hover:text-text"
+            >
+              {collapsed ? <ChevronsRight className="size-3.5" /> : <ChevronsLeft className="size-3.5" />}
+            </button>
+          </div>
+        </div>
+      </motion.aside>
+
+      <main className="min-w-0 flex-1 px-6 py-10 sm:px-10 lg:px-14 lg:py-12">{children}</main>
 
       <CommandPalette />
       <ToastBridge />
