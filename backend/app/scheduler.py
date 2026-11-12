@@ -36,10 +36,11 @@ def _companies_crawled_today(db) -> int:
     from datetime import timedelta
     from app.models.job import Job
     try:
-        midnight = datetime.now(timezone.utc).replace(hour=0, minute=0, second=0, microsecond=0)
+        now_local = datetime.now().astimezone()
+        midnight_local = now_local.replace(hour=0, minute=0, second=0, microsecond=0)
         rows = (
             db.query(Job.company)
-            .filter(Job.date_discovered >= midnight - timedelta(hours=14))
+            .filter(Job.date_discovered >= midnight_local)
             .distinct()
             .all()
         )

@@ -49,6 +49,10 @@ def create_app(token: str | None = None, port: int = 8000, enforce_token: bool =
     app.add_exception_handler(RequestValidationError, validation_exception_handler)
     app.add_exception_handler(Exception, generic_exception_handler)
 
+    # expose to the WS handler (websocket.app.state) — single source of truth
+    app.state.sidecar_token = token
+    app.state.enforce_token = enforce_token
+
     # 2. CORS middleware (Frozen: desktop origins + dev origins)
     cors_origins = [
         "http://tauri.localhost",

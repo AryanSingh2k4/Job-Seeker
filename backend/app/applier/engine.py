@@ -75,6 +75,17 @@ class ApplicationEngine:
         if self._owns_session:
             self.db.close()
 
+    def _autonomous_opt_in(self) -> bool:
+        """Owner toggle lives in the system_settings DB row (UI writes there)."""
+        from app.models.settings import AppSetting
+        row = self.db.query(AppSetting).filter(AppSetting.key == "system_settings").first()
+        if not row or not row.value:
+            return False
+        try:
+            return bool(json.loads(row.value).get("autonomous_opt_in", False))
+        except Exception:
+            return False
+
     def check_safety_gates(self, job: Job, platform: str, override_working_hours: bool = False) -> None:
         """Atomically enforce caps, cooldown, and working hours."""
         settings = get_settings()
@@ -160,6 +171,12 @@ class ApplicationEngine:
     ) -> ApplicationSubmissionResult:
         """Run the end-to-end automation for an application."""
         app_record = self.db.query(Application).filter(Application.id == application_id).first()
+        if app_record.status != "QUEUED":
+            raise AppException(
+                code="INVALID_STATE",
+                message=f"Application {application_id} is {app_record.status}, not QUEUED",
+                status_code=409,
+            )
         if not app_record:
             raise AppException(code="APPLICATION_NOT_FOUND", message="Application record not found", status_code=404)
 
@@ -217,7 +234,7 @@ class ApplicationEngine:
             effective_mode = "ASSISTED_REVIEW"
             if (
                 app_record.submission_mode == "AUTONOMOUS"
-                and getattr(settings, "autonomous_opt_in", False)
+                and self._autonomous_opt_in()
                 and adapter.platform_name != "LINKEDIN"
                 and (job.match_score or 0) >= 95
             ):

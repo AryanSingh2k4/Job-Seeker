@@ -189,3 +189,12 @@ Owner rejected the blue/glass v2 as generic. Full identity rebuild:
 - **M6 verified live**: GET /applications/stats (shape per contract), GET /applications/export (CSV stream)
 - **Milestone suite**: 88 passed / 1 skipped (full pytest)
 - dist/build directories gitignored
+
+### 2026-11-12 — QA audit FAIL → all findings fixed & empirically re-proven
+QA auditor verdict was FAIL (4×P1, 8×P2) — all empirically reproduced, all fixed, all re-proven live:
+- **P1-1** cap route crashed (AppException positional-arg swap) → keyword args; 409 cap_reached envelope reachable
+- **P1-2** GET /jobs/sources unreachable (route shadowed by /{id}) → sources routes relocated above /{id} → 200 ✓
+- **P1-3** GET /jobs/{id} 500'd (stale v1 fields: metadata_ + tailored_resume_path) → job_metadata everywhere + tailored_resumes relationship (latest artifact, real fact_check_status) → no-500 ✓
+- **P1-4** /ws/telemetry ignored the bearer token in sidecar mode → token+enforce on app.state, WS validates ?token=/Bearer, closes 4401 → no-token rejected ✓, with-token PONG ✓
+- **P2 batch**: autonomous gate now reads the DB system_settings row (UI toggle no longer inert) · crawl-cap window → local midnight · matcher queue ordered + ≤3 attempts before failed · config default 30→5 · dead ternary/approve cleaned · QUEUED status precondition on execute_application
+- Root cause note: all four P1s were runtime-only — no test executed jobs endpoints against a live client. The audit's empirical method caught what static parity checks couldn't. Runtime regression proof now runs before every backend close.

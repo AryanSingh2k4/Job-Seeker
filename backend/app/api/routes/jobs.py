@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+from datetime import datetime
 import uuid
 from typing import List, Optional
 from fastapi import APIRouter, BackgroundTasks, Depends, Query, status
@@ -120,88 +121,6 @@ def trigger_crawl(
     return JobCrawlResponse(started=True, sweep_id=sweep_id)
 
 
-@router.get("/{id}", response_model=JobDetail)
-def get_job(id: str, db: Session = Depends(get_db)) -> JobDetail:
-    job = db.query(Job).filter(Job.id == id).first()
-    if not job:
-        raise AppException(
-            code="job_not_found",
-            message=f"Job {id} does not exist",
-            status_code=status.HTTP_404_NOT_FOUND,
-        )
-
-    base = _map_to_list_item(job)
-
-    # Parsed JD
-    parsed = None
-    if job.metadata_ and "parsed" in job.metadata_:
-        try:
-            parsed = ParsedJobProfile(**job.metadata_["parsed"])
-        except Exception:
-            pass
-
-    # Score breakdown
-    score_breakdown = None
-    if job.match_score is not None:
-        score_breakdown = ScoreBreakdown(
-            final=job.match_score,
-            hard_gate=HardGateDetail(passed=True, reasons=[]),
-            components=ScoreComponents(s_req=0.9, s_pref=0.8, s_vec=0.85, s_llm=0.85, s_exp=1.0),
-            matched_skills=job.skills_required or [],
-            missing_skills=[],
-            degraded=False,
-        )
-
-    # Tailored artifacts
-    tailored = None
-    if job.tailored_resume_path:
-        tailored = TailoredArtifactSummary(
-            resume_pdf_url=f"/api/v1/matcher/resume/{job.id}",
-            cover_letter_txt=None,
-            cover_letter_pdf_url=f"/api/v1/matcher/cover-letter/{job.id}",
-            fact_check_status="PASSED",
-            created_at=job.date_discovered,
-        )
-
-    return JobDetail(
-        **base.model_dump(),
-        description_clean=job.description_clean,
-        parsed=parsed,
-        score_breakdown=score_breakdown,
-        tailored=tailored,
-    )
-
-
-@router.post("/{id}/action", response_model=JobActionResponse)
-def job_action(id: str, payload: JobActionRequest, db: Session = Depends(get_db)) -> JobActionResponse:
-    job = db.query(Job).filter(Job.id == id).first()
-    if not job:
-        raise AppException(
-            code="job_not_found",
-            message=f"Job {id} does not exist",
-            status_code=status.HTTP_404_NOT_FOUND,
-        )
-
-    action = payload.action.lower()
-    if action == "approve":
-        job.status = "ready_to_apply" if (job.match_score or 0) >= 80 else "ready_to_apply"
-    elif action == "skip":
-        job.status = "skipped"
-    elif action == "archive":
-        job.status = "archived"
-    elif action == "tailor":
-        job.status = "tailoring"
-    else:
-        raise AppException(
-            code="validation_error",
-            message=f"Unknown action: {payload.action}",
-            status_code=status.HTTP_400_BAD_REQUEST,
-        )
-
-    db.commit()
-    return JobActionResponse(id=job.id, status=job.status)
-
-
 @router.get("/sources", response_model=List[JobSourceItem])
 def list_sources(db: Session = Depends(get_db)) -> List[JobSourceItem]:
     setting = db.query(AppSetting).filter(AppSetting.key == "company_sources").first()
@@ -212,7 +131,6 @@ def list_sources(db: Session = Depends(get_db)) -> List[JobSourceItem]:
         ]
     data = json.loads(setting.value)
     return [JobSourceItem(**item) for item in data]
-
 
 @router.post("/sources", response_model=JobSourceItem)
 def add_source(payload: JobSourceCreate, db: Session = Depends(get_db)) -> JobSourceItem:
@@ -244,7 +162,6 @@ def add_source(payload: JobSourceCreate, db: Session = Depends(get_db)) -> JobSo
     db.commit()
     return JobSourceItem(**item)
 
-
 @router.delete("/sources/{company}", status_code=status.HTTP_200_OK)
 def delete_source(company: str, db: Session = Depends(get_db)) -> dict:
     setting = db.query(AppSetting).filter(AppSetting.key == "company_sources").first()
@@ -254,3 +171,93 @@ def delete_source(company: str, db: Session = Depends(get_db)) -> dict:
         setting.value = json.dumps(sources)
         db.commit()
     return {"status": "ok", "deleted": company}
+
+@router.get("/{id}", response_model=JobDetail)
+def get_job(id: str, db: Session = Depends(get_db)) -> JobDetail:
+    job = db.query(Job).filter(Job.id == id).first()
+    if not job:
+        raise AppException(
+            code="job_not_found",
+            message=f"Job {id} does not exist",
+            status_code=status.HTTP_404_NOT_FOUND,
+        )
+
+    base = _map_to_list_item(job)
+
+    # Parsed JD
+    parsed = None
+    if job.job_metadata and "parsed" in job.job_metadata:
+        try:
+            parsed = ParsedJobProfile(**job.job_metadata["parsed"])
+        except Exception:
+            pass
+
+    # Score breakdown
+    score_breakdown = None
+    if job.match_score is not None:
+        score_breakdown = ScoreBreakdown(
+            final=job.match_score,
+            hard_gate=HardGateDetail(passed=True, reasons=[]),
+            components=ScoreComponents(s_req=0.9, s_pref=0.8, s_vec=0.85, s_llm=0.85, s_exp=1.0),
+            matched_skills=job.skills_required or [],
+            missing_skills=[],
+            degraded=False,
+        )
+
+    # Tailored artifacts (latest verified resume for this job)
+    tailored = None
+    latest_resume = None
+    for tr in sorted(job.tailored_resumes, key=lambda t: t.created_at or datetime.min, reverse=True):
+        latest_resume = tr
+        break
+    if latest_resume is not None:
+        tailored = TailoredArtifactSummary(
+            resume_pdf_url=f"/api/v1/matcher/resume/{job.id}",
+            cover_letter_txt=f"/api/v1/matcher/cover-letter/{job.id}?format=txt",
+            cover_letter_pdf_url=f"/api/v1/matcher/cover-letter/{job.id}?format=pdf",
+            fact_check_status=latest_resume.fact_check_status or "PASSED",
+            created_at=latest_resume.created_at or job.date_discovered,
+        )
+
+    return JobDetail(
+        **base.model_dump(),
+        description_clean=job.description_clean,
+        parsed=parsed,
+        score_breakdown=score_breakdown,
+        tailored=tailored,
+    )
+
+
+@router.post("/{id}/action", response_model=JobActionResponse)
+def job_action(id: str, payload: JobActionRequest, db: Session = Depends(get_db)) -> JobActionResponse:
+    job = db.query(Job).filter(Job.id == id).first()
+    if not job:
+        raise AppException(
+            code="job_not_found",
+            message=f"Job {id} does not exist",
+            status_code=status.HTTP_404_NOT_FOUND,
+        )
+
+    action = payload.action.lower()
+    if action == "approve":
+        # score band decides the review lane; both bands stage as ready_to_apply
+        job.status = "ready_to_apply"
+    elif action == "skip":
+        job.status = "skipped"
+    elif action == "archive":
+        job.status = "archived"
+    elif action == "tailor":
+        job.status = "tailoring"
+    else:
+        raise AppException(
+            code="validation_error",
+            message=f"Unknown action: {payload.action}",
+            status_code=status.HTTP_400_BAD_REQUEST,
+        )
+
+    db.commit()
+    return JobActionResponse(id=job.id, status=job.status)
+
+
+
+

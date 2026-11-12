@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 async def process_score_queue(db: Session, batch_size: int = 5) -> int:
     """Process pending score_queued jobs, compute compatibility, and triage."""
-    jobs = db.query(Job).filter(Job.status == "score_queued").limit(batch_size).all()
+    jobs = db.query(Job).filter(Job.status == "score_queued").order_by(Job.date_discovered.asc()).limit(batch_size).all()
     if not jobs:
         return 0
 

@@ -61,7 +61,7 @@ class Settings(BaseSettings):
         validation_alias=AliasChoices("EMBED_MODEL", "embed_model"),
     )
     crawl_interval_minutes: int = Field(
-        default=30,
+        default=5,
         validation_alias=AliasChoices(
             "CRAWL_INTERVAL_MINUTES", "crawl_interval_minutes"
         ),

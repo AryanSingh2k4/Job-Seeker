@@ -56,7 +56,23 @@ telemetry_hub = hub
 
 
 @router.websocket("/ws/telemetry")
-async def websocket_telemetry(websocket: WebSocket):
+async def websocket_telemetry(websocket: WebSocket, token: str | None = None):
+    # Sidecar mode: reject unauthenticated telemetry subscriptions (audit P1-4).
+    # QA answers and application status are sensitive; the spec requires
+    # Bearer/?token= on /ws/* exactly like HTTP.
+    from app.runtime.token import validate_token
+
+    expected = getattr(websocket.app.state, "sidecar_token", None)
+    enforce = getattr(websocket.app.state, "enforce_token", False)
+    if enforce and expected:
+        provided = token
+        if not provided:
+            auth = websocket.headers.get("authorization", "")
+            if auth.startswith("Bearer "):
+                provided = auth[len("Bearer "):]
+        if not validate_token(provided, expected):
+            await websocket.close(code=4401)
+            return
     await hub.connect(websocket)
     try:
         while True:
