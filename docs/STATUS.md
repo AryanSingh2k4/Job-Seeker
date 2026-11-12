@@ -161,3 +161,8 @@ Owner rejected the blue/glass v2 as generic. Full identity rebuild:
 - **Hardcoded purges**: violet/blue gradients in funnel/score-bars → gold; ring tracks themed; glows warm
 - **Stubs killed**: Applications is a real screen (table structure + designed empty state + export), Settings is real (crawl interval + daily company cap wired to GET/POST /settings — owner rate-limits editable in UI), Review/Profile framed in the v3 system
 - **Infra**: CORS → loopback regex allowlist (any localhost port; no more per-port allowlist churn), .next/dev-server collision root-caused (never build while dev runs; build script wipes first)
+
+### 2026-11-12 — Typography pass: Anthropic-style system (owner directive)
+- Fonts: Copernicus→**Source Serif 4** (display), Styrene→**Space Grotesk** (UI), JetBrains Mono (data) — free equivalents of the Anthropic brand trio
+- Accent gold→**terracotta #d97757** (Anthropic brand hue); light theme → Anthropic oat (#f0eee6) / paper (#faf9f5)
+- Build green (12 pages); both themes visually verified against live backend

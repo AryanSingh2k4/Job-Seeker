@@ -1,15 +1,18 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter, JetBrains_Mono } from "next/font/google";
+import { Source_Serif_4, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 import { AppShell } from "@/components/app-shell";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
-const fraunces = Fraunces({
+/*
+ * Anthropic-style system: Copernicus ≈ Source Serif 4 (display serif),
+ * Styrene ≈ Space Grotesk (geometric grotesque UI), Berkeley ≈ JetBrains Mono.
+ */
+const grotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-ui", display: "swap" });
+const serif = Source_Serif_4({
   subsets: ["latin"],
-  variable: "--font-fraunces",
+  variable: "--font-serif",
   display: "swap",
-  axes: ["SOFT", "WONK"],
 });
 const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono-jb", display: "swap" });
 
@@ -28,7 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
       </head>
-      <body className={`${inter.variable} ${fraunces.variable} ${mono.variable} antialiased`}>
+      <body className={`${grotesk.variable} ${serif.variable} ${mono.variable} antialiased`}>
         <Providers>
           <AppShell>{children}</AppShell>
         </Providers>
