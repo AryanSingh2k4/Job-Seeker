@@ -182,3 +182,10 @@ Owner rejected the blue/glass v2 as generic. Full identity rebuild:
 - Theme toggle moved out of sidebar → Settings page (Appearance panel)
 - Settings nav item moved to the sidebar footer (below telemetry)
 - JobSeeker logo is now the collapse/expand button for the sidebar (chevron affordance shown expanded)
+
+### 2026-11-12 — D1 MILESTONE: real sidecar packaged + wired into desktop shell
+- **PyInstaller sidecar built**: `backend/packaging/dist/autojob-core/autojob-core.exe` (one-folder console build) — live smoke passed: `AUTOJOB_READY {"port": 63128, "token": <random>, ...}` handshake on OS-assigned port, /api/v1/health 200 under the emitted token, CLI args match spec (--data-dir/--host/--port/--parent-pid/--shutdown-grace/--log-level)
+- **Desktop D1 wiring**: shell now prefers the real `autojob-core.exe` over the stub (env override → sibling exe fallback chain); cargo build green
+- **M6 verified live**: GET /applications/stats (shape per contract), GET /applications/export (CSV stream)
+- **Milestone suite**: 88 passed / 1 skipped (full pytest)
+- dist/build directories gitignored

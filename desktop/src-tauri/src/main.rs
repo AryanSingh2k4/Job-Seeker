@@ -66,9 +66,18 @@ fn sidecar_path() -> Option<std::path::PathBuf> {
     }
     let exe = std::env::current_exe().ok()?;
     let dir = exe.parent()?;
-    let name = if cfg!(windows) { "autojob-core-stub.exe" } else { "autojob-core-stub" };
-    let path = dir.join(name);
-    path.exists().then_some(path)
+    // D1: prefer the real PyInstaller sidecar, fall back to the Week-0 stub.
+    for name in if cfg!(windows) {
+        ["autojob-core.exe", "autojob-core-stub.exe"]
+    } else {
+        ["autojob-core", "autojob-core-stub"]
+    } {
+        let path = dir.join(name);
+        if path.exists() {
+            return Some(path);
+        }
+    }
+    None
 }
 
 /// Spawn the sidecar and read the `AUTOJOB_READY {json}` handshake line.
