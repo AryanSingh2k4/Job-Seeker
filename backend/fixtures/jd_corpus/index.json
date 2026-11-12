@@ -1,0 +1,242 @@
+[
+  {
+    "file": "01_databricks_software-engineer-new-grad-2027-start.txt",
+    "expected_file": "01_databricks_software-engineer-new-grad-2027-start.expected.json",
+    "company": "Databricks",
+    "title": "Software Engineer - New Grad (2027 Start)",
+    "seniority": "entry",
+    "source": "https://databricks.com/company/careers/open-positions/job?gh_jid=6865698002"
+  },
+  {
+    "file": "02_notion_software-engineer-new-grad-dec-2026.txt",
+    "expected_file": "02_notion_software-engineer-new-grad-dec-2026.expected.json",
+    "company": "Notion",
+    "title": "Software Engineer, New Grad (Dec 2026)",
+    "seniority": "entry",
+    "source": "https://jobs.ashbyhq.com/notion/e32799d2-8ef8-4803-8189-c72514afa816"
+  },
+  {
+    "file": "03_palantir_software-engineer-new-grad-infrastructure.txt",
+    "expected_file": "03_palantir_software-engineer-new-grad-infrastructure.expected.json",
+    "company": "Palantir",
+    "title": "Software Engineer, New Grad - Infrastructure",
+    "seniority": "entry",
+    "source": "https://jobs.lever.co/palantir/4abf26b4-795c-420a-bf22-1ab98db268b4"
+  },
+  {
+    "file": "04_stripe_software-engineer-early-career-immediate-start.txt",
+    "expected_file": "04_stripe_software-engineer-early-career-immediate-start.expected.json",
+    "company": "Stripe",
+    "title": "Software Engineer, Early Career — Immediate Start",
+    "seniority": "entry",
+    "source": "https://stripe.com/jobs/search?gh_jid=8212508"
+  },
+  {
+    "file": "05_amplitude_software-engineer-ii-analytics-compute-platform-team.txt",
+    "expected_file": "05_amplitude_software-engineer-ii-analytics-compute-platform-team.expected.json",
+    "company": "Amplitude",
+    "title": "Software Engineer II, Analytics Compute Platform Team",
+    "seniority": "mid",
+    "source": "https://jobs.ashbyhq.com/amplitude/f65ba1d9-f809-442f-88df-453241e8d509"
+  },
+  {
+    "file": "06_asana_backend-software-engineer.txt",
+    "expected_file": "06_asana_backend-software-engineer.expected.json",
+    "company": "Asana",
+    "title": "Backend Software Engineer",
+    "seniority": "mid",
+    "source": "https://www.asana.com/jobs/apply/7964297?gh_jid=7964297"
+  },
+  {
+    "file": "07_chime_software-engineer-infrastructure.txt",
+    "expected_file": "07_chime_software-engineer-infrastructure.expected.json",
+    "company": "Chime",
+    "title": "Software Engineer, Infrastructure",
+    "seniority": "mid",
+    "source": "https://boards.greenhouse.io/chime/jobs/8616359002?gh_jid=8616359002"
+  },
+  {
+    "file": "08_coinbase_software-engineer-blockchain-platform-nodes.txt",
+    "expected_file": "08_coinbase_software-engineer-blockchain-platform-nodes.expected.json",
+    "company": "Coinbase",
+    "title": "Software Engineer, Blockchain Platform Nodes",
+    "seniority": "mid",
+    "source": "https://www.coinbase.com/careers/positions/8105437?gh_jid=8105437"
+  },
+  {
+    "file": "09_cursor_software-engineer-core-services.txt",
+    "expected_file": "09_cursor_software-engineer-core-services.expected.json",
+    "company": "Cursor",
+    "title": "Software Engineer, Core Services",
+    "seniority": "mid",
+    "source": "https://jobs.ashbyhq.com/cursor/9d756f3e-ec33-4820-9971-f803de7b2d63"
+  },
+  {
+    "file": "10_figma_software-engineer-distributed-systems.txt",
+    "expected_file": "10_figma_software-engineer-distributed-systems.expected.json",
+    "company": "Figma",
+    "title": "Software Engineer - Distributed Systems",
+    "seniority": "senior",
+    "source": "https://boards.greenhouse.io/figma/jobs/5552549004?gh_jid=5552549004"
+  },
+  {
+    "file": "11_linear_product-engineer.txt",
+    "expected_file": "11_linear_product-engineer.expected.json",
+    "company": "Linear",
+    "title": "Product Engineer",
+    "seniority": "mid",
+    "source": "https://jobs.ashbyhq.com/linear/0c7c2e26-0a98-42cf-a47c-9a3999fb513b"
+  },
+  {
+    "file": "12_lyft_backend-software-engineer-airports.txt",
+    "expected_file": "12_lyft_backend-software-engineer-airports.expected.json",
+    "company": "Lyft",
+    "title": "Backend Software Engineer, Airports",
+    "seniority": "mid",
+    "source": "https://app.careerpuck.com/job-board/lyft/job/8806570002?gh_jid=8806570002"
+  },
+  {
+    "file": "13_openai_software-engineer-agent-infrastructure.txt",
+    "expected_file": "13_openai_software-engineer-agent-infrastructure.expected.json",
+    "company": "OpenAI",
+    "title": "Software Engineer, Agent Infrastructure",
+    "seniority": "senior",
+    "source": "https://jobs.ashbyhq.com/openai/c1316397-25bb-4add-9e9d-0e3ea8ba929a"
+  },
+  {
+    "file": "14_supabase_software-engineer-auth.txt",
+    "expected_file": "14_supabase_software-engineer-auth.expected.json",
+    "company": "Supabase",
+    "title": "Software Engineer - Auth",
+    "seniority": "mid",
+    "source": "https://jobs.ashbyhq.com/supabase/e569b7f7-fa8f-4139-86f6-4f52b456882d"
+  },
+  {
+    "file": "15_airbnb_senior-software-engineer-storage.txt",
+    "expected_file": "15_airbnb_senior-software-engineer-storage.expected.json",
+    "company": "Airbnb",
+    "title": "Senior Software Engineer, Storage",
+    "seniority": "senior",
+    "source": "https://careers.airbnb.com/positions/8165656?gh_jid=8165656"
+  },
+  {
+    "file": "16_anthropic_senior-software-engineer-full-stack.txt",
+    "expected_file": "16_anthropic_senior-software-engineer-full-stack.expected.json",
+    "company": "Anthropic",
+    "title": "Senior Software Engineer, Full-stack",
+    "seniority": "senior",
+    "source": "https://job-boards.greenhouse.io/anthropic/jobs/5174743008"
+  },
+  {
+    "file": "17_coinbase_senior-software-engineer-backend-payments-platform.txt",
+    "expected_file": "17_coinbase_senior-software-engineer-backend-payments-platform.expected.json",
+    "company": "Coinbase",
+    "title": "Senior Software Engineer, Backend - Payments Platform",
+    "seniority": "senior",
+    "source": "https://www.coinbase.com/careers/positions/8247401?gh_jid=8247401"
+  },
+  {
+    "file": "18_datadog_senior-software-engineer-distributed-systems.txt",
+    "expected_file": "18_datadog_senior-software-engineer-distributed-systems.expected.json",
+    "company": "Datadog",
+    "title": "Senior Software Engineer - Distributed Systems",
+    "seniority": "senior",
+    "source": "https://careers.datadoghq.com/detail/4599111/?gh_jid=4599111"
+  },
+  {
+    "file": "19_drata_senior-software-engineer-2.txt",
+    "expected_file": "19_drata_senior-software-engineer-2.expected.json",
+    "company": "Drata",
+    "title": "Senior Software Engineer 2",
+    "seniority": "senior",
+    "source": "https://jobs.ashbyhq.com/drata/452756bd-2f92-47aa-8459-cb8f29f02b08"
+  },
+  {
+    "file": "20_instacart_senior-software-engineer-ii-enterprise-foundations.txt",
+    "expected_file": "20_instacart_senior-software-engineer-ii-enterprise-foundations.expected.json",
+    "company": "Instacart",
+    "title": "Senior Software Engineer II - Enterprise Foundations",
+    "seniority": "senior",
+    "source": "https://instacart.careers/job/?gh_jid=8304279"
+  },
+  {
+    "file": "21_ramp_senior-engineer-backend-bill-pay.txt",
+    "expected_file": "21_ramp_senior-engineer-backend-bill-pay.expected.json",
+    "company": "Ramp",
+    "title": "Senior Engineer, Backend, Bill Pay",
+    "seniority": "senior",
+    "source": "https://jobs.ashbyhq.com/ramp/26855617-1697-4fd2-8c33-a5fb11fc4c77"
+  },
+  {
+    "file": "22_replit_senior-software-engineer-compute-platform.txt",
+    "expected_file": "22_replit_senior-software-engineer-compute-platform.expected.json",
+    "company": "Replit",
+    "title": "Senior Software Engineer, Compute Platform",
+    "seniority": "senior",
+    "source": "https://jobs.ashbyhq.com/replit/659a8e1e-69ba-44c0-a632-96665051a3e8"
+  },
+  {
+    "file": "23_affirm_staff-software-engineer-backend-ledger-engineering.txt",
+    "expected_file": "23_affirm_staff-software-engineer-backend-ledger-engineering.expected.json",
+    "company": "Affirm",
+    "title": "Staff Software Engineer, Backend (Ledger Engineering)",
+    "seniority": "staff",
+    "source": "https://job-boards.greenhouse.io/affirm/jobs/7800317003"
+  },
+  {
+    "file": "24_airbnb_staff-software-engineer-streaming-infrastructure.txt",
+    "expected_file": "24_airbnb_staff-software-engineer-streaming-infrastructure.expected.json",
+    "company": "Airbnb",
+    "title": "Staff Software Engineer, Streaming Infrastructure",
+    "seniority": "staff",
+    "source": "https://careers.airbnb.com/positions/7702714?gh_jid=7702714"
+  },
+  {
+    "file": "25_brex_staff-software-engineer-spend.txt",
+    "expected_file": "25_brex_staff-software-engineer-spend.expected.json",
+    "company": "Brex",
+    "title": "Staff Software Engineer, Spend",
+    "seniority": "staff",
+    "source": "https://www.brex.com/careers/8635331002?gh_jid=8635331002"
+  },
+  {
+    "file": "26_cloudflare_staff-software-engineer-integrated-network-strategy.txt",
+    "expected_file": "26_cloudflare_staff-software-engineer-integrated-network-strategy.expected.json",
+    "company": "Cloudflare",
+    "title": "Staff Software Engineer - Integrated Network Strategy",
+    "seniority": "staff",
+    "source": "https://boards.greenhouse.io/cloudflare/jobs/8157281?gh_jid=8157281"
+  },
+  {
+    "file": "27_discord_staff-software-engineer-safety-processing.txt",
+    "expected_file": "27_discord_staff-software-engineer-safety-processing.expected.json",
+    "company": "Discord",
+    "title": "Staff Software Engineer, Safety Processing",
+    "seniority": "staff",
+    "source": "https://job-boards.greenhouse.io/discord/jobs/8214127002"
+  },
+  {
+    "file": "28_klaviyo_lead-software-engineer-cicd.txt",
+    "expected_file": "28_klaviyo_lead-software-engineer-cicd.expected.json",
+    "company": "Klaviyo",
+    "title": "Lead Software Engineer, CICD",
+    "seniority": "lead",
+    "source": "https://www.klaviyo.com/careers/jobs/7990569003?gh_jid=7990569003"
+  },
+  {
+    "file": "29_okta_principal-software-engineer.txt",
+    "expected_file": "29_okta_principal-software-engineer.expected.json",
+    "company": "Okta",
+    "title": "Principal Software Engineer",
+    "seniority": "principal",
+    "source": "https://www.okta.com/company/careers/opportunity/8243180?gh_jid=8243180"
+  },
+  {
+    "file": "30_reddit_principal-software-engineer-infrastructure.txt",
+    "expected_file": "30_reddit_principal-software-engineer-infrastructure.expected.json",
+    "company": "Reddit",
+    "title": "Principal Software Engineer, Infrastructure ",
+    "seniority": "principal",
+    "source": "https://job-boards.greenhouse.io/reddit/jobs/8350761"
+  }
+]

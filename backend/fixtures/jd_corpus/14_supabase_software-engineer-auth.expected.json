@@ -1,0 +1,26 @@
+{
+  "company": "Supabase",
+  "title": "Software Engineer - Auth",
+  "seniority_level": "mid",
+  "min_years_experience": 4,
+  "required_hard_skills": [
+    "Go",
+    "authentication systems",
+    "TypeScript",
+    "Postgres/MySQL relational databases",
+    "web security fundamentals (cookies/JWT/OAuth/OIDC/SAML)"
+  ],
+  "preferred_hard_skills": [
+    "Kubernetes",
+    "AWS",
+    "Prometheus",
+    "Grafana",
+    "OpenTelemetry",
+    "Next.js",
+    "schema migrations"
+  ],
+  "visa_sponsorship_statement": "unknown",
+  "expected_score_band_hint": "mid",
+  "gates_expected_pass": true,
+  "notes": "Hard 4+ years-of-Go and 2+ years-of-auth requirements are unusually specific, so many otherwise-matching senior backends fail the Go bar."
+}

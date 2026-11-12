@@ -1,0 +1,22 @@
+{
+  "company": "Amplitude",
+  "title": "Software Engineer II, Analytics Compute Platform Team",
+  "seniority_level": "mid",
+  "min_years_experience": 2,
+  "required_hard_skills": [
+    "backend engineering",
+    "production services",
+    "testing",
+    "observability"
+  ],
+  "preferred_hard_skills": [
+    "query engines",
+    "columnar databases",
+    "large-scale data processing",
+    "SLOs and oncall"
+  ],
+  "visa_sponsorship_statement": "unknown",
+  "expected_score_band_hint": "mid",
+  "gates_expected_pass": true,
+  "notes": "Explicit 2-4 year band and compute-layer specialization (query paths, profiling) with no named language, making language matching ambiguous."
+}

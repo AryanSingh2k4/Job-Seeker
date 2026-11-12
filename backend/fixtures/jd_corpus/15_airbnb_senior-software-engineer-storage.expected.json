@@ -1,0 +1,23 @@
+{
+  "company": "Airbnb",
+  "title": "Senior Software Engineer, Storage",
+  "seniority_level": "senior",
+  "min_years_experience": 5,
+  "required_hard_skills": [
+    "distributed systems (Tier 0)",
+    "database/storage internals",
+    "production incident debugging",
+    "code ownership"
+  ],
+  "preferred_hard_skills": [
+    "NewSQL",
+    "stateful Kubernetes",
+    "change data capture",
+    "Jepsen/benchmark tooling",
+    "open-source contributions"
+  ],
+  "visa_sponsorship_statement": "unknown",
+  "expected_score_band_hint": "mid",
+  "gates_expected_pass": true,
+  "notes": "Posting covers two sub-roles (performance vs quality/automation) in one description, blending database internals with test-infrastructure skills."
+}

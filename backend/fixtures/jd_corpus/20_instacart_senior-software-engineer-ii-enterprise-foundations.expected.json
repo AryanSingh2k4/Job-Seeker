@@ -1,0 +1,24 @@
+{
+  "company": "Instacart",
+  "title": "Senior Software Engineer II - Enterprise Foundations",
+  "seniority_level": "senior",
+  "min_years_experience": 7,
+  "required_hard_skills": [
+    "backend engineering",
+    "Ruby/Rails or Python or Go",
+    "relational databases",
+    "distributed systems",
+    "AWS/GCP"
+  ],
+  "preferred_hard_skills": [
+    "commerce/retail platforms",
+    "SSO/identity integrations",
+    "search/retrieval systems",
+    "multi-tenant isolation",
+    "internationalization"
+  ],
+  "visa_sponsorship_statement": "unknown",
+  "expected_score_band_hint": "high",
+  "gates_expected_pass": true,
+  "notes": "Senior Software Engineer II sits at the top of the senior band (7+ years, technical DRI) and could be read as staff-track."
+}

@@ -1,0 +1,22 @@
+{
+  "company": "Asana",
+  "title": "Backend Software Engineer",
+  "seniority_level": "mid",
+  "min_years_experience": 3,
+  "required_hard_skills": [
+    "backend engineering",
+    "production code",
+    "large codebases",
+    "API design"
+  ],
+  "preferred_hard_skills": [
+    "React",
+    "GraphQL",
+    "TypeScript",
+    "AI tools"
+  ],
+  "visa_sponsorship_statement": "unknown",
+  "expected_score_band_hint": "high",
+  "gates_expected_pass": true,
+  "notes": "Generic backend bar (3+ years) with only familiarity-level frontend expectations, but location is Reykjavik office-centric hybrid."
+}

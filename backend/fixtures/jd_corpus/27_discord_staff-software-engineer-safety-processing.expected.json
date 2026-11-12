@@ -1,0 +1,21 @@
+{
+  "company": "Discord",
+  "title": "Staff Software Engineer, Safety Processing",
+  "seniority_level": "staff",
+  "min_years_experience": 8,
+  "required_hard_skills": [
+    "Python",
+    "system design/architecture",
+    "24/7 oncall production experience",
+    "adversarial (trust and safety) domain"
+  ],
+  "preferred_hard_skills": [
+    "ML/AI content moderation",
+    "Rust",
+    "TypeScript/React"
+  ],
+  "visa_sponsorship_statement": "unknown",
+  "expected_score_band_hint": "high",
+  "gates_expected_pass": true,
+  "notes": "No explicit years but Python expertise plus architectural leadership across quarters-long programs is a clear staff bar."
+}

@@ -1,0 +1,24 @@
+{
+  "company": "Affirm",
+  "title": "Staff Software Engineer, Backend (Ledger Engineering)",
+  "seniority_level": "staff",
+  "min_years_experience": 8,
+  "required_hard_skills": [
+    "Python or Kotlin",
+    "AWS",
+    "MySQL",
+    "distributed systems",
+    "Kubernetes",
+    "Spark",
+    "technical strategy"
+  ],
+  "preferred_hard_skills": [
+    "financial systems",
+    "ledgering",
+    "treasury/accounting domains"
+  ],
+  "visa_sponsorship_statement": "unknown",
+  "expected_score_band_hint": "high",
+  "gates_expected_pass": true,
+  "notes": "Staff scope is defined by year-long technical strategy and team operations ownership rather than team size; financial-domain experience is required-adjacent."
+}

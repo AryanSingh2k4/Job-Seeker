@@ -1,0 +1,23 @@
+{
+  "company": "Notion",
+  "title": "Software Engineer, New Grad (Dec 2026)",
+  "seniority_level": "entry",
+  "min_years_experience": 0,
+  "required_hard_skills": [
+    "TypeScript",
+    "Node.js",
+    "Python",
+    "React",
+    "HTML/CSS/JavaScript"
+  ],
+  "preferred_hard_skills": [
+    "Postgres",
+    "MySQL",
+    "MongoDB",
+    "Elasticsearch"
+  ],
+  "visa_sponsorship_statement": "unknown",
+  "expected_score_band_hint": "high",
+  "gates_expected_pass": true,
+  "notes": "Requires graduation by Dec 2026 plus prior internship experience, so a senior candidate would pass skill overlap but fail the intended level."
+}

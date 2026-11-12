@@ -1,0 +1,23 @@
+{
+  "company": "Datadog",
+  "title": "Senior Software Engineer - Distributed Systems",
+  "seniority_level": "senior",
+  "min_years_experience": 5,
+  "required_hard_skills": [
+    "Go/Java/Rust/C++ backend",
+    "distributed systems",
+    "Kafka",
+    "Redis",
+    "Cassandra",
+    "Elasticsearch"
+  ],
+  "preferred_hard_skills": [
+    "low-latency/high-durability tuning",
+    "low-level optimization",
+    "AI coding tools"
+  ],
+  "visa_sponsorship_statement": "unknown",
+  "expected_score_band_hint": "high",
+  "gates_expected_pass": true,
+  "notes": "No explicit years (significant backend programming experience) and location is Paris, with language choice left as a many-of menu."
+}

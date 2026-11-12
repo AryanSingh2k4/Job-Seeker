@@ -1,0 +1,24 @@
+{
+  "company": "Airbnb",
+  "title": "Staff Software Engineer, Streaming Infrastructure",
+  "seniority_level": "staff",
+  "min_years_experience": 9,
+  "required_hard_skills": [
+    "Kafka",
+    "distributed systems",
+    "schema registries (Avro/Protobuf)",
+    "control planes",
+    "Kubernetes",
+    "design docs/technical direction"
+  ],
+  "preferred_hard_skills": [
+    "Flink",
+    "change data capture",
+    "multi-tenancy",
+    "stream processing"
+  ],
+  "visa_sponsorship_statement": "unknown",
+  "expected_score_band_hint": "mid",
+  "gates_expected_pass": true,
+  "notes": "Very specific streaming/data-movement stack (Kafka, schema evolution, declarative control planes) beyond a generic backend profile."
+}

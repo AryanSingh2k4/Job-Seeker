@@ -1,0 +1,22 @@
+{
+  "company": "Coinbase",
+  "title": "Senior Software Engineer, Backend - Payments Platform",
+  "seniority_level": "senior",
+  "min_years_experience": 5,
+  "required_hard_skills": [
+    "Go",
+    "microservices",
+    "distributed systems",
+    "low-latency API design",
+    "payments/transactional systems"
+  ],
+  "preferred_hard_skills": [
+    "payment rails",
+    "funds-flow systems",
+    "partner integrations"
+  ],
+  "visa_sponsorship_statement": "unknown",
+  "expected_score_band_hint": "high",
+  "gates_expected_pass": true,
+  "notes": "Textbook senior-backend posting (5+ years, Go, payments) though financial-system precision experience is listed as required rather than preferred."
+}

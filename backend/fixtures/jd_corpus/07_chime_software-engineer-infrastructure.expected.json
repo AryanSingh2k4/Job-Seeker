@@ -1,0 +1,27 @@
+{
+  "company": "Chime",
+  "title": "Software Engineer, Infrastructure",
+  "seniority_level": "mid",
+  "min_years_experience": 2,
+  "required_hard_skills": [
+    "Ruby on Rails",
+    "Go",
+    "cloud infrastructure",
+    "Kubernetes",
+    "Terraform",
+    "AWS",
+    "DevOps/SRE"
+  ],
+  "preferred_hard_skills": [
+    "ArgoCD",
+    "Datadog",
+    "message buses",
+    "caching services",
+    "NoSQL databases",
+    "monitoring and observability platforms"
+  ],
+  "visa_sponsorship_statement": "unknown",
+  "expected_score_band_hint": "mid",
+  "gates_expected_pass": true,
+  "notes": "2+ years threshold reads mid but the Ruby on Rails + Go + SRE background combination is stricter than a generic backend profile."
+}

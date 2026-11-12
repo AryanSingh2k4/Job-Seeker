@@ -1,0 +1,22 @@
+{
+  "company": "Coinbase",
+  "title": "Software Engineer, Blockchain Platform Nodes",
+  "seniority_level": "mid",
+  "min_years_experience": 2,
+  "required_hard_skills": [
+    "Go",
+    "distributed systems",
+    "performance profiling",
+    "observability (pprof/Datadog/Prometheus/Grafana)",
+    "capacity management"
+  ],
+  "preferred_hard_skills": [
+    "blockchain nodes",
+    "consensus protocols",
+    "crypto infrastructure"
+  ],
+  "visa_sponsorship_statement": "unknown",
+  "expected_score_band_hint": "mid",
+  "gates_expected_pass": true,
+  "notes": "Only 2+ years required but the systems-level performance work and blockchain exposure make it a narrower profile than the years suggest."
+}

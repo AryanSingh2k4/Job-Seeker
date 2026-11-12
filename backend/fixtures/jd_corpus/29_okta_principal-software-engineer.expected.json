@@ -1,0 +1,25 @@
+{
+  "company": "Okta",
+  "title": "Principal Software Engineer",
+  "seniority_level": "principal",
+  "min_years_experience": 10,
+  "required_hard_skills": [
+    "Java/Kotlin/Go",
+    "microservices",
+    "event-driven architectures",
+    "APIs",
+    "data modeling",
+    "multi-tenancy",
+    "RBAC/ABAC"
+  ],
+  "preferred_hard_skills": [
+    "IAM/IGA products",
+    "workflow engines",
+    "AWS/GCP/Azure",
+    "observability tooling"
+  ],
+  "visa_sponsorship_statement": "unknown",
+  "expected_score_band_hint": "high",
+  "gates_expected_pass": true,
+  "notes": "States there is no citizenship requirement and the employee must be on US soil, but says nothing explicit about visa sponsorship."
+}

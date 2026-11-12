@@ -1,0 +1,26 @@
+{
+  "company": "Drata",
+  "title": "Senior Software Engineer 2",
+  "seniority_level": "senior",
+  "min_years_experience": 7,
+  "required_hard_skills": [
+    "Node.js",
+    "React",
+    "TypeScript",
+    "TypeORM",
+    "MySQL",
+    "REST APIs",
+    "NestJS"
+  ],
+  "preferred_hard_skills": [
+    "Terraform",
+    "Elasticsearch",
+    "Snowflake",
+    "LLM/AI service integration",
+    "SOC2/ISO27017/NIST compliance"
+  ],
+  "visa_sponsorship_statement": "unknown",
+  "expected_score_band_hint": "mid",
+  "gates_expected_pass": true,
+  "notes": "7+ years senior label but stack is Node/React fullstack with a mandatory AI-experience bullet, narrowing the generic-backend overlap."
+}

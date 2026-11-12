@@ -1,0 +1,19 @@
+{
+  "company": "Brex",
+  "title": "Staff Software Engineer, Spend",
+  "seniority_level": "staff",
+  "min_years_experience": 8,
+  "required_hard_skills": [
+    "large-scale backend systems",
+    "architecture and design reviews",
+    "cross-team technical leadership"
+  ],
+  "preferred_hard_skills": [
+    "travel/expense domain",
+    "AI-forward engineering practices"
+  ],
+  "visa_sponsorship_statement": "unknown",
+  "expected_score_band_hint": "high",
+  "gates_expected_pass": true,
+  "notes": "Leadership-without-reports staff role with no named languages, so skill matching is almost purely architectural."
+}

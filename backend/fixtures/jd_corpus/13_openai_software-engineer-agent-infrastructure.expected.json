@@ -1,0 +1,24 @@
+{
+  "company": "OpenAI",
+  "title": "Software Engineer, Agent Infrastructure",
+  "seniority_level": "senior",
+  "min_years_experience": 5,
+  "required_hard_skills": [
+    "machine learning infrastructure",
+    "container orchestration",
+    "virtualization (Kata/Firecracker/gVisor/Sysbox)",
+    "FastAPI",
+    "gRPC",
+    "Terraform",
+    "Python"
+  ],
+  "preferred_hard_skills": [
+    "Kubernetes",
+    "performance optimization",
+    "distributed systems at scale"
+  ],
+  "visa_sponsorship_statement": "unknown",
+  "expected_score_band_hint": "mid",
+  "gates_expected_pass": true,
+  "notes": "No years or level stated; deep-experience language around training infra and virtualization reads senior but pushes out generalist backend candidates."
+}

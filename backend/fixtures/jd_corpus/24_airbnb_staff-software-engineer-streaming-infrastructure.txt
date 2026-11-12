@@ -1,0 +1,83 @@
+Company: Airbnb
+Title: Staff Software Engineer, Streaming Infrastructure
+Location: United States | Source: https://careers.airbnb.com/positions/7702714?gh_jid=7702714
+
+Airbnb was born in 2007 when two hosts welcomed three guests to their San Francisco home, and has since grown to over 5 million hosts who have welcomed over 2 billion guest arrivals in almost every country across the globe. Every day, hosts offer unique stays and experiences that make it possible for guests to connect with communities in a more authentic way.
+
+The Community You Will Join
+
+Airbnb’s Data Infrastructure organization builds the platforms that power data across the company. Within it, the Data Movement & Transformation (DMT) pillar builds the platform that moves data between Airbnb’s storage engines and transforms it along the way.
+
+Today, data moves through many bespoke, one-off pipelines that are built and maintained differently by each team. We’re replacing them with one unified, declarative platform. You define data once, and it is replicated everywhere it needs to go. This work underpins Airbnb’s Data as a Service initiative.
+
+## You’ll join the team that owns three connected layers of that platform
+
+- Control plane: the layer that turns declarative data definitions into running pipelines, including provisioning, runtime selection, and lifecycle management.
+
+- Schema: how schemas are defined, tracked, and evolved safely across every system and engine.
+
+- Realtime Data Infrastructure (RTDI): Kafka and the streaming transport layer that real-time data flows through at scale.
+
+As a Staff Software Engineer, you’ll set technical direction across these layers and stay hands-on in the code.
+
+Examples of the Difference You’ll Make
+
+- Design and evolve the control plane that automatically provisions Kafka topics, registers schemas, and deploys pipelines from a declarative definition.
+
+- Build schema management that makes evolution safe and backward compatible across streaming, storage, and warehouse systems.
+
+- Improve the reliability, scalability, and cost efficiency of RTDI and Kafka at Airbnb’s scale, including capacity, multi-tenancy, and failure handling.
+
+- Replace fragmented pipeline tooling with shared, self-serve platform abstractions that other teams adopt.
+
+- Lead design reviews and incident follow-through, and raise the engineering and operational bar for the team.
+
+Your Expertise
+
+- 9+ years of software engineering, including significant experience building and operating large-scale distributed systems, ideally data platforms, event-driven systems, or streaming infrastructure.
+
+- Hands-on experience with Kafka or a similar distributed log or messaging system, with a good understanding of partitioning, delivery semantics, throughput, and operational tradeoffs.
+
+- Experience designing schema or data contract systems, such as schema registries, serialization formats like Avro or Protobuf, and compatibility and evolution strategies.
+
+- Experience building control planes or platform APIs, such as declarative configuration, reconciliation, workflow orchestration, or resource provisioning, ideally on Kubernetes.
+
+- Familiarity with stream processing (e.g., Flink) or change data capture is a plus.
+
+- A track record of leading ambiguous, multi-quarter projects, taking them from design through delivery in production.
+
+- Ability to set technical direction, write clear design docs, and align multiple teams, and to mentor and grow other engineers.
+
+- Experience running large-scale systems in production, including on-call, incident response, and root cause analysis.
+
+- Writes clean, testable, maintainable code.
+
+- Strong collaboration and communication skills in a remote working environment.
+
+## Your Location
+
+This position is US - Remote Eligible. The role may include occasional work at an Airbnb office or attendance at offsites, as agreed to with your manager. While the position is Remote Eligible, you must live in a state where Airbnb, Inc. has a registered entity. Click here for the up-to-date list of excluded states. This list is continuously evolving, so please check back with us if the state you live in is on the exclusion list. If your position is employed by another Airbnb entity, your recruiter will inform you what states you are eligible to work from.
+
+## Our Commitment To Inclusion & Belonging
+
+Airbnb is committed to working with the broadest talent pool possible. We believe diverse ideas foster innovation and engagement, and allow us to attract creatively-led people, and to develop the best products, services and solutions. All qualified individuals are encouraged to apply.
+
+We strive to also provide a disability inclusive application and interview process. If you are a candidate with a disability and require reasonable accommodation in order to submit an application, please contact us at: reasonableaccommodations@airbnb.com. Please include your full name, the role you’re applying for and the accommodation necessary to assist you with the recruiting process.
+
+We ask that you only reach out to us if you are a candidate whose disability prevents you from being able to complete our online application.
+
+## Equal Employment Opportunity
+
+Airbnb values diversity & belonging and is proud to be an Equal Employment Opportunity employer. All individuals seeking employment at Airbnb are considered without regard to race, color, religion, national origin, age, gender, sex, marital status, ancestry, physical or mental disability, veteran status, gender identity, gender expression, sexual orientation, or any other legally protected characteristic.
+
+## How We'll Take Care of You
+
+Our job titles may span more than one career level. The actual base pay is dependent upon many factors, such as: training, transferable skills, work experience, business needs and market demands. The base pay range is subject to change and may be modified in the future. This role may also be eligible for bonus, equity, benefits, and Employee Travel Credits.
+
+## Pay Range
+
+$204,000—$255,000 USD
+
+Reasonable Accommodations: We are committed to providing reasonable accommodations throughout the recruitment process for applicants with disabilities. If you need assistance, or an accommodation, please let your recruiter know once you are contacted about a role.
+
+A Note on Recruiting Scams: Scammers sometimes pose as Airbnb recruiters to get money or personal information from candidates. A few things that will always be true for Airbnb’s hiring process: our open roles are posted on Airbnb’s Career’s Page at careers.airbnb.com, and our recruiters correspond only from @airbnb.com or @ext.airbnb.com email addresses. Our recruiters will never ask for your Social Security number, bank account details, passport, or payment app information while you are interviewing. We’ll also never ask you to pay a fee, send money, deposit or cash a check, or purchase work-related equipment (such as a company laptop) during the interview process. We encourage candidates to remain vigilant of these recruiting scams and not share sensitive information if you do not believe an individual is actually affiliated with Airbnb.

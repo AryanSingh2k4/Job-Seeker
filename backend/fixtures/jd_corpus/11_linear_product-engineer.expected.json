@@ -1,0 +1,25 @@
+{
+  "company": "Linear",
+  "title": "Product Engineer",
+  "seniority_level": "mid",
+  "min_years_experience": 2,
+  "required_hard_skills": [
+    "React",
+    "TypeScript",
+    "Node.js",
+    "GraphQL",
+    "PostgreSQL",
+    "full-stack product engineering"
+  ],
+  "preferred_hard_skills": [
+    "Temporal",
+    "Redis",
+    "MobX",
+    "websocket sync engines",
+    "performance optimization"
+  ],
+  "visa_sponsorship_statement": "unknown",
+  "expected_score_band_hint": "mid",
+  "gates_expected_pass": true,
+  "notes": "2-5 years band but strongly product/fullstack-flavored (UX polish, UI components), so a pure backend senior matches only partially."
+}

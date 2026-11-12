@@ -1,0 +1,23 @@
+{
+  "company": "Ramp",
+  "title": "Senior Engineer, Backend, Bill Pay",
+  "seniority_level": "senior",
+  "min_years_experience": 5,
+  "required_hard_skills": [
+    "backend systems",
+    "system design",
+    "idempotency/reliability",
+    "APIs and data models",
+    "asynchronous workflows"
+  ],
+  "preferred_hard_skills": [
+    "accounts payable/payments",
+    "ERP integrations (NetSuite/QuickBooks)",
+    "LLM/OCR document processing",
+    "event-driven systems"
+  ],
+  "visa_sponsorship_statement": "unknown",
+  "expected_score_band_hint": "high",
+  "gates_expected_pass": true,
+  "notes": "No named language or explicit years anywhere, so stack matching relies entirely on generic backend skills."
+}

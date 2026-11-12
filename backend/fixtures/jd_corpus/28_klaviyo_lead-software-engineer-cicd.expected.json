@@ -1,0 +1,29 @@
+{
+  "company": "Klaviyo",
+  "title": "Lead Software Engineer, CICD",
+  "seniority_level": "lead",
+  "min_years_experience": 7,
+  "required_hard_skills": [
+    "CI/CD architecture",
+    "Python",
+    "AWS",
+    "Kubernetes",
+    "Terraform",
+    "engineering standards"
+  ],
+  "preferred_hard_skills": [
+    "Django",
+    "Go",
+    "React",
+    "Playwright/Cypress/Pytest",
+    "Helm",
+    "Buildkite",
+    "MySQL",
+    "Redis",
+    "Kafka"
+  ],
+  "visa_sponsorship_statement": "unknown",
+  "expected_score_band_hint": "mid",
+  "gates_expected_pass": true,
+  "notes": "Hands-on lead role over developer infrastructure, so DevEx/CI/CD specialization matters more than generic backend depth."
+}

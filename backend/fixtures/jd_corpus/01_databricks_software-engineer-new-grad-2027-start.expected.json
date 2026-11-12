@@ -1,0 +1,19 @@
+{
+  "company": "Databricks",
+  "title": "Software Engineer - New Grad (2027 Start)",
+  "seniority_level": "entry",
+  "min_years_experience": 0,
+  "required_hard_skills": [
+    "Python",
+    "Java",
+    "C++",
+    "data structures",
+    "algorithms",
+    "OOP"
+  ],
+  "preferred_hard_skills": [],
+  "visa_sponsorship_statement": "unknown",
+  "expected_score_band_hint": "high",
+  "gates_expected_pass": true,
+  "notes": "New-grad cohort hire across many teams so exact stack is unspecified; years effectively zero with graduation timing (fall 2026/spring 2027) as the real gate."
+}

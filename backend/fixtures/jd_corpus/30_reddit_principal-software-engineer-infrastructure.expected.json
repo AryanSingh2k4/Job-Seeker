@@ -1,0 +1,25 @@
+{
+  "company": "Reddit",
+  "title": "Principal Software Engineer, Infrastructure ",
+  "seniority_level": "principal",
+  "min_years_experience": 10,
+  "required_hard_skills": [
+    "Go",
+    "Python",
+    "Kubernetes",
+    "AWS/GCE",
+    "internet-scale infrastructure",
+    "technical direction influence"
+  ],
+  "preferred_hard_skills": [
+    "multi-cloud compute",
+    "Rust",
+    "Java",
+    "C++",
+    "mentorship across orgs"
+  ],
+  "visa_sponsorship_statement": "unknown",
+  "expected_score_band_hint": "high",
+  "gates_expected_pass": true,
+  "notes": "Principal bar is defined by 10+ years and influence over a 500+ engineer org; the stray dash under Who-you-might-be is a harmless posting artifact."
+}

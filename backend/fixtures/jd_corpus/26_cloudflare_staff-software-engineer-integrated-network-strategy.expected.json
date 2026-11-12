@@ -1,0 +1,23 @@
+{
+  "company": "Cloudflare",
+  "title": "Staff Software Engineer - Integrated Network Strategy",
+  "seniority_level": "staff",
+  "min_years_experience": 10,
+  "required_hard_skills": [
+    "network infrastructure design (BGP/ISIS/RSVP-TE)",
+    "software-defined networking",
+    "capacity planning",
+    "network economics"
+  ],
+  "preferred_hard_skills": [
+    "DDoS mitigation",
+    "IPv6 deployment",
+    "network automation frameworks",
+    "telemetry/Netflow",
+    "hyperscaler experience"
+  ],
+  "visa_sponsorship_statement": "unknown",
+  "expected_score_band_hint": "low",
+  "gates_expected_pass": true,
+  "notes": "Network-engineering staff role, not app backend; the export-control note conditions offers on technology authorization but no visa-sponsorship statement is made."
+}

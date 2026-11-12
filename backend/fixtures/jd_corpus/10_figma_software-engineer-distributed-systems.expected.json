@@ -1,0 +1,34 @@
+{
+  "company": "Figma",
+  "title": "Software Engineer - Distributed Systems",
+  "seniority_level": "senior",
+  "min_years_experience": 5,
+  "required_hard_skills": [
+    "distributed systems",
+    "backend/infrastructure engineering",
+    "AWS/GCP/Azure",
+    "infrastructure-as-code",
+    "container orchestration",
+    "Go",
+    "TypeScript",
+    "Python",
+    "Rust",
+    "Ruby",
+    "system design"
+  ],
+  "preferred_hard_skills": [
+    "Postgres",
+    "Redis",
+    "S3",
+    "DynamoDB",
+    "Kafka",
+    "Envoy",
+    "Istio",
+    "realtime systems",
+    "CI/CD tooling"
+  ],
+  "visa_sponsorship_statement": "unknown",
+  "expected_score_band_hint": "high",
+  "gates_expected_pass": true,
+  "notes": "Unlevelled title but 5+ years plus mentoring and platform-strategy duties make the actual bar senior; language list is a many-of menu."
+}

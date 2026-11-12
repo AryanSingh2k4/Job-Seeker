@@ -1,0 +1,147 @@
+Company: Amplitude
+Title: Software Engineer II, Analytics Compute Platform Team
+Location: San Francisco  | Source: https://jobs.ashbyhq.com/amplitude/f65ba1d9-f809-442f-88df-453241e8d509
+
+Amplitude is the leading AI analytics platform, helping over 5,200 customers—including Atlassian, Burger King, NBCUniversal, and Square—build better products and digital experiences. With powerful AI Agents embedded across our platform, teams can analyze, test, and optimize user experiences faster than ever. Ranked #1 across multiple categories in G2’s Winter 2026 Report, Amplitude is the best-in-class solution for product, data, and marketing teams. Learn more at amplitude.com http://amplitude.com.
+
+As an organization, we deliver for our customers by living our values. We operate from a place of humility, take ownership of problems and successes, approach challenges with a growth mindset, and put our customers at the center of everything we do.
+
+San Francisco- Hybrid
+
+## ABOUT THE ROLE & TEAM
+
+Every chart, insight, and experiment result a customer sees in Amplitude passes through the compute layer our team owns. We sit between Amplitude’s product experiences, APIs, and MCPs and our analytics database, and we own the compute API that turns a user’s question into a fast, correct answer.
+
+Our mandate: enable a highly performant, reliable, and flexible way to compute insights. Day to day, you’ll work with engineers on Data Management, marketing analytics, Session Replay, Experiment, CDP, and other product teams that build on what we ship, as well as with the Query team below us, whose engine we rely on.
+
+This role is for an engineer who is hungry to grow quickly. You’ll own small-medium-complexity projects end to end in a system that is changing fast, and we’ll stretch you on purpose with real problems, honest feedback, and strong engineers to learn from.
+
+## WHAT YOU’LL ACHIEVE
+
+ - Make new behavioral insights easier to build. Design and ship new query capabilities, extension points, and shared libraries/services that let product teams deliver new analyses in less time.
+
+ - Own the reliability of what you build. Define tests, rollout plans, and observability, know your service’s SLOs, and fix problems at the root.
+
+ - Keep real customer workloads fast. Profile query paths, find bottlenecks with traces and experiments, and verify that your changes helped.
+
+ - Help us change the system safely. Take part in migrations of APIs, schemas, and services, and learn how good abstractions make change cheaper.
+
+ - Become a go-to person. Build real expertise in part of the system, answer teammates’ questions, and share what you learn through docs and demos.
+
+ - Stay close to the customer. Understand the customer problem behind every project, measure whether your work made their experience better, and bring what you learn back to the team.
+
+## EXAMPLE PROJECTS YOU MIGHT WORK ON
+
+ - Extend the compute API so a new kind of behavioral question can be expressed.
+
+ - Propose and Move a set of query paths onto a new internal representation, with parity testing and a safe rollout so that future improvements can be done safely.
+
+ - Add observability and SLO tracking to a part of the compute layer that doesn’t have it yet.
+
+ - Profile and speed up a slow query pattern reported by a product team.
+
+## SKILLS YOU’LL NEED TO BRING
+
+ - Backend engineering fundamentals: You have 2–4 years of experience building and running production services. You write clear, tested code and can reason about failure, retries, and correctness in data-intensive systems.
+
+ - Thoughtful problem-solving: You start by understanding the context, decompose tricky problems, and work toward a clean solution. You ask clarifying questions before diving in.
+
+ - Ownership of quality: You instrument your code, verify outcomes before calling work done, and respond quickly when something you shipped breaks.
+
+ - Clear communication: You flag risks early, explain decisions in writing and in conversation, and give and receive feedback openly.
+
+ - Customer curiosity: You ask what problem a customer is trying to solve before you start building. You use Amplitude yourself, can explain it to others, and care whether the feature you shipped made someone’s work better.
+
+ - Fluency with AI-assisted engineering: You use AI to speed up learning, exploration, and testing while taking responsibility for understanding and validating the result.
+
+ - A habit of learning and improving: You seek out feedback, act on it, and can point to specific things you got better at recently. You’re curious about how the system works around the layers you’re working on.
+
+## NICE TO HAVES
+
+ - Experience with query engines, columnar or analytical databases, or large-scale data processing.
+
+ - Experience with observability, SLOs, and oncall for a production service.
+
+ - Side projects, writing, or talks that show you learn in public.
+
+## HOW WE WORK
+
+ - Ship fast. We create clarity in ambiguity through action. We favor prototypes, MVPs, and incremental milestones over long planning cycles, and we escalate when a decision is stuck.
+
+ - Value impact over effort. We tie every initiative to team, organization, and company goals, and we reshape or stop work when the expected impact no longer justifies it.
+
+ - Company > team > me. We make decisions for the whole organization, share credit generously, and invest in the growth of the engineers around us.
+
+ - Take responsibility. We set and meet measurable quality bars, own our SLOs, and build a no-blame culture where failures turn into organizational learning.
+
+ - Own the product experience. We treat customer success as our job, not the job of the teams in front of us.
+
+#LI-hybrid
+
+## EQUAL EMPLOYMENT OPPORTUNITY AND DIVERSITY STATEMENT
+
+We are committed to equal employment opportunity in both principle and as a matter of policy. We will recruit, hire, train, promote, compensate and provide benefits to all applicants and employees without regard to ancestry, sex, race, color, ethnicity, national origin, gender, age, religion, religious creed, mental and/or physical disability, medical condition, military and/or veteran’s status, genetic information, marital status, sexual orientation, gender identity and/or expression, or any other basis protected by applicable federal, state and local laws. This policy applies to all recruiting, hiring, promotions, upgrades, layoffs, compensation, benefits, terminations and all other privileges, terms and conditions of employment. The firm complies fully with all federal, state and local equal employment opportunity laws.
+
+This role is eligible for equity, benefits and other forms of compensation.
+
+Based on Colorado law, the following details are for individuals who will work for Amplitude in Colorado: Colorado range: $86,000 - $118,000 base salary (inclusive of bonus or commission)
+
+Based on legislation in New York City, the following details are for individuals will work for Amplitude in New York City: New York City salary range: $95000 - $131,000 base salary (inclusive of bonus or commission)
+
+Based on legislation in California, the following details are for individuals who will work for Amplitude California: California salary range: $95000 - $131,000 base salary (inclusive of bonus or commission)
+
+Based on legislation in Washington state, the following details are for individuals who will work for Amplitude in Washington state: Washington salary range: 
+
+ 
+
+ base salary (inclusive of bonus or commission)
+
+Based on legislation in Washington state, the following details are for individuals who will work for Amplitude in Washington only: unlimited PTO, 10 to 13 holidays annually (will vary), medical dental and vision PPO and CDHP plans. Finally, a company sponsored 401(k) retirement plan.
+
+## OUR VALUES
+
+At Amplitude, our values guide how we show up for one another and for our customers:
+
+ - Humility: We operate from a place of empathy and openness, seeking to understand many points of view.
+
+ - Ownership: We take the initiative to solve problems that drive our shared company success.
+
+ - Growth Mindset: We’re tenacious in the face of challenges and seek feedback in order to grow ourselves and others.
+
+ - Customer Centricity: We put the customer at the center of everything we do and are deeply committed to their success.
+
+We care about the well-being of our team: We offer competitive pay and benefits packages that reflect our commitment to the health and well-being of our Ampliteers.
+
+## Some of our benefit programs include
+
+ - Excellent  M edical,  D ental and  V ision insurance coverages, with 100% employer-paid premiums for employee Medical,  Dental,   Vision on select plans
+
+ - 401(k) retirement plan with an employer match of up to 1% of your eligible pay each pay period up to $2,000 annually
+
+ - Flexible time off,  p aid holidays, and more
+
+ - Generous stipends to spend on what matters most to you, whether that’s wellness (monthly), commuter transit/parking (monthly), learning and development (quarterly), new hire home office equipment, and much more
+
+ - Excellent Parental benefits including :  12 weeks of Paid Parental Leave, Carrot Fertility Benefits/Adoption/Surrogacy support, Back-up Child Care support
+
+ - Mental health and wellness benefits including no cost employee access to Modern Health coaching & therapy sessions
+
+ - Employee Stock Purchase Program  (ESPP)
+
+## Other fun facts about Amplitude
+
+ - Our customers love us! They've said we're the #1 product analytics solution https://www.g2.com/categories/product-analytics/enterprise for 23 quarters in a row on G2.
+
+ - We care a lot about product innovation. We've made significant investments in talent and infrastructure to build the most powerful AI analytics platform on the market.
+
+ - We invest in our people. We offer mentorship programs, management training, and wellness initiatives.
+
+ - We give back to our communities. We give every Ampliteer a charitable giving grant and paid volunteer time off.
+
+ - We were founded in 2012, went public via a direct listing in September 2021, and are now trading under the ticker $AMPL.
+
+ - We’re a global and fast-growing team! We have employees around the world and offices in San Francisco (HQ), New York, Vancouver, Amsterdam, London, Paris, Singapore, and Tokyo.
+
+ - Our mascot is Data Monster, who loves to chow down on numbers, charts, and graphs. Nom nom.
+
+By applying for this job, you acknowledge that Amplitude processes your personal data in accordance with the Amplitude Applicant Privacy Notice https://amplitude.com/job-applicant-privacy-notice.

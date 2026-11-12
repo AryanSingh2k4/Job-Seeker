@@ -1,0 +1,22 @@
+{
+  "company": "Stripe",
+  "title": "Software Engineer, Early Career — Immediate Start",
+  "seniority_level": "entry",
+  "min_years_experience": 0,
+  "required_hard_skills": [
+    "Java",
+    "Ruby",
+    "JavaScript",
+    "Scala",
+    "Go",
+    "programming fundamentals"
+  ],
+  "preferred_hard_skills": [
+    "code review practices",
+    "large codebase navigation"
+  ],
+  "visa_sponsorship_statement": "unknown",
+  "expected_score_band_hint": "high",
+  "gates_expected_pass": true,
+  "notes": "Languages are listed as the team stack rather than hard per-skill bars; the hard gates are start date before Dec 1 2026 and no more than 18 months professional experience."
+}

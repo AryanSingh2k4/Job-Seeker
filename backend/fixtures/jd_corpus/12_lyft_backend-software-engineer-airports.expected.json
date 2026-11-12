@@ -1,0 +1,21 @@
+{
+  "company": "Lyft",
+  "title": "Backend Software Engineer, Airports",
+  "seniority_level": "mid",
+  "min_years_experience": 2,
+  "required_hard_skills": [
+    "Python",
+    "Go",
+    "object-oriented programming",
+    "data structures",
+    "algorithms"
+  ],
+  "preferred_hard_skills": [
+    "production infrastructure",
+    "open-source projects"
+  ],
+  "visa_sponsorship_statement": "unknown",
+  "expected_score_band_hint": "high",
+  "gates_expected_pass": true,
+  "notes": "The 2-5+ band and generic Python/Go backend requirements make level calibration ambiguous between mid and senior."
+}

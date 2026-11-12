@@ -1,0 +1,23 @@
+{
+  "company": "Anthropic",
+  "title": "Senior Software Engineer, Full-stack",
+  "seniority_level": "senior",
+  "min_years_experience": 6,
+  "required_hard_skills": [
+    "full-stack engineering",
+    "React",
+    "TypeScript",
+    "backend development",
+    "product delivery"
+  ],
+  "preferred_hard_skills": [
+    "0-to-1 product building",
+    "LLM/AI products",
+    "component architecture",
+    "engineering standards"
+  ],
+  "visa_sponsorship_statement": "supported",
+  "expected_score_band_hint": "high",
+  "gates_expected_pass": true,
+  "notes": "Explicit visa statement (we do sponsor visas) with the caveat that not every role and candidate can be sponsored."
+}

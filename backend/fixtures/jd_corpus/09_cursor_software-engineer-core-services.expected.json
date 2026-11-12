@@ -1,0 +1,23 @@
+{
+  "company": "Cursor",
+  "title": "Software Engineer, Core Services",
+  "seniority_level": "mid",
+  "min_years_experience": 2,
+  "required_hard_skills": [
+    "backend services",
+    "APIs",
+    "third-party integrations"
+  ],
+  "preferred_hard_skills": [
+    "OAuth",
+    "JWT",
+    "RBAC",
+    "webhooks",
+    "event-driven architecture",
+    "API gateways"
+  ],
+  "visa_sponsorship_statement": "unknown",
+  "expected_score_band_hint": "high",
+  "gates_expected_pass": true,
+  "notes": "No years given and basic qualifications are minimal, while the posting body carries unrelated SpaceXSI/SpaceX boilerplate from the live Ashby board (kept verbatim)."
+}

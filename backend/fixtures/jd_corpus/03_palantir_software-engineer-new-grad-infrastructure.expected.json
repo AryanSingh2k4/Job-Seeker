@@ -1,0 +1,29 @@
+{
+  "company": "Palantir",
+  "title": "Software Engineer, New Grad - Infrastructure",
+  "seniority_level": "entry",
+  "min_years_experience": 0,
+  "required_hard_skills": [
+    "Java",
+    "C++",
+    "Python",
+    "TypeScript",
+    "JavaScript",
+    "data structures",
+    "storage systems",
+    "cloud infrastructure"
+  ],
+  "preferred_hard_skills": [
+    "Go",
+    "Cassandra",
+    "Spark",
+    "Elasticsearch",
+    "React",
+    "Gradle",
+    "CircleCI"
+  ],
+  "visa_sponsorship_statement": "unknown",
+  "expected_score_band_hint": "high",
+  "gates_expected_pass": true,
+  "notes": "Language-agnostic in spirit but asks for active US security clearance or eligibility, which implicitly constrains candidates beyond stated skills."
+}

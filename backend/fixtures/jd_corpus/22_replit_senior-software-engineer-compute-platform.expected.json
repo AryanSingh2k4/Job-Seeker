@@ -1,0 +1,23 @@
+{
+  "company": "Replit",
+  "title": "Senior Software Engineer, Compute Platform",
+  "seniority_level": "senior",
+  "min_years_experience": 5,
+  "required_hard_skills": [
+    "distributed systems",
+    "Golang",
+    "Rust",
+    "Linux internals",
+    "oncall participation"
+  ],
+  "preferred_hard_skills": [
+    "GCP (GCE/GKE/Cloud Run)",
+    "serverless computing",
+    "container orchestration",
+    "open-source contributions"
+  ],
+  "visa_sponsorship_statement": "unknown",
+  "expected_score_band_hint": "mid",
+  "gates_expected_pass": true,
+  "notes": "Explicitly disqualifies generalist backends without distributed-systems depth and names a narrow Golang/Rust stack."
+}
